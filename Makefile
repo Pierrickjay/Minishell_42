@@ -4,10 +4,10 @@ COLOUR_BLUE=\033[0;34m
 COLOUR_END=\033[0m
 
 CC=gcc
-CFLAGS= -mmd -g3 -Wall -Werror -Wextra
-#INCLUDE= printf_no_git/libftprintf.a libft/libft.a
+CFLAGS= -MMD -g3 -Wall -Werror -Wextra
+INCLUDE= libft/libft.a
 #HEADERS = philosophers.h
-SRC=
+SRC= main.c
 OBJ=$(SRC:%.c=build/%.o)
 NAME=minishell
 NAMEBONUS=
@@ -28,7 +28,7 @@ bonus : $(NAMEBONUS)
 
 build/%.o : %.c
 	@echo "$(COLOUR_BLUE)		*------------------------*"
-	@echo "$(COLOUR_BLUE)		|  ar rc libft & printf  |"
+	@echo "$(COLOUR_BLUE)		|       ar rc libft      |"
 	@echo "$(COLOUR_BLUE)		*------------------------*"
 	@make --no-print-directory -C ./libft
 	@mkdir -p build
@@ -53,8 +53,6 @@ fclean : clean
 	@echo "$(COLOUR_RED)		*------------------------*"
 	@rm -f $(NAME)
 	@rm -f $(NAMEBONUS)
-	@rm -f printf_no_git/libftprintf.a
-	@rm -f printf_no_git/libft.a
 
 .PHONY: fclean
 

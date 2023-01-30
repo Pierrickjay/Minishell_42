@@ -1,4 +1,4 @@
-int	main(int ac, char **av, char **ev)
+int	main(void)
 {
 	return (0);
 }

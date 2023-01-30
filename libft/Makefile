@@ -1,9 +1,6 @@
-SRCS	=  char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
+SRCS		:=  char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
 		char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
 		conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
-		list/ft_lstadd_back.c list/ft_lstadd_front.c list/ft_lstclear.c list/ft_lstdelone.c \
-		list/ft_lstiter.c list/ft_lstlast.c list/ft_lstmap.c list/ft_lstnew.c list/ft_lstsize.c \
-		list/ft_lstdelone_relink.c list/ft_lstprint_num.c \
 		malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strmapi.c \
 		malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
 		mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c \
@@ -11,34 +8,41 @@ SRCS	=  char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c 
 		string/ft_strchr.c string/ft_striteri.c string/ft_strlcat.c string/ft_strlcpy.c \
 		string/ft_strlen.c string/ft_strncmp.c string/ft_strnstr.c string/ft_strrchr.c
 
-OBJS	= ${SRCS:.c=.o}
+OBJS_FOLDER	:= ../build/
 
-INCS	= libft.h
+OBJS		:= $(SRCS:.c=.o)
 
-CC		= gcc
+OBJS		:= $(addprefix $(OBJS_FOLDER),$(OBJS))
 
-CFLAGS	= -Wall -Wextra -Werror -g3
+DEPS		:= $(OBJS:.o=.d)
 
-NAME	= libft.a
+CC			:= gcc
 
-AR		= ar rcs
+CFLAGS		:= -Wall -Wextra -Werror -MMD -g3
 
-RM		= rm -f
+NAME		:= libft.a
+
+AR			:= ar rcs
+
+RM			:= rm -f
 
 all		: ${NAME}
 
-${NAME}	: ${OBJS} ${INCS}
-		${AR} ${NAME} $<
+${NAME}	: ${OBJS}
+		@${AR} ${NAME} ${OBJS}
 
 clean	:
-		${RM} ${OBJS}
+		@${RM} ${OBJS}
 
 fclean	: clean
-		${RM} ${NAME}
+		@${RM} ${NAME}
 
 re		: fclean all
 
 .PHONY	: all clean fclean re
 
-%.o		: %.c
-		${CC} ${CFLAGS} -c $< -o $@
+-include $(DEPS)
+
+$(OBJS_FOLDER)%.o	: %.c
+			@mkdir -p $(@D)
+	        @${CC} ${CFLAGS} -c $< -o $@
