@@ -5,7 +5,7 @@ COLOUR_END=\033[0m
 
 CC=gcc
 CFLAGS= -MMD -g3 -Wall -Werror -Wextra
-INCLUDE= libft/libft.a
+INCLUDE= ./srcs/libft/libft.a
 #HEADERS = philosophers.h
 SRC= main.c
 OBJ=$(SRC:%.c=build/%.o)
@@ -30,7 +30,7 @@ build/%.o : %.c
 	@echo "$(COLOUR_BLUE)		*------------------------*"
 	@echo "$(COLOUR_BLUE)		|       ar rc libft      |"
 	@echo "$(COLOUR_BLUE)		*------------------------*"
-	@make --no-print-directory -C ./libft
+	@make --no-print-directory -C ./srcs/libft
 	@mkdir -p build
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(COLOUR_BLUE)		*------------------------*"
