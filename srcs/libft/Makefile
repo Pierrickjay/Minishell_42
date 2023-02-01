@@ -18,8 +18,11 @@ SRCS		:=  char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.
 		print/ft_putchar_fd.c print/ft_putendl_fd.c print/ft_putnbr_fd.c print/ft_putstr_fd.c \
 		string/ft_strchr.c string/ft_striteri.c string/ft_strlcat.c string/ft_strlcpy.c \
 		string/ft_strlen.c string/ft_strncmp.c string/ft_strnstr.c string/ft_strrchr.c \
-		gnl/get_next_line.c gnl/get_next_line_utils.c
-		
+		gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
+		liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
+		liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
+		liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c \
+
 OBJS_DIR	:= ../../objs/
 
 OBJS		:= $(SRCS:.c=.o)
