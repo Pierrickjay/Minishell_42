@@ -1,2 +1,6 @@
 #folder
 build
+*.a
+*.o
+*.d
+minishell
