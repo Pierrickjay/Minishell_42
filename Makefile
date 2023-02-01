@@ -47,7 +47,7 @@ LIBS		:= ${LIB_PIPEX} ${LIB_LIBFT}
 
 AR			:= ar rcs
 
-CC			:= gcc
+CC			:= cc
 
 CFLAGS		:= -Wall -Wextra -Werror -MMD -g3
 
@@ -67,8 +67,9 @@ ${NAME}		: ${OBJS}
 			@${MV} ${MAKE_LIBFT} ${LIB_DIR}
 			@${AR} ${LIB_PIPEX} ${OBJS}
 			@echo ${PIPEX} ${GREEN}"done"${OFF}
-			@${CC} ${CFLAGS} ${LIBS} -o ${NAME}
+			@${CC} ${CFLAGS} ${LIBS} -o ${NAME} -lreadline
 			@echo ${NAME} ${GREEN}"done"${OFF}
+
 
 clean		:
 			@make clean -C ${LIBFT_DIR}

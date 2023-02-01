@@ -3,16 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 10:38:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:35:25 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-void	ft_main_parsing_utils(void)
-{
-	ft_putendl_fd("Bonjour", STDOUT_FILENO);
-}
