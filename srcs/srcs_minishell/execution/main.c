@@ -6,7 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 10:04:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:37:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../../includes/minishell.h"
+
+void	ft_main_execution(void)
+{
+	ft_putendl_fd("Bonjour", STDOUT_FILENO);
+}

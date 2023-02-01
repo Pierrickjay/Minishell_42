@@ -1,61 +1,93 @@
-COLOUR_GREEN=\033[0;32m
-COLOUR_RED=\033[0;31m
-COLOUR_BLUE=\033[0;34m
-COLOUR_END=\033[0m
+#COLOR
 
-CC=gcc
-CFLAGS= -MMD -g3 -Wall -Werror -Wextra
-INCLUDE= ./srcs/libft/libft.a
-#HEADERS = philosophers.h
-SRC= main.c
-OBJ=$(SRC:%.c=build/%.o)
-NAME=minishell
-NAMEBONUS=
+RED			:= '\033[0;31m'
+GREEN		:= '\033[0;32m'
+YELLOW		:= '\033[0;33m'
+CYAN		:= '\033[0;36m'
+PURPLE		:= '\033[0;35m'
+OFF			:= '\033[0m'
 
-all : $(NAME)
+#VARIABLES
 
-.PHONY: all
+NAME		:= minishell
 
-$(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(INCLUDE) -o $(NAME)
-	@echo "$(COLOUR_GREEN)		*------------------------*"
-	@echo "$(COLOUR_GREEN)		|    Creating the file   |"
-	@echo "$(COLOUR_GREEN)		*------------------------*"
+SRCS_DIR	:= srcs/srcs_minishell/
 
-bonus : $(NAMEBONUS)
+SRCS		+= main.c
 
-.PHONY: bonus
+SRCS		+= parsing/main.c parsing/utils_1.c
 
-build/%.o : %.c
-	@echo "$(COLOUR_BLUE)		*------------------------*"
-	@echo "$(COLOUR_BLUE)		|       ar rc libft      |"
-	@echo "$(COLOUR_BLUE)		*------------------------*"
-	@make --no-print-directory -C ./srcs/libft
-	@mkdir -p build
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(COLOUR_BLUE)		*------------------------*"
-	@echo "$(COLOUR_BLUE)		|    Creating the .o     |"
-	@echo "$(COLOUR_BLUE)		*------------------------*"
+SRCS		+= execution/main.c execution/utils_1.c
 
-clean:
-	@echo "$(COLOUR_RED)		*------------------------*"
-	@echo "$(COLOUR_RED)		|    Cleaning build      |"
-	@echo "$(COLOUR_RED)		*------------------------*"
-	@rm -rf build
-	@rm -rf build_bonus
-	@rm -rf libft/build
+SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
-.PHONY: clean
+OBJS_DIR	:= objs/
 
-fclean : clean
-	@echo "$(COLOUR_RED)		*------------------------*"
-	@echo "$(COLOUR_RED)		|  Cleaning all the exec |"
-	@echo "$(COLOUR_RED)		*------------------------*"
-	@rm -f $(NAME)
-	@rm -f $(NAMEBONUS)
+OBJS		:= $(SRCS:.c=.o)
 
-.PHONY: fclean
+OBJS		:= $(addprefix $(OBJS_DIR),$(OBJS))
 
-re : fclean all
+DEPS		:= ${OBJS:.o=.d}
 
-.PHONY: re
+LIB_DIR		:= libs/
+
+LIBFT_DIR	:= srcs/libft/
+
+LIBFT		:= libft.a
+
+MAKE_LIBFT	:= ${addprefix ${LIBFT_DIR},${LIBFT}}
+
+LIB_LIBFT	:= ${addprefix ${LIB_DIR},${LIBFT}}
+
+PIPEX		:= libminishell.a
+
+LIB_PIPEX	:= ${addprefix ${LIB_DIR},${PIPEX}}
+
+LIBS		:= ${LIB_PIPEX} ${LIB_LIBFT}
+
+AR			:= ar rcs
+
+CC			:= gcc
+
+CFLAGS		:= -Wall -Wextra -Werror -MMD -g3
+
+RM			:= rm -rf
+
+MV			:= mv -f
+
+MKDIR		:= mkdir -p
+
+#RULES
+
+all			: ${NAME}
+
+${NAME}		: ${OBJS}
+			@${MKDIR} ${LIB_DIR}
+			@make -C ${LIBFT_DIR}
+			@${MV} ${MAKE_LIBFT} ${LIB_DIR}
+			@${AR} ${LIB_PIPEX} ${OBJS}
+			@echo ${PIPEX} ${GREEN}"done"${OFF}
+			@${CC} ${CFLAGS} ${LIBS} -o ${NAME}
+			@echo ${NAME} ${GREEN}"done"${OFF}
+
+clean		:
+			@make clean -C ${LIBFT_DIR}
+			@${RM} ${OBJS_DIR} ${LIB_DIR}
+			@echo "All objects and library "${RED}"delete"${OFF}
+
+fclean		: clean
+			@${RM} ${NAME}
+			@echo ${NAME} ${RED}"delete"${OFF}
+
+re			: fclean all
+
+.PHONY		: all clean fclean re test
+
+#RECETTE
+
+-include $(DEPS)
+
+$(OBJS_DIR)%.o	: %.c
+				@${MKDIR} $(@D)
+	        	@${CC} ${CFLAGS} -c $< -o $@
+				@echo "$@ "${GREEN}"done"${OFF}
