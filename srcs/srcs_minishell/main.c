@@ -6,11 +6,13 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 16:25:35 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/02 14:25:59 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+volatile int g_sig_int = 0;
 
 void	free_split(char **split)
 {
@@ -38,54 +40,31 @@ void	show_list(t_list *list)
 	}
 }
 
-
-t_list	*ft_fill(char *str)
-{
-	char	**str_split;
-	int		i;
-	t_list	*list;
-	t_list	*tmp;
-
-	i = 1;
-	list = ft_calloc(sizeof(*list), 1);
-	if (!list)
-		return (NULL);
-	list->next = NULL;
-	str_split = ft_split(str, ' ');
-	list->content = str_split[0];
-	while (str_split[i])
-	{
-		tmp = ft_lstnew(str_split[i]);
-		ft_lstadd_back(&list, tmp);
-		free(tmp);
-		i++;
-	}
-	free_split(str_split);
-	show_list(list);
-	//printf("lst size = %d\n", ft_lstsize(list));
-	return (list);
-}
-
-void	handler_end(int signal)
-{
-	if (signal == SIGINT)
-		printf("\nServer Close\n");
-	exit (0);
-}
-
-int main(void/*int ac, char **av*/)
+int	main(void)
 {
 	char	*save;
 	t_list	*list;
+	t_free	to_free;
 
+	create_siga();
 	while (1)
 	{
 		save = readline("minishell>");
-		printf("save = %s\n", save);
-		list = ft_fill(save);
-		//free(list);
-		//free(save);
-		signal(SIGINT, handler_end);
+		if (save == NULL)
+		{
+			printf(("EOF enconter ctrl d pressed"));
+			exit (0);
+		}
+		if (g_sig_int == 1)
+		{
+			rl_redisplay();
+			g_sig_int = 0;
+			continue ;
+		}
+		add_history(save);
+		list = ft_fill(save, &to_free);
+		ft_echo_exec(list);
+		free_split(to_free.split);
 	}
 	return (0);
 }

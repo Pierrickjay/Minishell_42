@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:00:40 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 11:49:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:42:31 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_echo_exec(t_list *cmd)
 {
 	if (cmd->next && ft_strcmp("-n", cmd->next->content) == 0)
 	{
+
 		if (cmd->next->next)
 		{
 			if (cmd->next->next->content)
