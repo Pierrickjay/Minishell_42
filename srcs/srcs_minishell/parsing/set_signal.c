@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/02 14:07:52 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/02 15:05:32 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void	handler_end(int signal)
 {
 //	c++;
 	if (signal != SIGINT)
-	 	return ;
-	//write(1, "test\n", 5);
+	{
+		block_signal(SIGQUIT);
+		return ;
+	}
+	write(1, "\nminishell>", 11);
 	//rl_redisplay();
 	block_signal(SIGINT);
 	g_sig_int = 1;
@@ -57,6 +60,6 @@ int	create_siga(void)
 	ft_bzero(&act, sizeof(act));
 	act.sa_handler = &handler_end;
 	sigaction(SIGINT, &act, NULL);
-	//sigaction(SIGINT, &act, NULL);
+	sigaction(SIGINT, &act, NULL);
 	return (0);
 }
