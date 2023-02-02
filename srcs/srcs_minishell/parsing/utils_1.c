@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:31:46 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/02 15:44:29 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_list	*ft_fill(char *str, t_free *free)
 	tmp = NULL;
 	list = NULL;
 	i = 1;
+
 	list = ft_calloc(sizeof(*list), 1);
 	if (!list)
 		return (NULL);
@@ -33,7 +34,7 @@ t_list	*ft_fill(char *str, t_free *free)
 		ft_lstadd_back(&list, tmp);
 		i++;
 	}
-	//show_list(list);
+	show_list(list);
 	// free_split(to_free.split);
 	return (list);
 }

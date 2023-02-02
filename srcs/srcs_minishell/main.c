@@ -6,24 +6,20 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:31:36 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/02 15:46:48 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+/*
+bug a fixe :
+*/
 volatile int g_sig_int = 0;
 
-void	free_split(char **split)
+void	free_all(char **split, char *save, t_list *list)
 {
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
+	free(save);
+	ft_lstclear(&list, free);
 	free(split);
 }
 
@@ -45,9 +41,7 @@ int	main(void) // invalide read apres une commande puis espace
 	char	*save;
 	t_list	*list;
 	t_free	to_free;
-	int		i;
 
-	i = 0;
 	create_siga();
 	while (1)
 	{
@@ -56,16 +50,17 @@ int	main(void) // invalide read apres une commande puis espace
 		{
 			//free_split(to_free.split);
 			printf(("EOF enconter ctrl d pressed"));
-			break;
+			exit (0);
+		}
+		if (save[0] == '\0')
+		{
+			free(save);
+			continue ;
 		}
 		add_history(save);
 		list = ft_fill(save, &to_free);
 		ft_echo_exec(list);
-		free(save);
-		ft_lstclear(&list, free);
-		free(to_free.split);
-		i++;
+		free_all(to_free.split, save, list);
 	}
-	// free_split(to_free.split);
 	return (0);
 }
