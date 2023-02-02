@@ -67,7 +67,7 @@ ${NAME}		: ${OBJS}
 			@${MV} ${MAKE_LIBFT} ${LIB_DIR}
 			@${AR} ${LIB_PIPEX} ${OBJS}
 			@echo ${PIPEX} ${GREEN}"done"${OFF}
-			@${CC} ${CFLAGS} ${LIBS} -o ${NAME} -lreadline
+			@${CC} ${CFLAGS} ${LIBS} -o ${NAME} -lreadline 
 			@echo ${NAME} ${GREEN}"done"${OFF}
 
 
