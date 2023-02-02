@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 10:04:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 11:50:50 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/01 11:00:40 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/01 11:49:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	ft_echo_exec(t_list *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-void	ft_lst_print(t_list *lst, int endl)
-{
-	while (lst)
+	if (cmd->next && ft_strcmp("-n", cmd->next->content) == 0)
 	{
-		ft_putstr_fd(lst->content, STDOUT_FILENO);
-		ft_putchar_fd(' ', STDOUT_FILENO);
-		lst = lst->next;
+		if (cmd->next->next)
+		{
+			if (cmd->next->next->content)
+				ft_lst_print(cmd->next->next, 0);
+			else
+				ft_putstr_fd("", STDOUT_FILENO);
+		}
 	}
-	if (endl == 1)
-		ft_putchar_fd('\n', STDOUT_FILENO);
-}
-
-void	delete_content(void *content)
-{
-	(void)content;
-	content = NULL;
+	else
+	{
+		if (cmd->next)
+		{
+			if (cmd->next->content)
+				ft_lst_print(cmd->next, 1);
+			else
+				ft_putendl_fd("", STDOUT_FILENO);
+		}
+	}
 }
