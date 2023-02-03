@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 12:26:24 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/03 12:21:04 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_free
 {
 	char **split;
 }	t_free;
-
 
 void	ft_main_parsing(void);
 void	ft_main_parsing_utils(void);

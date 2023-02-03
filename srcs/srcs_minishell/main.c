@@ -6,13 +6,14 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:46:48 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/03 16:38:43 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 /*
 bug a fixe :
+premiere commande il y a un invalid write of size 8
 */
 volatile int g_sig_int = 0;
 
@@ -59,7 +60,8 @@ int	main(void) // invalide read apres une commande puis espace
 		}
 		add_history(save);
 		list = ft_fill(save, &to_free);
-		ft_echo_exec(list);
+		if (ft_strcmp(list->content, "echo") == 0)
+			ft_echo_exec(list);
 		free_all(to_free.split, save, list);
 	}
 	return (0);

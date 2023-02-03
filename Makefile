@@ -1,94 +1,101 @@
 #COLOR
 
-RED			:= '\033[0;31m'
-GREEN		:= '\033[0;32m'
-YELLOW		:= '\033[0;33m'
-CYAN		:= '\033[0;36m'
-PURPLE		:= '\033[0;35m'
-OFF			:= '\033[0m'
+RED            := '\033[0;31m'
+GREEN        := '\033[0;32m'
+YELLOW        := '\033[0;33m'
+CYAN        := '\033[0;36m'
+PURPLE        := '\033[0;35m'
+OFF            := '\033[0m'
 
 #VARIABLES
 
-NAME		:= minishell
+NAME        := minishell
 
-SRCS_DIR	:= srcs/srcs_minishell/
+#SRCS
 
-SRCS		+= main.c
+SRCS_LIBFT_DIR := srcs/libft/
 
-SRCS		+= parsing/main.c parsing/utils_1.c parsing/set_signal.c
+SRCS_LIBFT    := char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
+            char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
+            conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
+            malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strmapi.c \
+            malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
+            mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c \
+            print/ft_putchar_fd.c print/ft_putendl_fd.c print/ft_putnbr_fd.c print/ft_putstr_fd.c \
+            string/ft_strchr.c string/ft_striteri.c string/ft_strlcat.c string/ft_strlcpy.c \
+            string/ft_strlen.c string/ft_strncmp.c string/ft_strnstr.c string/ft_strrchr.c \
+            gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
+            liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
+            liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
+            liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c
 
-SRCS		+= execution/main.c execution/utils_1.c execution/echo.c
+SRCS_LIBFT    := ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
 
-SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
+SRCS_DIR    := srcs/srcs_minishell/
 
-OBJS_DIR	:= objs/
+SRCS        += main.c
 
-OBJS		:= $(SRCS:.c=.o)
+SRCS        += parsing/main.c parsing/utils_1.c parsing/set_signal.c
 
-OBJS		:= $(addprefix $(OBJS_DIR),$(OBJS))
+SRCS        += execution/main.c execution/utils_1.c execution/echo.c
 
-DEPS		:= ${OBJS:.o=.d}
+SRCS        := ${addprefix ${SRCS_DIR},${SRCS}}
 
-LIB_DIR		:= libs/
+#OBJS & DEPS & LIB
 
-LIBFT_DIR	:= srcs/libft/
+LIB_DIR        := ./lib/
 
-LIBFT		:= libft.a
+OBJS_DIR    := ./objs/
 
-MAKE_LIBFT	:= ${addprefix ${LIBFT_DIR},${LIBFT}}
+OBJS_LIBFT    := ${SRCS_LIBFT:.c=.o}
 
-LIB_LIBFT	:= ${addprefix ${LIB_DIR},${LIBFT}}
+OBJS_LIBFT    := $(addprefix $(OBJS_DIR),$(OBJS_LIBFT))
 
-PIPEX		:= libminishell.a
+OBJS        := $(SRCS:.c=.o)
 
-LIB_PIPEX	:= ${addprefix ${LIB_DIR},${PIPEX}}
+OBJS        := $(addprefix $(OBJS_DIR),$(OBJS))
 
-LIBS		:= ${LIB_PIPEX} ${LIB_LIBFT}
+DEPS        := ${OBJS:.o=.d} ${OBJS_LIBFT:.o=.d}
 
-AR			:= ar rcs
+#COMMANDS
 
-CC			:= cc
+AR            := ar rcs
 
-CFLAGS		:= -Wall -Wextra -Werror -MMD -g3
+CC            := cc
 
-RM			:= rm -rf
+CFLAGS        := -Wall -Wextra -Werror -MMD -g3
 
-MV			:= mv -f
+RM            := rm -rf
 
-MKDIR		:= mkdir -p
+MKDIR        := mkdir -p
 
 #RULES
 
-all			: ${NAME}
+all            : ${NAME}
 
-${NAME}		: ${OBJS}
-			@${MKDIR} ${LIB_DIR}
-			@make -C ${LIBFT_DIR}
-			@${MV} ${MAKE_LIBFT} ${LIB_DIR}
-			@${AR} ${LIB_PIPEX} ${OBJS}
-			@echo ${PIPEX} ${GREEN}"done"${OFF}
-			@${CC} ${CFLAGS} ${LIBS} -o ${NAME} -lreadline
-			@echo ${NAME} ${GREEN}"done"${OFF}
+${NAME}            : ${OBJS_LIBFT} ${OBJS}
+					@${MKDIR} ${LIB_DIR}
+					@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
+					@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
+					@echo ${NAME} ${GREEN}"done"${OFF}
 
+clean            :
+				@${RM} ${OBJS_DIR} ${LIB_DIR}
+				@echo "All objects and library "${RED}"delete"${OFF}
 
-clean		:
-			@make clean -C ${LIBFT_DIR}
-			@${RM} ${OBJS_DIR} ${LIB_DIR}
-			@echo "All objects and library "${RED}"delete"${OFF}
+fclean            : clean
+				@${RM} ${NAME}
+				@echo ${NAME} ${RED}"delete"${OFF}
 
-fclean		: clean
-			@${RM} ${NAME}
-			@echo ${NAME} ${RED}"delete"${OFF}
+re            : fclean all
 
-re			: fclean all
-
-.PHONY		: all clean fclean re test
+.PHONY        : all clean fclean re test
 
 #RECETTE
 
--include $(DEPS)
-
-$(OBJS_DIR)%.o	: %.c
+$(OBJS_DIR)%.o    : %.c
 				@${MKDIR} $(@D)
-	        	@${CC} ${CFLAGS} -c $< -o $@
+				@${CC} ${CFLAGS} -c $< -o $@
 				@echo "$@ "${GREEN}"done"${OFF}
+
+-include $(DEPS)

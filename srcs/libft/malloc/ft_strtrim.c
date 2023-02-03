@@ -3,70 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:58:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 10:01:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:18:44 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libft.h"
 
-//if it's a set
-static int	ft_is_set(char c, const char *set)
+int	is_set(char const *set, char c)
 {
-	while (*set)
+	int	i;
+
+	i = 0;
+	while (set[i])
 	{
-		if (c == *set)
+		if (set[i] == c)
 			return (1);
-		set++;
+		i++;
 	}
 	return (0);
 }
 
-static size_t	ft_start(const char *s, const char *set)
+int	findbeg(char const *s1, char const *set)
 {
-	size_t	start;
+	int	i;
 
-	start = 0;
-	while (ft_is_set(s[0], set))
-	{
-		start++;
-		s++;
-	}
-	return (start);
+	i = 0;
+	while (s1[i] && is_set(set, s1[i]) == 1)
+		i++;
+	return (i);
 }
 
-static size_t	ft_stop(const char *s, const char *set, size_t len)
+int	returnindex(char const *s1, char const *set, int index)
 {
-	size_t	stop;
+	int	i;
 
-	stop = 0;
-	while (ft_is_set(s[len - 1], set))
-	{
-		stop++;
-		len--;
-	}
-	return (stop);
+	i = index;
+	while (s1[i])
+		i++;
+	i--;
+	while (i >= 0 && is_set(set, s1[i]) == 1 && i >= index)
+		i--;
+	if (i == index)
+		return (ft_strlen(s1) - index);
+	return (i);
 }
 
-//to remove set at the begining and at the end
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*s;
-	size_t	len;
-	size_t	start;
-	size_t	stop;
+	int		i;
+	char	*newstr;
+	int		a;
+	int		j;
 
-	if (!s1 || !set)
+	a = 0;
+	if (s1 == NULL)
 		return (NULL);
-	if (*set == 0)
+	if (set == NULL)
 		return (ft_strdup(s1));
-	len = ft_strlen(s1);
-	start = ft_start(s1, set);
-	stop = ft_stop(s1, set, len);
-	if (len - stop == 0)
-		return (ft_calloc(1, 1));
-	s = ft_substr(s1, start, (len - start - stop));
-	return (s);
+	i = findbeg(s1, set);
+	j = returnindex(s1, set, i);
+	if (j < i)
+		return (NULL);
+	newstr = ft_calloc((j - i) + 2, sizeof(char));
+	if (newstr == NULL)
+		return (NULL);
+	while (s1[i] && i <= j)
+	{
+
+		newstr[a] = s1[i];
+		i++;
+		a++;
+	}
+	newstr[a] = '\0';
+	return (newstr);
 }
