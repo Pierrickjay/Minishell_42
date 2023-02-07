@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/03 16:38:43 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/07 15:17:54 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 /*
 bug a fixe :
 premiere commande il y a un invalid write of size 8
+ - gerer quand largs 2 est vide
 */
 volatile int g_sig_int = 0;
 
@@ -37,7 +38,7 @@ void	show_list(t_list *list)
 	}
 }
 
-int	main(void) // invalide read apres une commande puis espace
+int	main(void)
 {
 	char	*save;
 	t_list	*list;
@@ -49,7 +50,6 @@ int	main(void) // invalide read apres une commande puis espace
 		save = readline("minishell>");
 		if (save == NULL)
 		{
-			//free_split(to_free.split);
 			printf(("EOF enconter ctrl d pressed"));
 			exit (0);
 		}

@@ -35,7 +35,7 @@ SRCS_DIR    := srcs/srcs_minishell/
 
 SRCS        += main.c
 
-SRCS        += parsing/main.c parsing/utils_1.c parsing/set_signal.c
+SRCS        += parsing/main.c parsing/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c
 
 SRCS        += execution/main.c execution/utils_1.c execution/echo.c
 
