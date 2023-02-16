@@ -4,7 +4,7 @@ RED			:= '\033[0;31m'
 GREEN		:= '\033[0;32m'
 YELLOW		:= '\033[0;33m'
 CYAN		:= '\033[0;36m'
-PURPLE		:= '\033[0;35m'
+PURPLE		:= '\033[0;35m'ft_putnbr_fd
 OFF			:= '\033[0m'
 
 #VARIABLE

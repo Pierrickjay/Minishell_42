@@ -1,4 +1,5 @@
 #folder
+.vscode
 build
 *.a
 *.o

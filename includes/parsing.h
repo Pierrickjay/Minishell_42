@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 12:26:24 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 10:51:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <signal.h>
+# include <stdbool.h>
+
 
 typedef struct s_free
 {
-	char **split;
+	char	**split;
 }	t_free;
-
 
 void	ft_main_parsing(void);
 void	ft_main_parsing_utils(void);
@@ -36,5 +37,9 @@ t_list	*ft_fill(char *str, t_free *free);
 void	show_list(t_list *list);
 void	block_signal(int signal);
 void	unblock_signal(int signal);
-
+void	free_split(char **split);
+char	*create_space(void);
+int		count_split(char **split);
+void	fill_enum(t_list *lst);
+char	**trim_all(char **split);
 #endif

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:43:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:57:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list	*ft_lst_redir(t_list *lst)
 	while (lst)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
-			ft_list_add_back(&redir, ft_lst_new(lst->next->content, \
+			ft_lstadd_back(&redir, ft_lst_new(lst->next->content, \
 			ft_redir_type(lst->content)));
 		lst = lst->next;
 	}

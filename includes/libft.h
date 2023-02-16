@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 10:55:13 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 10:53:20 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 # define INT_MIN -2147483648
 
 //type of char
@@ -67,9 +68,20 @@ void	ft_putendl_fd(char *s, int fd);
 
 //liste_chaine
 
+typedef enum e_type
+{
+	CMD,
+	VAR,
+	OPT,
+	ARG,
+	FILES,
+	REDIR,
+	PIPE
+}	t_type;
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
+	enum e_type		type;
 	struct s_list	*next;
 }	t_list;
 

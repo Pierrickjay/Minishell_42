@@ -6,39 +6,25 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/02 14:25:59 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/14 14:25:58 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+/*
+bug a fixe :
+premiere commande il y a un invalid write of size 8
+ - gerer quand largs 2 est vide
+*/
 volatile int g_sig_int = 0;
 
-void	free_split(char **split)
+void	free_all(char **split, char *save, t_list *list)
 {
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
+	free(save);
+	ft_lstclear(&list, free);
 	free(split);
 }
 
-void	show_list(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("%d = %s\n",i, (char *)list->content);
-		i++;
-		list = list->next;
-	}
-}
 
 int	main(void)
 {
@@ -55,16 +41,16 @@ int	main(void)
 			printf(("EOF enconter ctrl d pressed"));
 			exit (0);
 		}
-		if (g_sig_int == 1)
+		if (save[0] == '\0')
 		{
-			rl_redisplay();
-			g_sig_int = 0;
+			free(save);
 			continue ;
 		}
 		add_history(save);
 		list = ft_fill(save, &to_free);
-		ft_echo_exec(list);
-		free_split(to_free.split);
+		if (ft_strcmp(list->content, "echo") == 0)
+			ft_echo_exec(list);
+		free_all(to_free.split, save, list);
 	}
 	return (0);
 }

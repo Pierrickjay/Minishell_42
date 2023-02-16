@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:44:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:57:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,6 @@
 # define SUCCESS 0
 # define FAILURE -1
 
-//enum for the type of the list
-// typedef enum e_type
-// {
-// 	CMD,
-// 	VAR,
-// 	OPT,
-// 	ARG,
-// 	FILES,
-// 	REDIR,
-// 	PIPE
-// }	t_type;
-
 typedef enum e_fd
 {
 	STDIN,
@@ -99,20 +87,6 @@ typedef struct s_vars
 	int		status;
 }	t_vars;
 
-/****************************/
-//lst
-void	ft_lst_add_back(t_list **lst, t_list *new);
-t_list	*ft_lst_last(t_list *lst);
-t_list	*ft_lst_new(char *str, int type);
-void	ft_lst_print(t_list *lst);
-
-t_list	*main_parsing(char *str);
-
-//type.c
-int		ft_type(char *str, int previous);
-int		ft_type_redir(char *str);
-/****************************/
-
 //vars.c
 t_vars	*ft_init_vars(t_list *lst, char **env);
 pid_t	*ft_init_pid(t_vars *vars);
@@ -143,7 +117,6 @@ void	ft_close_pipes(int **pipes, size_t nb);
 char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
 
- 
 //args
 size_t	ft_args_size(t_list *lst);
 char	**ft_lst_to_args(t_list *lst);
