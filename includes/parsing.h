@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:51:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:57:58 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ char	*create_space(void);
 int		count_split(char **split);
 void	fill_enum(t_list *lst);
 char	**trim_all(char **split);
+void	ft_set_type(t_list *lst);
+
 #endif

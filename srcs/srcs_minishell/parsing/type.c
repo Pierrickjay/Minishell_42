@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:44:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/14 12:10:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:57:40 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ int	ft_type(char *str, int prev)
 		return (ARG);
 	else
 		return (CMD);
+}
+
+void	ft_set_type(t_list *lst)
+{
+	int		previous_type;
+
+	previous_type = -1;
+	while (lst)
+	{
+		lst->type = ft_type(lst->content, previous_type);
+		previous_type = lst->type;
+		lst = lst->next;
+	}
 }

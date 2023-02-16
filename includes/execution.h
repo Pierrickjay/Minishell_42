@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:57:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:49:29 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,20 @@ typedef struct s_vars
 	int		status;
 }	t_vars;
 
+//exec.c
+int		main_exec(t_list *lst, char **env);
+int		ft_exec(t_vars *vars);
+int		ft_exec_pipe(t_vars *vars);
+int		ft_exec_redir(t_vars *vars);
+int		ft_exec_pipe_redir(t_vars *vars);
+
+//child.c
+void	ft_exec_child(t_vars *vars);
+void	ft_exec_pipe_child(t_vars *vars);
+void	ft_exec_pipe_child_2(t_vars *vars);
+void	ft_exec_redir_child(t_vars *vars);
+void	ft_exec_pipe_file_child(t_vars *vars);
+
 //vars.c
 t_vars	*ft_init_vars(t_list *lst, char **env);
 pid_t	*ft_init_pid(t_vars *vars);
@@ -108,7 +122,7 @@ void	ft_free_vars(t_vars *vars);
 
 //open_close.c
 int		ft_here_doc(char *end);
-int		ft_open(char *name, t_redir type);
+int		ft_open(char *name, int type);
 int		ft_open_infiles(t_list *redir, int infile, int here_doc);
 int		ft_open_outfiles(t_list *redir, int outfile, int append);
 void	ft_close_pipes(int **pipes, size_t nb);

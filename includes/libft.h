@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:53:20 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:54:44 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,15 @@ typedef enum e_type
 	REDIR,
 	PIPE
 }	t_type;
+
 typedef struct s_list
 {
 	char			*content;
-	enum e_type		type;
+	int				type;
 	struct s_list	*next;
 }	t_list;
 
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(char *content, int type);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);

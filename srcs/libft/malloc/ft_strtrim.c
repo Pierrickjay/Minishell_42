@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:58:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:10:57 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 12:05:29 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	j = returnindex(s1, set, i);
 	if (j < i)
 		return (NULL);
-	printf("i = %d, j = %d \n", i, j);
 	newstr = ft_calloc((j - i) + 2, sizeof(char));
 	if (newstr == NULL)
 		return (NULL);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:43:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:57:51 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 int	ft_here_doc(char *end)
 {
@@ -40,7 +40,7 @@ int	ft_here_doc(char *end)
 	return (fd[0]);
 }
 
-int	ft_open(char *name, t_redir type)
+int	ft_open(char *name, int type)
 {
 	if (type == REDIR_IN)
 		return (open(name, O_RDONLY));

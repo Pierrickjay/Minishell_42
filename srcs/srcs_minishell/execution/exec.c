@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:42:08 by obouhlel         ###   ########.fr       */
-=======
-/*   Created: 2023/02/01 10:04:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/03 12:21:32 by pjay             ###   ########.fr       */
->>>>>>> origin/pjay
+/*   Created: 2023/02/16 11:28:07 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/16 11:57:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-<<<<<<< HEAD
 int	main_exec(t_list *lst, char **env)
 {
 	t_vars	*vars;
 	int		status;
 
+	status = 0;
 	vars = ft_init_vars(lst, env);
 	if (!vars)
 		return (EXIT_FAILURE);
@@ -30,9 +25,9 @@ int	main_exec(t_list *lst, char **env)
 		status = ft_exec(vars);
 	else if (vars->nb > 1 && vars->nb_redir == 0)
 		status = ft_exec_pipe(vars);
-	else if (vars->nb == 1 && vars->nb_redir > 0)
+	else if ((vars->nb == 1) && vars->nb_redir != 0)
 		status = ft_exec_redir(vars);
-	else if (vars->nb > 1 && vars->nb_redir > 0)
+	else if (vars->nb > 1 && vars->nb_redir != 0)
 		status = ft_exec_pipe_redir(vars);
 	if (status == FAILURE)
 	{
@@ -107,26 +102,3 @@ int	ft_exec_pipe_redir(t_vars *vars)
 		waitpid(vars->pid[i++], &vars->status, 0);
 	return (SUCCESS);
 }
-=======
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_list	*cmd;
-
-// 	cmd = NULL;
-// 	(void)envp;
-// 	if (ac == 1)
-// 	{
-// 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-// 		ft_putendl_fd("command not found", STDERR_FILENO);
-// 	}
-// 	else
-// 	{
-// 		cmd = ft_lstnew(av[1]);
-// 		ft_lstadd_back(&cmd, ft_lstnew(av[2]));
-// 		ft_lstadd_back(&cmd, ft_lstnew(av[3]));
-// 		ft_echo_exec(cmd);
-// 	}
-// 	ft_lstclear(&cmd, delete_content);
-// 	return (EXIT_SUCCESS);
-// }
->>>>>>> origin/pjay

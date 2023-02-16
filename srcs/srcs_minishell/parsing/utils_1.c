@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:11:18 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 11:57:44 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		fill_it(char *str)
 		|| !ft_strcmp(str, "exit"))
 		return (0);
 	return (1);
-
 }
 
 void	show_list(t_list *list)

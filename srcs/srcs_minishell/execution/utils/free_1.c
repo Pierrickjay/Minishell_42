@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:19:00 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:43:13 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:13:23 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 void	ft_free_strs(char **strs)
 {

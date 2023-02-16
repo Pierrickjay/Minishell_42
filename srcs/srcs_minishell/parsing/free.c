@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:53:12 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/16 11:13:45 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 11:57:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_split(char **split)
 {
-	int	i;fill_enum
+	int	i;
 
 	i = count_split(split);
 	while (i--)

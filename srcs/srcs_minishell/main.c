@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/14 14:25:58 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 12:12:58 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,21 @@ premiere commande il y a un invalid write of size 8
 */
 volatile int g_sig_int = 0;
 
-void	free_all(char **split, char *save, t_list *list)
+void	free_all(char **split, char *save)
 {
 	free(save);
-	ft_lstclear(&list, free);
 	free(split);
 }
 
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char	*save;
 	t_list	*list;
 	t_free	to_free;
 
+	(void)ac;
+	(void)av;
 	create_siga();
 	while (1)
 	{
@@ -48,9 +49,8 @@ int	main(void)
 		}
 		add_history(save);
 		list = ft_fill(save, &to_free);
-		if (ft_strcmp(list->content, "echo") == 0)
-			ft_echo_exec(list);
-		free_all(to_free.split, save, list);
+		free_all(to_free.split, save);
+		main_exec(list, env);
 	}
 	return (0);
 }
