@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/07 14:57:20 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/14 16:21:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_putendl_fd(char *s, int fd);
 
 //liste_chaine
 
-enum e_type {TODO, ARGUMENT, PATH};
+enum e_type {CMD, TO_EX, ARGUMENT, PATH, PIPE, REDIR};
 typedef struct s_list
 {
 	char			*content;

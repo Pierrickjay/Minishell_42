@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:17:54 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/14 14:25:58 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ void	free_all(char **split, char *save, t_list *list)
 	free(split);
 }
 
-void	show_list(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("%d = %s\n",i, list->content);
-		i++;
-		list = list->next;
-	}
-}
 
 int	main(void)
 {

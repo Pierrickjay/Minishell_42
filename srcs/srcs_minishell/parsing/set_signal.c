@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/02 15:05:32 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/14 16:24:37 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	unblock_signal(int signal)
 
 void	handler_end(int signal)
 {
-//	c++;
 	if (signal != SIGINT)
 	{
 		block_signal(SIGQUIT);

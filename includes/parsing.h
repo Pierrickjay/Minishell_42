@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:12:33 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/14 14:35:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,6 @@ void	unblock_signal(int signal);
 void	free_split(char **split);
 char	*create_space(void);
 int		count_split(char **split);
+void	fill_enum(t_list *lst);
+char	**trim_all(char **split);
 #endif
