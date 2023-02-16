@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/14 14:37:20 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/16 11:06:13 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	time_to_trim(char **newsplit, char **split, int i, int a)
 {
 	bool	enter;
 	enter = false;
+
 	if (split[i + a][0] == '\"')
 	{
 		if (split[i + a][1] == '\"')
