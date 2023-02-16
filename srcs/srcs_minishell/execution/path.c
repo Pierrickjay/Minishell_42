@@ -1,41 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 10:04:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 11:50:50 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/14 13:44:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/15 13:13:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+char	**ft_get_path(void)
 {
-	int	i;
+	char	**path;
+	char	*tmp;
+
+	tmp = getenv("PATH");
+	if (!tmp)
+		return (ft_putendl_fd(PATH, STDERR), NULL);
+	path = ft_split(tmp, ':');
+	if (!path)
+		return (NULL);
+	return (path);
+}
+
+char	*ft_access(char *cmd, char **path)
+{
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-void	ft_lst_print(t_list *lst, int endl)
-{
-	while (lst)
+	while (path[i])
 	{
-		ft_putstr_fd(lst->content, STDOUT_FILENO);
-		ft_putchar_fd(' ', STDOUT_FILENO);
-		lst = lst->next;
+		tmp = ft_strjoin(path[i], cmd);
+		if (!tmp)
+			return (NULL);
+		if (access(tmp, X_OK) != -1)
+			return (tmp);
+		free(tmp);
+		i++;
 	}
-	if (endl == 1)
-		ft_putchar_fd('\n', STDOUT_FILENO);
-}
-
-void	delete_content(void *content)
-{
-	(void)content;
-	content = NULL;
+	return (NULL);
 }

@@ -17,7 +17,10 @@ SRCS		+= main.c
 
 SRCS		+= parsing/main.c parsing/utils_1.c parsing/set_signal.c
 
-SRCS		+= execution/main.c execution/utils_1.c execution/echo.c
+SRCS		+= execution/utils/type.c execution/utils/free_1.c execution/utils/free_2.c execution/utils/open.c \
+			execution/main.c execution/vars_1.c execution/vars_2.c execution/args.c execution/path.c execution/child.c \
+			# execution/builtins.c execution/builtins/ft_cd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
+			# execution/builtins/ft_exit.c execution/builtins/ft_export.c execution/builtins/ft_pwd.c execution/builtins/ft_unset.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
