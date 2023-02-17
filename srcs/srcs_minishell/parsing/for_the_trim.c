@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/16 11:06:13 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/17 10:03:03 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,52 @@ int	check_next_spe(char **split, char **newsplit, int i, int a)
 	return (0);
 }
 
+int	deal_w_double(char **newsplit, char **split, int i, int a)
+{
+	if (split[i + a][1] == '\"')
+	{
+		newsplit[i] = malloc(sizeof(char));
+		if (!newsplit[i])
+		{
+			printf("out\n");
+			return (-1);
+		}
+		newsplit[i][0] = '\0';
+	}
+	else
+		newsplit[i] = ft_strtrim(split[i + a], "\"");
+	return (0);
+}
+
+int	deal_w_single(char **newsplit, char **split, int i, int a)
+{
+	if (split[i + a][1] == '\'')
+	{
+		newsplit[i] = malloc(sizeof(char));
+		if (!newsplit[i])
+			return (-1);
+		newsplit[i][0] = '\0';
+	}
+	else
+		newsplit[i] = ft_strtrim(split[i + a], "'");
+	return (0);
+}
+
 int	time_to_trim(char **newsplit, char **split, int i, int a)
 {
 	bool	enter;
-	enter = false;
 
+	enter = false;
 	if (split[i + a][0] == '\"')
 	{
-		if (split[i + a][1] == '\"')
-		{
-			printf("enter here when i = %d\n", i);
-			newsplit[i] = malloc(sizeof(char));
-			if (!newsplit[i])
-			{
-				printf("out\n");
-				return (-1);
-			}
-			newsplit[i][0] = '\0';
-		}
-		else
-			newsplit[i] = ft_strtrim(split[i + a], "\"");
+		if (deal_w_double(newsplit, split, i, a) == -1)
+			return (-1);
 		enter = true;
 	}
 	if (split[i + a][0] == '\'')
 	{
-		if (split[i + a][1] == '\'')
-		{
-			newsplit[i] = malloc(sizeof(char));
-			if (!newsplit[i])
-				return (-1);
-			newsplit[i][0] = '\0';
-		}
-		else
-			newsplit[i] = ft_strtrim(split[i + a], "'");
+		if (deal_w_double(newsplit, split, i, a) == -1)
+			return (-1);
 		enter = true;
 	}
 	if (!enter)

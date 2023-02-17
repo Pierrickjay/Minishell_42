@@ -6,14 +6,11 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/16 11:16:21 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/17 09:56:52 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../../includes/parsing.h"
-
-extern int	g_sig_int;
 
 void	block_signal(int signal)
 {
@@ -45,11 +42,6 @@ void	handler_end(int signal)
 		return ;
 	}
 	write(1, "\nminishell>", 11);
-	//rl_redisplay();
-	block_signal(SIGINT);
-	g_sig_int = 1;
-	unblock_signal(SIGINT);
-
 }
 
 int	create_siga(void)
@@ -59,7 +51,6 @@ int	create_siga(void)
 	block_signal(SIGQUIT);
 	ft_bzero(&act, sizeof(act));
 	act.sa_handler = &handler_end;
-	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGINT, &act, NULL);
 	return (0);
 }

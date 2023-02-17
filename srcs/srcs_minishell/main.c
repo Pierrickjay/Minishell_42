@@ -6,17 +6,16 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 12:12:58 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/17 10:11:15 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 /*
 bug a fixe :
-premiere commande il y a un invalid write of size 8
+
  - gerer quand largs 2 est vide
 */
-volatile int g_sig_int = 0;
 
 void	free_all(char **split, char *save)
 {
@@ -24,6 +23,32 @@ void	free_all(char **split, char *save)
 	free(split);
 }
 
+int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
+{
+	while (1)
+	{
+		save = readline("minishell>");
+		if (save == NULL)
+			exit (0);
+		if (save[0] == '\0')
+		{
+			printf("enter save[0]");
+			free(save);
+			continue ;
+		}
+		add_history(save);
+		list = ft_fill(save, to_free);
+		if (list == NULL)
+		{
+			printf("enter list == null");
+			free_all(to_free->split, save);
+			ft_free_lst(list);
+			continue ;
+		}
+		free_all(to_free->split, save);
+		main_exec(list, env);
+	}
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -31,26 +56,11 @@ int	main(int ac, char **av, char **env)
 	t_list	*list;
 	t_free	to_free;
 
+	save = NULL;
+	list = NULL;
 	(void)ac;
 	(void)av;
 	create_siga();
-	while (1)
-	{
-		save = readline("minishell>");
-		if (save == NULL)
-		{
-			printf(("EOF enconter ctrl d pressed"));
-			exit (0);
-		}
-		if (save[0] == '\0')
-		{
-			free(save);
-			continue ;
-		}
-		add_history(save);
-		list = ft_fill(save, &to_free);
-		free_all(to_free.split, save);
-		main_exec(list, env);
-	}
+	boucle_minishell(env, list, &to_free, save);
 	return (0);
 }

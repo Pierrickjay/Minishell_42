@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:57:44 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/17 10:12:10 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,6 @@ char	*create_space(void)
 	return (newsplit);
 }
 
-
-/* Modif pour faire fonctionner le parsing le if*/
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (-1);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-int		fill_it(char *str)
-{
-	if (!ft_strcmp(str, "echo") || !ft_strcmp(str, "cd")
-		|| !ft_strcmp(str, "pwd") || !ft_strcmp(str, "export")
-		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env")
-		|| !ft_strcmp(str, "exit"))
-		return (0);
-	return (1);
-}
-
 void	show_list(t_list *list)
 {
 	int	i;
@@ -65,28 +41,12 @@ void	show_list(t_list *list)
 	i = 0;
 	while (list)
 	{
-		printf("%d = %s\n",i, list->content);
+		printf("%d = %s\n", i, list->content);
 		printf("Enum type = %d\n", list->type);
 		i++;
 		list = list->next;
 	}
 }
-
-void	fill_enum(t_list *lst)
-{
-	int i;
-
-	i = 0;
-	while (lst->next)
-	{
-		if (fill_it(lst->content) == 0)
-			lst->type = 0;
-		else
-			lst->type = -1;
-		lst = lst->next;
-	}
-}
-
 
 void	ft_lst_print(t_list *lst, int endl)
 {
@@ -105,4 +65,3 @@ void	delete_content(void *content)
 	(void)content;
 	content = NULL;
 }
-
