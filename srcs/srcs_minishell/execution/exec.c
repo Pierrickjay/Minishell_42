@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:28:07 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:57:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/18 09:42:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main_exec(t_list *lst, char **env)
 	vars = ft_init_vars(lst, env);
 	if (!vars)
 		return (EXIT_FAILURE);
+	vars->stdin_dup = dup(STDIN);
+	close(STDIN);
 	if (vars->nb == 1 && vars->nb_redir == 0)
 		status = ft_exec(vars);
 	else if (vars->nb > 1 && vars->nb_redir == 0)

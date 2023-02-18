@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:57:56 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/18 09:43:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	ft_exec_pipe_child(t_vars *vars)
 	}
 	else if (vars->i == vars->nb - 1)
 	{
-		dup2(vars->pipes[vars->i - 1][0], STDIN);
+		dup2(vars->pipes[vars->i - 1][0], vars->stdin_dup);
 	}
 	else
 	{
-		dup2(vars->pipes[vars->i - 1][0], STDIN);
+		dup2(vars->pipes[vars->i - 1][0], vars->stdin_dup);
 		dup2(vars->pipes[vars->i][1], STDOUT);
 	}
 	ft_close_pipes(vars->pipes, (vars->nb - 1));
@@ -101,7 +101,7 @@ void	ft_exec_redir_child(t_vars *vars)
 		fd_in = ft_open_infiles(vars->redir, REDIR_IN, REDIR_HEREDOC);
 		if (fd_in == FAILURE)
 			return (ft_free_vars(vars), exit(EXIT_FAILURE));
-		dup2(fd_in, STDIN);
+		dup2(fd_in, vars->stdin_dup);
 		close(fd_in);
 	}
 	if (vars->nb_redir_type[REDIR_OUT] || vars->nb_redir_type[REDIR_APPEND])
@@ -129,14 +129,14 @@ void	ft_exec_pipe_file_child(t_vars *vars)
 			fd_in = ft_open_infiles(vars->redir, REDIR_IN, REDIR_HEREDOC);
 			if (fd_in == FAILURE)
 				return (ft_free_vars(vars), exit(EXIT_FAILURE));
-			dup2(fd_in, STDIN);
+			dup2(fd_in, vars->stdin_dup);
 			close(fd_in);
 		}
 		dup2(vars->pipes[vars->i][1], STDOUT);
 	}
 	else if (vars->i == vars->nb - 1)
 	{
-		dup2(vars->pipes[vars->i - 1][0], STDIN);
+		dup2(vars->pipes[vars->i - 1][0], vars->stdin_dup);
 		if (vars->nb_redir_type[REDIR_OUT] || vars->nb_redir_type[REDIR_APPEND])
 		{
 			fd_out = ft_open_outfiles(vars->redir, REDIR_OUT, REDIR_APPEND);
@@ -148,7 +148,7 @@ void	ft_exec_pipe_file_child(t_vars *vars)
 	}
 	else
 	{
-		dup2(vars->pipes[vars->i - 1][0], STDIN);
+		dup2(vars->pipes[vars->i - 1][0], vars->stdin_dup);
 		dup2(vars->pipes[vars->i][1], STDOUT);
 	}
 	ft_close_pipes(vars->pipes, (vars->nb - 1));

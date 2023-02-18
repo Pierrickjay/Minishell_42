@@ -74,9 +74,6 @@ void	show_list(t_list *list)
 
 void	fill_enum(t_list *lst)
 {
-	int i;
-
-	i = 0;
 	while (lst->next)
 	{
 		if (fill_it(lst->content) == 0)
