@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/17 10:06:27 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 15:03:18 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ t_list	*ft_fill_2(t_free *to_free, t_list *list)
 
 t_list	*ft_fill(char *str, t_free *to_free)
 {
-	int		i;
 	t_list	*list;
 
 	list = NULL;
-	i = 1;
 	list = ft_calloc(sizeof(*list), 1);
 	if (!list)
 		return (NULL);
