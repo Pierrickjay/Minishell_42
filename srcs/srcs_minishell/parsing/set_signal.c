@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/17 09:56:52 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 10:06:16 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,20 @@ void	handler_end(int signal)
 {
 	if (signal != SIGINT)
 	{
-		block_signal(SIGQUIT);
+		block_signal(SIGINT);
 		return ;
 	}
-	write(1, "\nminishell>", 11);
+	rl_on_new_line();
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 int	create_siga(void)
 {
 	struct sigaction	act;
 
-	block_signal(SIGQUIT);
+	signal(SIGQUIT, SIG_IGN);
 	ft_bzero(&act, sizeof(act));
 	act.sa_handler = &handler_end;
 	sigaction(SIGINT, &act, NULL);

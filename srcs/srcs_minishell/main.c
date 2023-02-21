@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/17 10:11:15 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 10:02:43 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ bug a fixe :
 
  - gerer quand largs 2 est vide
 */
+
+//extern sig_atomic_t g_received_signal;
 
 void	free_all(char **split, char *save)
 {
@@ -27,12 +29,11 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
 	while (1)
 	{
-		save = readline("minishell>");
+			save = readline("minishell>");
 		if (save == NULL)
-			exit (0);
+			exit(0);
 		if (save[0] == '\0')
 		{
-			printf("enter save[0]");
 			free(save);
 			continue ;
 		}
@@ -40,7 +41,6 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		list = ft_fill(save, to_free);
 		if (list == NULL)
 		{
-			printf("enter list == null");
 			free_all(to_free->split, save);
 			ft_free_lst(list);
 			continue ;

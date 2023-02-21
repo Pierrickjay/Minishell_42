@@ -1,3 +1,22 @@
 lorsque lon fait crtl c apres avoir ecrit un truc et que on fait ctrl d ca exit pas.
 premiere commande il y a un invalid write of size 8
-"ls" "-l" ne fonctionne pas 
+"ls" "-l" ne fonctionne pas
+exit fonctionne pas
+ctrl c apres avoir ecrit quelque chose permet d'effacer le next prompt
+ctrl \ apres avoi ecrit quelque chose doit fermer le prompt (pas sur de cette regle);
+
+comportement annormal "minishell>cat
+^C
+minishell>minishell>^C"
+"cat
+^\Quit (core dumped)"
+
+"minishell>echo "cat lol.c | cat > lol.c"
+minishell>echo "cat lol.c | cat > lol.c"
+malloc(): unaligned fastbin chunk detected 3
+Aborted (core dumped)"
+
+"minishell>echo ''
+''
+"
+shoudl display nothing

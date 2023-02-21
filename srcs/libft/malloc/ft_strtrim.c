@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:58:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 12:18:23 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 10:07:01 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	a = 0;
 	if (s1 == NULL)
-	{
-		printf("test");
 		return (NULL);
-	}
 	if (set == NULL)
 		return (ft_strdup(s1));
 	i = findbeg(s1, set);
