@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 11:28:07 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/18 09:42:55 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/20 13:27:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ int	main_exec(t_list *lst, char **env)
 	t_vars	*vars;
 	int		status;
 
-	status = 0;
 	vars = ft_init_vars(lst, env);
 	if (!vars)
 		return (EXIT_FAILURE);
-	vars->stdin_dup = dup(STDIN);
-	close(STDIN);
+	if (vars->nb == 0)
+		return (ft_putendl_fd(SYNTAX, 2), ft_free_vars(vars), EXIT_FAILURE);
 	if (vars->nb == 1 && vars->nb_redir == 0)
-		status = ft_exec(vars);
+		status = ft_exec_parent(vars);
 	else if (vars->nb > 1 && vars->nb_redir == 0)
-		status = ft_exec_pipe(vars);
-	else if ((vars->nb == 1) && vars->nb_redir != 0)
-		status = ft_exec_redir(vars);
-	else if (vars->nb > 1 && vars->nb_redir != 0)
-		status = ft_exec_pipe_redir(vars);
+		status = ft_exec_pipe_parent(vars);
+	else if (vars->nb == 1 && vars->nb_redir > 0)
+		status = ft_exec_redir_parent(vars);
+	else if (vars->nb > 1 && vars->nb_redir > 0)
+		status = ft_exec_pipe_redir_parent(vars);
 	if (status == FAILURE)
 	{
 		ft_putendl_fd("minishell: fork failed", STDERR);
@@ -41,7 +40,7 @@ int	main_exec(t_list *lst, char **env)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_exec(t_vars *vars)
+int	ft_exec_parent(t_vars *vars)
 {
 	vars->pid[0] = fork();
 	if (vars->pid[0] == -1)
@@ -52,7 +51,7 @@ int	ft_exec(t_vars *vars)
 	return (SUCCESS);
 }
 
-int	ft_exec_pipe(t_vars *vars)
+int	ft_exec_pipe_parent(t_vars *vars)
 {
 	size_t	i;
 
@@ -72,7 +71,7 @@ int	ft_exec_pipe(t_vars *vars)
 	return (SUCCESS);
 }
 
-int	ft_exec_redir(t_vars *vars)
+int	ft_exec_redir_parent(t_vars *vars)
 {
 	ft_nb_redir_type(vars->redir, vars);
 	vars->pid[0] = fork();
@@ -84,7 +83,7 @@ int	ft_exec_redir(t_vars *vars)
 	return (SUCCESS);
 }
 
-int	ft_exec_pipe_redir(t_vars *vars)
+int	ft_exec_pipe_redir_parent(t_vars *vars)
 {
 	size_t	i;
 

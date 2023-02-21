@@ -3,44 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:57:51 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 14:57:14 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_here_doc(char *end)
-{
-	static char	*line = "START";
-	char		*limiter;
-	int			fd[2];
-
-	limiter = ft_strjoin(end, "\n");
-	if (!limiter)
-		return (-1);
-	if (pipe(fd) == -1)
-		return (free(limiter), -1);
-	while (1)
-	{
-		if (line)
-			ft_putstr_fd("heredoc> ", 1);
-		line = get_next_line(0);
-		if (!line)
-			break ;
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-			return (free(limiter), free(line), close(fd[1]), fd[0]);
-		ft_putstr_fd(line, fd[1]);
-		free(line);
-	}
-	free(limiter);
-	close(fd[1]);
-	return (fd[0]);
-}
-
-int	ft_open(char *name, int type)
+int	ft_open(char *name, t_redir type)
 {
 	if (type == REDIR_IN)
 		return (open(name, O_RDONLY));
@@ -53,29 +25,55 @@ int	ft_open(char *name, int type)
 	return (FAILURE);
 }
 
-int	ft_open_infiles(t_list *redir, int infile, int here_doc)
+void	ft_open_init_fd(int *fd)
 {
-	int	fd;
+	if (*fd != -1)
+	{
+		close(*fd);
+		*fd = -1;
+	}
+}
+
+int	ft_open_infiles(t_list *redir, int infile, int here_doc, int nb)
+{
+	int		fd;
+	int		fd_here_doc;
+
+	fd = -1;
+	fd_here_doc = ft_open_infiles_here_doc(redir);
+	while (redir)
+	{
+		ft_open_init_fd(&fd);
+		if (redir->type == infile)
+		{
+			fd = ft_open(redir->content, infile);
+			if (fd == -1)
+				return (FAILURE);
+		}
+		else if (redir->type == here_doc && --nb == 0)
+		{
+			fd = fd_here_doc;
+			if (fd == -1)
+				return (FAILURE);
+		}
+		redir = redir->next;
+	}
+	return (fd);
+}
+
+int	ft_open_infiles_here_doc(t_list *redir)
+{
+	int		fd;
 
 	fd = -1;
 	while (redir)
 	{
-		if (fd != -1)
-			close(fd);
-		if (redir->type != -1)
+		ft_open_init_fd(&fd);
+		if (redir->type == REDIR_HEREDOC)
 		{
-			if (redir->type == infile)
-			{
-				fd = ft_open(redir->content, infile);
-				if (fd == -1)
-					return (FAILURE);
-			}
-			else if (redir->type == here_doc)
-			{
-				fd = ft_open(redir->content, here_doc);
-				if (fd == -1)
-					return (FAILURE);
-			}
+			fd = ft_open(redir->content, REDIR_HEREDOC);
+			if (fd == -1)
+				return (FAILURE);
 		}
 		redir = redir->next;
 	}
@@ -89,37 +87,20 @@ int	ft_open_outfiles(t_list *redir, int trunc, int append)
 	fd = -1;
 	while (redir)
 	{
-		if (fd != -1)
-			close(fd);
-		if (redir->type != -1)
+		ft_open_init_fd(&fd);
+		if (redir->type == trunc)
 		{
-			if (redir->type == trunc)
-			{
-				fd = ft_open(redir->content, trunc);
-				if (fd == -1)
-					return (FAILURE);
-			}
-			else if (redir->type == append)
-			{
-				fd = ft_open(redir->content, append);
-				if (fd == -1)
-					return (FAILURE);
-			}
+			fd = ft_open(redir->content, trunc);
+			if (fd == -1)
+				return (FAILURE);
+		}
+		else if (redir->type == append)
+		{
+			fd = ft_open(redir->content, append);
+			if (fd == -1)
+				return (FAILURE);
 		}
 		redir = redir->next;
 	}
 	return (fd);
-}
-
-void	ft_close_pipes(int **pipes, size_t nb)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < nb)
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-		i++;
-	}
 }

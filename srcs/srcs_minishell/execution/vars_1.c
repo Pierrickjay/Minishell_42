@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:45:26 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/20 13:32:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,23 @@ t_vars	*ft_init_vars(t_list *lst, char **env)
 		return (NULL);
 	vars->lst = lst;
 	vars->env = env;
-	vars->i = 0;
 	vars->nb = ft_nb_cmds(lst);
 	vars->nb_redir = ft_nb_redir(lst);
 	vars->redir = ft_lst_redir(lst);
 	if (!vars->redir && vars->nb_redir > 0)
 		return (ft_free_vars(vars), NULL);
+	if (vars->nb > 0)
+	{
+		if (ft_init_vars_bis(vars, lst) == NULL)
+			return (NULL);
+	}
+	else
+		vars->args = NULL;
+	return (vars);
+}
+
+void	*ft_init_vars_bis(t_vars *vars, t_list *lst)
+{
 	vars->pid = ft_init_pid(vars);
 	if (vars->pid == FAIL)
 		return (ft_free_vars(vars), NULL);
@@ -37,8 +48,7 @@ t_vars	*ft_init_vars(t_list *lst, char **env)
 	vars->args = ft_init_args(vars, lst);
 	if (!vars->args)
 		return (ft_free_vars(vars), NULL);
-	vars->status = 0;
-	return (vars);
+	return ((void *)1);
 }
 
 pid_t	*ft_init_pid(t_vars *vars)
