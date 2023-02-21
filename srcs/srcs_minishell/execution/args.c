@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 10:42:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:38:09 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	ft_args_size(t_list *lst)
 		size++;
 		lst = lst->next;
 	}
-	while (lst && lst->type == ARG)
+	while (lst && (lst->type == ARG || lst->type == VAR))
 	{
 		size++;
 		lst = lst->next;
@@ -54,7 +54,7 @@ char	**ft_lst_to_args(t_list *lst)
 	i = 0;
 	while (lst && lst->type != CMD)
 		lst = lst->next;
-	while (i < size)
+	while (lst && i < size)
 	{
 		args[i] = lst->content;
 		lst = lst->next;

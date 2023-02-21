@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:49:29 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 14:54:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include "minishell.h"
+# include "libft.h"
 /*
  * readline, rl_clear_history, rl_on_new_line,
  * rl_replace_line, rl_redisplay, add_history,
@@ -46,6 +46,7 @@
 # define PROMPT "minishell$ "
 # define PATH "Path failed"
 # define MALLOC "Malloc failed"
+# define SYNTAX "Syntax error"
 # define FORK "Fork failed"
 # define EXEC "Execve failed"
 # define PIPES "Pipe failed"
@@ -87,22 +88,18 @@ typedef struct s_vars
 	int		status;
 }	t_vars;
 
-//exec.c
-int		main_exec(t_list *lst, char **env);
-int		ft_exec(t_vars *vars);
-int		ft_exec_pipe(t_vars *vars);
-int		ft_exec_redir(t_vars *vars);
-int		ft_exec_pipe_redir(t_vars *vars);
+/****************************/
+//parser.c
+t_list	*main_parsing(char *str);
 
-//child.c
-void	ft_exec_child(t_vars *vars);
-void	ft_exec_pipe_child(t_vars *vars);
-void	ft_exec_pipe_child_2(t_vars *vars);
-void	ft_exec_redir_child(t_vars *vars);
-void	ft_exec_pipe_file_child(t_vars *vars);
+//type.c
+int		ft_type(char *str, int previous);
+int		ft_type_redir(char *str);
+/****************************/
 
 //vars.c
 t_vars	*ft_init_vars(t_list *lst, char **env);
+void	*ft_init_vars_bis(t_vars *vars, t_list *lst);
 pid_t	*ft_init_pid(t_vars *vars);
 int		**ft_init_pipes(t_vars *vars);
 char	***ft_init_args(t_vars *vars, t_list *lst);
@@ -111,6 +108,7 @@ size_t	ft_nb_redir(t_list *lst);
 t_redir	ft_redir_type(char *str);
 t_list	*ft_lst_redir(t_list *lst);
 void	ft_nb_redir_type(t_list *redir, t_vars *vars);
+void	ft_print_vars(t_vars *vars);
 
 //free.c
 void	ft_free(void **ptr);
@@ -120,16 +118,32 @@ void	ft_free_pipes(int **pipes, size_t nb);
 void	ft_free_args(char ***args, size_t nb);
 void	ft_free_vars(t_vars *vars);
 
-//open_close.c
+//open.c
 int		ft_here_doc(char *end);
-int		ft_open(char *name, int type);
-int		ft_open_infiles(t_list *redir, int infile, int here_doc);
+int		ft_open(char *name, t_redir type);
+int		ft_open_infiles(t_list *redir, int infile, int here_doc, int nb);
+int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir, int outfile, int append);
+
+//close.c
 void	ft_close_pipes(int **pipes, size_t nb);
 
 //path
 char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
+
+//exec
+int		main_exec(t_list *lst, char **env);
+int		ft_exec_parent(t_vars *vars);
+int		ft_exec_pipe_parent(t_vars *vars);
+int		ft_exec_redir_parent(t_vars *vars);
+int		ft_exec_pipe_redir_parent(t_vars *vars);
+
+//child
+void	ft_exec_child(t_vars *vars);
+void	ft_exec_pipe_child(t_vars *vars);
+void	ft_exec_redir_child(t_vars *vars);
+void	ft_exec_pipe_file_child(t_vars *vars);
 
 //args
 size_t	ft_args_size(t_list *lst);
