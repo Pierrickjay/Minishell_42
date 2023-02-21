@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/21 14:33:17 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/21 15:14:34 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	handler_end(int signal)
 		block_signal(SIGINT);
 		return ;
 	}
-	printf("Test\n");
 	rl_on_new_line();
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
