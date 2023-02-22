@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 12:06:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:30:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 # include <signal.h>
 
 //macros
-# define PROMPT "minishell$ "
 # define PATH "Path failed"
 # define MALLOC "Malloc failed"
 # define SYNTAX "Syntax error"
@@ -73,7 +72,7 @@ typedef enum e_redir
 }	t_redir;
 
 //struct for the shell
-typedef struct s_vars
+typedef struct s_exec
 {
 	t_list	*lst;
 	char	**env;
@@ -86,26 +85,26 @@ typedef struct s_vars
 	int		**pipes;
 	char	***args;
 	int		status;
-}	t_vars;
+}	t_exec;
 
 //exec
-t_vars	*main_exec(t_list *lst, char **env);
-int		ft_exec_parent(t_vars *vars);
-int		ft_exec_pipe_parent(t_vars *vars);
-int		ft_exec_redir_parent(t_vars *vars);
-int		ft_exec_pipe_redir_parent(t_vars *vars);
+t_exec	*main_exec(t_list *lst, char **env);
+int		ft_exec_parent(t_exec *exec);
+int		ft_exec_pipe_parent(t_exec *exec);
+int		ft_exec_redir_parent(t_exec *exec);
+int		ft_exec_pipe_redir_parent(t_exec *exec);
 
-//vars.c
-t_vars	*ft_init_vars(t_list *lst, char **env);
-void	*ft_init_vars_bis(t_vars *vars, t_list *lst);
-pid_t	*ft_init_pid(t_vars *vars);
-int		**ft_init_pipes(t_vars *vars);
-char	***ft_init_args(t_vars *vars, t_list *lst);
+//exec.c
+t_exec	*ft_init_exec(t_list *lst, char **env);
+void	*ft_init_exec_bis(t_exec *exec, t_list *lst);
+pid_t	*ft_init_pid(t_exec *exec);
+int		**ft_init_pipes(t_exec *exec);
+char	***ft_init_args(t_exec *exec, t_list *lst);
 size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
 t_redir	ft_redir_type(char *str);
 t_list	*ft_lst_redir(t_list *lst);
-void	ft_nb_redir_type(t_list *redir, t_vars *vars);
+void	ft_nb_redir_type(t_list *redir, t_exec *exec);
 
 //free.c
 void	ft_free(void **ptr);
@@ -114,7 +113,7 @@ void	ft_free_lst(t_list *lst);
 void	ft_free_pipes(int **pipes, size_t nb);
 void	ft_free_args(char ***args, size_t nb);
 void	ft_free_redir(t_list *lst);
-void	ft_free_vars(t_vars *vars);
+void	ft_free_exec(t_exec *exec);
 
 //here_doc.c
 int		ft_here_doc(char *end);
@@ -133,22 +132,22 @@ char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
 
 //child
-void	ft_exec_child(t_vars *vars);
-void	ft_exec_pipe_child(t_vars *vars);
-void	ft_exec_redir_child(t_vars *vars);
-void	ft_exec_pipe_file_child(t_vars *vars);
+void	ft_exec_child(t_exec *exec);
+void	ft_exec_pipe_child(t_exec *exec);
+void	ft_exec_redir_child(t_exec *exec);
+void	ft_exec_pipe_file_child(t_exec *exec);
 
 //args
 size_t	ft_args_size(t_list *lst);
 char	**ft_lst_to_args(t_list *lst);
 
 //builtins
-int		ft_builtins(t_vars *vars);
-int		ft_echo(t_vars *vars); //not ok
-int		ft_cd(t_vars *vars); //not ok
-int		ft_pwd(t_vars *vars); //not ok
-int		ft_export(t_vars *vars); //not ok
-int		ft_unset(t_vars *vars); //not ok
-int		ft_env(t_vars *vars); //not ok
+int		ft_builtins(t_exec *exec);
+int		ft_echo(t_exec *exec); //not ok
+int		ft_cd(t_exec *exec); //not ok
+int		ft_pwd(t_exec *exec); //not ok
+int		ft_export(t_exec *exec); //not ok
+int		ft_unset(t_exec *exec); //not ok
+int		ft_env(t_exec *exec); //not ok
 
 #endif

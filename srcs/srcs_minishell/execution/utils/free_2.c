@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 12:05:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:29:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,29 @@ void	ft_free(void **ptr)
 	}
 }
 
-void	ft_free_vars(t_vars *vars)
+void	ft_free_exec(t_exec *exec)
 {
-	if (vars->lst)
+	if (exec->lst)
 	{
-		ft_free_lst(vars->lst);
-		vars->lst = NULL;
+		ft_free_lst(exec->lst);
+		exec->lst = NULL;
 	}
-	if (vars->redir)
+	if (exec->redir)
 	{
-		ft_free_redir(vars->redir);
-		vars->redir = NULL;
+		ft_free_redir(exec->redir);
+		exec->redir = NULL;
 	}
-	if (vars->pid)
-		ft_free((void **)&vars->pid);
-	if (vars->pipes)
+	if (exec->pid)
+		ft_free((void **)&exec->pid);
+	if (exec->pipes)
 	{
-		ft_free_pipes(vars->pipes, (vars->nb - 1));
-		vars->pipes = NULL;
+		ft_free_pipes(exec->pipes, (exec->nb - 1));
+		exec->pipes = NULL;
 	}
-	if (vars->args)
+	if (exec->args)
 	{
-		ft_free_args(vars->args, vars->nb);
-		vars->args = NULL;
+		ft_free_args(exec->args, exec->nb);
+		exec->args = NULL;
 	}
-	ft_free((void **)&vars);
+	ft_free((void **)&exec);
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 15:00:13 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:29:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ t_list	*ft_lst_redir(t_list *lst)
 	return (redir);
 }
 
-void	ft_nb_redir_type(t_list *redir, t_vars *vars)
+void	ft_nb_redir_type(t_list *redir, t_exec *exec)
 {
-	vars->nb_redir_type[REDIR_IN] = 0;
-	vars->nb_redir_type[REDIR_OUT] = 0;
-	vars->nb_redir_type[REDIR_APPEND] = 0;
-	vars->nb_redir_type[REDIR_HEREDOC] = 0;
+	exec->nb_redir_type[REDIR_IN] = 0;
+	exec->nb_redir_type[REDIR_OUT] = 0;
+	exec->nb_redir_type[REDIR_APPEND] = 0;
+	exec->nb_redir_type[REDIR_HEREDOC] = 0;
 	while (redir)
 	{
 		if (redir->type != FAILURE)
-			vars->nb_redir_type[redir->type]++;
+			exec->nb_redir_type[redir->type]++;
 		redir = redir->next;
 	}
 }

@@ -6,62 +6,62 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/20 13:32:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:29:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_vars	*ft_init_vars(t_list *lst, char **env)
+t_exec	*ft_init_exec(t_list *lst, char **env)
 {
-	t_vars	*vars;
+	t_exec	*exec;
 
-	vars = NULL;
-	vars = (t_vars *)ft_calloc(sizeof(t_vars), 1);
-	if (!vars)
+	exec = NULL;
+	exec = (t_exec *)ft_calloc(sizeof(t_exec), 1);
+	if (!exec)
 		return (NULL);
-	vars->lst = lst;
-	vars->env = env;
-	vars->nb = ft_nb_cmds(lst);
-	vars->nb_redir = ft_nb_redir(lst);
-	vars->redir = ft_lst_redir(lst);
-	if (!vars->redir && vars->nb_redir > 0)
-		return (ft_free_vars(vars), NULL);
-	if (vars->nb > 0)
+	exec->lst = lst;
+	exec->env = env;
+	exec->nb = ft_nb_cmds(lst);
+	exec->nb_redir = ft_nb_redir(lst);
+	exec->redir = ft_lst_redir(lst);
+	if (!exec->redir && exec->nb_redir > 0)
+		return (ft_free_exec(exec), NULL);
+	if (exec->nb > 0)
 	{
-		if (ft_init_vars_bis(vars, lst) == NULL)
+		if (ft_init_exec_bis(exec, lst) == NULL)
 			return (NULL);
 	}
 	else
-		vars->args = NULL;
-	return (vars);
+		exec->args = NULL;
+	return (exec);
 }
 
-void	*ft_init_vars_bis(t_vars *vars, t_list *lst)
+void	*ft_init_exec_bis(t_exec *exec, t_list *lst)
 {
-	vars->pid = ft_init_pid(vars);
-	if (vars->pid == FAIL)
-		return (ft_free_vars(vars), NULL);
-	vars->pipes = ft_init_pipes(vars);
-	if (vars->pipes == FAIL)
-		return (ft_free_vars(vars), NULL);
-	vars->args = ft_init_args(vars, lst);
-	if (!vars->args)
-		return (ft_free_vars(vars), NULL);
+	exec->pid = ft_init_pid(exec);
+	if (exec->pid == FAIL)
+		return (ft_free_exec(exec), NULL);
+	exec->pipes = ft_init_pipes(exec);
+	if (exec->pipes == FAIL)
+		return (ft_free_exec(exec), NULL);
+	exec->args = ft_init_args(exec, lst);
+	if (!exec->args)
+		return (ft_free_exec(exec), NULL);
 	return ((void *)1);
 }
 
-pid_t	*ft_init_pid(t_vars *vars)
+pid_t	*ft_init_pid(t_exec *exec)
 {
 	pid_t	*pid;
 	size_t	i;
 
 	pid = NULL;
-	pid = (pid_t *)ft_calloc(sizeof(pid_t), vars->nb);
+	pid = (pid_t *)ft_calloc(sizeof(pid_t), exec->nb);
 	if (!pid)
 		return (FAIL);
 	i = 0;
-	while (i < vars->nb)
+	while (i < exec->nb)
 	{
 		pid[i] = 0;
 		i++;
@@ -69,19 +69,19 @@ pid_t	*ft_init_pid(t_vars *vars)
 	return (pid);
 }
 
-int	**ft_init_pipes(t_vars *vars)
+int	**ft_init_pipes(t_exec *exec)
 {
 	int		**pipes;
 	size_t	i;
 
 	pipes = NULL;
-	if (vars->nb == 1)
+	if (exec->nb == 1)
 		return (NULL);
-	pipes = (int **)ft_calloc(sizeof(int *), (vars->nb - 1));
+	pipes = (int **)ft_calloc(sizeof(int *), (exec->nb - 1));
 	if (!pipes)
 		return (FAIL);
 	i = 0;
-	while (i < (vars->nb - 1))
+	while (i < (exec->nb - 1))
 	{
 		pipes[i] = (int *)ft_calloc(sizeof(int), 2);
 		if (!pipes[i])
@@ -89,7 +89,7 @@ int	**ft_init_pipes(t_vars *vars)
 		i++;
 	}
 	i = 0;
-	while (i < (vars->nb - 1))
+	while (i < (exec->nb - 1))
 	{
 		if (pipe(pipes[i]) == -1)
 			return (FAIL);
@@ -98,18 +98,18 @@ int	**ft_init_pipes(t_vars *vars)
 	return (pipes);
 }
 
-char	***ft_init_args(t_vars *vars, t_list *lst)
+char	***ft_init_args(t_exec *exec, t_list *lst)
 {
 	char	***args;
 	size_t	i;
 	size_t	skip;
 
 	args = NULL;
-	args = (char ***)ft_calloc(sizeof(char **), (vars->nb + 1));
+	args = (char ***)ft_calloc(sizeof(char **), (exec->nb + 1));
 	if (!args)
 		return (NULL);
 	i = 0;
-	while (i < vars->nb)
+	while (i < exec->nb)
 	{
 		args[i] = ft_lst_to_args(lst);
 		if (!args[i])

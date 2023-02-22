@@ -6,13 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/15 13:18:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:27:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_unset(t_vars *vars)
+int	ft_unset(t_exec *exec)
 {
 	return (EXIT_SUCCESS);
 }
