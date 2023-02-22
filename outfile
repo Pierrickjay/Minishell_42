@@ -1,0 +1,11 @@
+#SRCS
+SRCS_LIBFT_DIR := srcs/libft/
+SRCS_LIBFT    := char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
+SRCS_LIBFT    := ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
+SRCS_DIR    := srcs/srcs_minishell/
+SRCS        += main.c
+SRCS        += parsing/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/for_the_trim.c \
+SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c \
+SRCS    := ${addprefix ${SRCS_DIR},${SRCS}}
+OBJS_LIBFT    := ${SRCS_LIBFT:.c=.o}
+OBJS        := $(SRCS:.c=.o)

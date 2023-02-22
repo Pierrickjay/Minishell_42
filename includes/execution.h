@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 14:54:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:40:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,6 @@ typedef struct s_vars
 	int		status;
 }	t_vars;
 
-/****************************/
-//parser.c
-t_list	*main_parsing(char *str);
-
-//type.c
-int		ft_type(char *str, int previous);
-int		ft_type_redir(char *str);
-/****************************/
-
 //vars.c
 t_vars	*ft_init_vars(t_list *lst, char **env);
 void	*ft_init_vars_bis(t_vars *vars, t_list *lst);
@@ -118,8 +109,10 @@ void	ft_free_pipes(int **pipes, size_t nb);
 void	ft_free_args(char ***args, size_t nb);
 void	ft_free_vars(t_vars *vars);
 
-//open.c
+//here_doc.c
 int		ft_here_doc(char *end);
+
+//open.c
 int		ft_open(char *name, t_redir type);
 int		ft_open_infiles(t_list *redir, int infile, int here_doc, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);

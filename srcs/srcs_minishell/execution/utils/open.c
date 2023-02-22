@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 14:57:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:42:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_open(char *name, t_redir type)
 	return (FAILURE);
 }
 
-void	ft_open_init_fd(int *fd)
+void	ft_open_init_fd_infile(int *fd, int type)
 {
-	if (*fd != -1)
+	if (*fd != -1 && (type == REDIR_IN || type == REDIR_HEREDOC))
 	{
 		close(*fd);
 		*fd = -1;
@@ -43,7 +43,7 @@ int	ft_open_infiles(t_list *redir, int infile, int here_doc, int nb)
 	fd_here_doc = ft_open_infiles_here_doc(redir);
 	while (redir)
 	{
-		ft_open_init_fd(&fd);
+		ft_open_init_fd_infile(&fd, redir->type);
 		if (redir->type == infile)
 		{
 			fd = ft_open(redir->content, infile);
@@ -68,7 +68,11 @@ int	ft_open_infiles_here_doc(t_list *redir)
 	fd = -1;
 	while (redir)
 	{
-		ft_open_init_fd(&fd);
+		if (fd != -1 && redir->type == REDIR_HEREDOC)
+		{
+			close(fd);
+			fd = -1;
+		}
 		if (redir->type == REDIR_HEREDOC)
 		{
 			fd = ft_open(redir->content, REDIR_HEREDOC);
@@ -87,7 +91,11 @@ int	ft_open_outfiles(t_list *redir, int trunc, int append)
 	fd = -1;
 	while (redir)
 	{
-		ft_open_init_fd(&fd);
+		if (fd != -1 && (redir->type == trunc || redir->type == append))
+		{
+			close(fd);
+			fd = -1;
+		}
 		if (redir->type == trunc)
 		{
 			fd = ft_open(redir->content, trunc);
