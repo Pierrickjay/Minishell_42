@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 09:43:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:11:14 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ typedef struct s_vars
 	int		status;
 }	t_vars;
 
+//exec
+t_vars	*main_exec(t_list *lst, char **env);
+int		ft_exec_parent(t_vars *vars);
+int		ft_exec_pipe_parent(t_vars *vars);
+int		ft_exec_redir_parent(t_vars *vars);
+int		ft_exec_pipe_redir_parent(t_vars *vars);
+
 //vars.c
 t_vars	*ft_init_vars(t_list *lst, char **env);
 void	*ft_init_vars_bis(t_vars *vars, t_list *lst);
@@ -123,13 +130,6 @@ void	ft_close_pipes(int **pipes, size_t nb);
 //path
 char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
-
-//exec
-int		main_exec(t_list *lst, char **env);
-int		ft_exec_parent(t_vars *vars);
-int		ft_exec_pipe_parent(t_vars *vars);
-int		ft_exec_redir_parent(t_vars *vars);
-int		ft_exec_pipe_redir_parent(t_vars *vars);
 
 //child
 void	ft_exec_child(t_vars *vars);

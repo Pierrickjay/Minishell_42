@@ -6,13 +6,13 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 15:12:38 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 11:10:20 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	main_exec(t_list *lst, char **env)
+t_vars	*main_exec(t_list *lst, char **env)
 {
 	t_vars	*vars;
 	int		status;
@@ -20,9 +20,9 @@ int	main_exec(t_list *lst, char **env)
 	status = 0;
 	vars = ft_init_vars(lst, env);
 	if (!vars)
-		return (EXIT_FAILURE);
+		return (NULL);
 	if (vars->nb == 0)
-		return (ft_putendl_fd(SYNTAX, 2), ft_free_vars(vars), EXIT_FAILURE);
+		return (ft_putendl_fd(SYNTAX, 2), vars);
 	if (vars->nb == 1 && vars->nb_redir == 0)
 		status = ft_exec_parent(vars);
 	else if (vars->nb > 1 && vars->nb_redir == 0)
@@ -34,11 +34,9 @@ int	main_exec(t_list *lst, char **env)
 	if (status == FAILURE)
 	{
 		ft_putendl_fd("minishell: fork failed", STDERR);
-		ft_free_vars(vars);
-		return (EXIT_FAILURE);
+		return (vars);
 	}
-	ft_free_vars(vars);
-	return (EXIT_SUCCESS);
+	return (vars);
 }
 
 int	ft_exec_parent(t_vars *vars)

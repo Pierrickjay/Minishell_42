@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:59:40 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/16 11:54:52 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 10:51:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,4 @@ t_list	*ft_lstnew(char *content, int type)
 	printf("%d", newlist->next = newlist->content);
 	ft_lstadd_front(&newlist, ft_lstnew((void*)"180\n"));
 	printf("%s", newlist->next = newlist->content);
-
-
-
-
 }*/

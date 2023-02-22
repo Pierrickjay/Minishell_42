@@ -13,7 +13,21 @@ minishell>echo "cat lol.c | cat > lol.c"
 malloc(): unaligned fastbin chunk detected 3
 Aborted (core dumped)"
 
+compter les nombres de quote ou double quote.
 "minishell>echo ''
 ''
 "
 shoudl display nothing
+
+"minishell> cat
+^C
+minishell> minishell>"
+
+echo "cat lol.c | cat > lol.c"
+➜  ~ echo "cat lol.c | cat > lol.c"
+cat lol.c | cat > lol.c
+➜  ~ echo "-n -n" test
+-n -n test
+➜  ~ echo "-n" test
+test%                                                                           ➜  ~
+

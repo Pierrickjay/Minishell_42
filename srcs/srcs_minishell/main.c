@@ -6,16 +6,11 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 14:33:50 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 11:59:39 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-/*
-bug a fixe :
-
- - gerer quand largs 2 est vide
-*/
 
 void	free_all(char **split, char *save)
 {
@@ -27,7 +22,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
 	while (1)
 	{
-		save = readline("minishell>");
+		save = readline("minishell> ");
 		if (save == NULL)
 			exit(0);
 		if (save[0] == '\0')
@@ -37,6 +32,12 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		}
 		add_history(save);
 		list = ft_fill(save, to_free);
+		if (ft_strcmp(list->content, "exit") == 0)
+		{
+			free(save);
+			ft_free_lst(list);
+			exit (0);
+		}
 		if (list == NULL)
 		{
 			free_all(to_free->split, save);
@@ -44,7 +45,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 			continue ;
 		}
 		free_all(to_free->split, save);
-		main_exec(list, env);
+		ft_free_vars(main_exec(list, env));
 	}
 }
 
