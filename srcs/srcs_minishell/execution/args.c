@@ -6,11 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/20 13:38:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:39:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static void	ft_args_size_2(t_list *lst, size_t *size);
 
 size_t	ft_args_size(t_list *lst)
 {
@@ -36,7 +38,17 @@ size_t	ft_args_size(t_list *lst)
 		size++;
 		lst = lst->next;
 	}
+	ft_args_size_2(lst, &size);
 	return (size);
+}
+
+static void	ft_args_size_2(t_list *lst, size_t *size)
+{
+	while (lst && lst->type == OPT)
+	{
+		*size += 1;
+		lst = lst->next;
+	}
 }
 
 char	**ft_lst_to_args(t_list *lst)
