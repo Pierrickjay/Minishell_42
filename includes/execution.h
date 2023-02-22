@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 09:40:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:43:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ size_t	ft_nb_redir(t_list *lst);
 t_redir	ft_redir_type(char *str);
 t_list	*ft_lst_redir(t_list *lst);
 void	ft_nb_redir_type(t_list *redir, t_vars *vars);
-void	ft_print_vars(t_vars *vars);
 
 //free.c
 void	ft_free(void **ptr);

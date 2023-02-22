@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:58:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 14:59:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 09:44:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_free_lst(t_list *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		ft_free((void **)&lst->content);
+		// ft_free((void **)&lst->content);
 		ft_free((void **)&lst);
 		lst = tmp;
 	}
