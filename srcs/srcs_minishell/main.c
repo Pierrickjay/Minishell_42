@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 12:07:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:06:00 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,9 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		}
 		add_history(save);
 		list = ft_fill(save, to_free);
-		ft_exit(list, save);
 		if (list == NULL)
-		{
-			free_all(to_free->split, save);
-			ft_free_lst(list);
 			continue ;
-		}
+		ft_exit(list, save);
 		free_all(to_free->split, save);
 		ft_free_vars(main_exec(list, env));
 	}

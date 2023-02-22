@@ -1,7 +1,4 @@
 
-"ls" "-l" ne fonctionne pas
-exit fonctionne pas
-ctrl \ apres avoi ecrit quelque chose doit fermer le prompt (pas sur de cette regle);
 comportement annormal "minishell>cat
 ^C
 minishell>minishell>^C"
@@ -14,10 +11,6 @@ malloc(): unaligned fastbin chunk detected 3
 Aborted (core dumped)"
 
 compter les nombres de quote ou double quote.
-"minishell>echo ''
-''
-"
-shoudl display nothing
 
 "minishell> cat
 ^C
