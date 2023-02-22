@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/22 16:11:53 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 16:15:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	*ft_erase_all(char **str_dup, t_list *list, char *str)
 {
 	if (str_dup)
+	{
+		printf("Synthaxe Error\n");
 		ft_free_strs(str_dup);
+	}
 	free(list);
 	free(str);
 	return (NULL);
