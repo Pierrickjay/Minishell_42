@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:58:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 11:14:43 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:05:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_free_strs(char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		free(strs[i]);
+		ft_free((void **)&strs[i]);
 		i++;
 	}
-	free(strs);
+	ft_free((void **)&strs);
 }
 
 void	ft_free_lst(t_list *lst)
@@ -32,8 +32,8 @@ void	ft_free_lst(t_list *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		free(lst->content);
-		free(lst);
+		ft_free((void **)&lst->content);
+		ft_free((void **)&lst);
 		lst = tmp;
 	}
 }
@@ -45,10 +45,10 @@ void	ft_free_pipes(int **pipes, size_t nb)
 	i = 0;
 	while (i < nb)
 	{
-		free(pipes[i]);
+		ft_free((void **)&pipes[i]);
 		i++;
 	}
-	free(pipes);
+	ft_free((void **)&pipes);
 }
 
 void	ft_free_args(char ***args, size_t nb)
@@ -58,7 +58,7 @@ void	ft_free_args(char ***args, size_t nb)
 	i = 0;
 	while (i < nb)
 	{
-		free(args[i]);
+		ft_free((void **)&args[i]);
 		args[i] = NULL;
 		i++;
 	}
@@ -72,34 +72,7 @@ void	ft_free_redir(t_list *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		free(lst);
+		ft_free((void **)&lst);
 		lst = tmp;
 	}
-}
-
-void	ft_free_vars(t_vars *vars)
-{
-	if (vars->lst)
-	{
-		ft_free_lst(vars->lst);
-		vars->lst = NULL;
-	}
-	if (vars->redir)
-	{
-		ft_free_redir(vars->redir);
-		vars->redir = NULL;
-	}
-	if (vars->pid)
-		free(vars->pid);
-	if (vars->pipes)
-	{
-		ft_free_pipes(vars->pipes, (vars->nb - 1));
-		vars->pipes = NULL;
-	}
-	if (vars->args)
-	{
-		ft_free_args(vars->args, vars->nb);
-		vars->args = NULL;
-	}
-	free(vars);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 11:11:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:06:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	ft_free_strs(char **strs);
 void	ft_free_lst(t_list *lst);
 void	ft_free_pipes(int **pipes, size_t nb);
 void	ft_free_args(char ***args, size_t nb);
+void	ft_free_redir(t_list *lst);
 void	ft_free_vars(t_vars *vars);
 
 //here_doc.c
@@ -149,6 +150,5 @@ int		ft_pwd(t_vars *vars); //not ok
 int		ft_export(t_vars *vars); //not ok
 int		ft_unset(t_vars *vars); //not ok
 int		ft_env(t_vars *vars); //not ok
-int		ft_exit(t_vars *vars); //not ok
 
 #endif
