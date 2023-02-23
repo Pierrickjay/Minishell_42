@@ -6,34 +6,44 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 14:11:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:38:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_list	*ft_get_vars(t_list *lst)
+static char	*ft_getenv(char *name, t_envi *envi)
+{
+	while (envi)
+	{
+		if (ft_strcmp(envi->key, name) == 0)
+			return (envi->value);
+		envi = envi->next;
+	}
+	return (NULL);
+}
+
+void	*ft_get_vars(t_exec *exec)
 {
 	t_list	*tmp;
 	char	*value;
 
-	tmp = lst;
-	while (lst)
+	tmp = exec->lst;
+	while (tmp)
 	{
-		if (lst->type == VAR)
+		if (tmp->type == VAR)
 		{
-			value = getenv(&(lst->content[1]));
+			value = ft_getenv(&(tmp->content[1]), exec->envi);
 			if (value)
 			{
-				free(lst->content);
-				lst->content = ft_strdup(value);
-				if (!lst->content)
+				free(tmp->content);
+				tmp->content = ft_strdup(value);
+				if (!tmp->content)
 					return (NULL);
-				lst->type = ARG;
+				tmp->type = ARG;
 			}
 		}
-		lst = lst->next;
+		tmp = tmp->next;
 	}
-	lst = tmp;
-	return (lst);
+	return ((void *)1);
 }

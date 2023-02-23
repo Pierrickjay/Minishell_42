@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:40:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:41:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 	exec->redir = ft_lst_redir(lst);
 	if (!exec->redir && exec->nb_redir > 0)
 		return (ft_free_exec(exec), NULL);
-	if (exec->nb > 0)
-	{
-		if (ft_init_exec_bis(exec, lst) == NULL)
-			return (NULL);
-	}
+	if (ft_get_vars(exec) == NULL)
+		return (ft_free_exec(exec), NULL);
+	if (exec->nb > 0 && ft_init_exec_bis(exec, lst) == NULL)
+		return (ft_free_exec(exec), NULL);
 	return (exec);
 }
 

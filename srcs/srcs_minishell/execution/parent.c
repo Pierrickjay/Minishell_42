@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 14:11:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:40:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_exec	*main_exec(t_list *lst, char **env)
 	int		status;
 
 	status = 0;
-	lst = ft_get_vars(lst);
 	exec = ft_init_exec(lst, env);
 	if (!exec)
 		return (NULL);
