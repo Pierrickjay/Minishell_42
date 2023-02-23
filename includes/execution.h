@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:32:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:39:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,12 @@ char	*ft_access(char *cmd, char **path);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
+//close.c
+void	ft_close_pipes(int **pipes, size_t nb);
+
+//dup_env.c
+char	**ft_dup_env(char **env);
+
 //free.c
 //free_1.c
 void	ft_free_strs(char **strs);
@@ -159,9 +165,6 @@ int		ft_open(char *name, t_redir type);
 int		ft_open_infiles(t_list *redir, int infile, int here_doc, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir, int outfile, int append);
-
-//close.c
-void	ft_close_pipes(int **pipes, size_t nb);
 /******************************************************************************/
 
 /*************************************ENV**************************************/

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars_1.c                                           :+:      :+:    :+:   */
+/*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 14:29:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:40:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 	if (!exec)
 		return (NULL);
 	exec->lst = lst;
-	exec->env = env;
+	exec->env = ft_dup_env(env);
+	if (!exec->env)
+		return (ft_free_exec(exec), NULL);
+	exec->envi = ft_env_to_envi(env);
+	if (!exec->envi)
+		return (ft_free_exec(exec), NULL);
 	exec->nb = ft_nb_cmds(lst);
 	exec->nb_redir = ft_nb_redir(lst);
 	exec->redir = ft_lst_redir(lst);
@@ -32,8 +37,6 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 		if (ft_init_exec_bis(exec, lst) == NULL)
 			return (NULL);
 	}
-	else
-		exec->args = NULL;
 	return (exec);
 }
 
