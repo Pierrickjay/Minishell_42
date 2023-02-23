@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 12:06:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:16:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_free_envi(t_envi *envi)
 {
 	t_envi	*tmp;
 
-	if (envi)
+	while (envi)
 	{
 		tmp = envi->next;
 		ft_free((void **)&envi->key);

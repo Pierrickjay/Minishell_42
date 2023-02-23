@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_new.c                                       :+:      :+:    :+:   */
+/*   ft_envi_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:47:58 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:31:13 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:12:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_envi	*ft_envi_new(char *key, char *value)
 	new = malloc(sizeof(t_envi));
 	if (!new)
 		return (NULL);
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	new->key = key;
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }
