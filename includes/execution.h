@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 12:38:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:51:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef enum e_redir
 	REDIR_HEREDOC
 }	t_redir;
 
-
 //env
 typedef struct s_envi
 {
@@ -79,7 +78,6 @@ typedef struct s_envi
 	char			*value;
 	struct s_envi	*next;
 }	t_envi;
-
 
 //struct for the shell
 typedef struct s_exec
@@ -159,6 +157,8 @@ void	ft_free(void **ptr);
 void	ft_free_strs_n(char **strs, int n);
 void	ft_free_envi(t_envi *envi);
 void	ft_free_exec(t_exec *exec);
+//free_3.c
+void	ft_free_child(t_exec *exec, char **path, char *cmd);
 
 //here_doc.c
 int		ft_here_doc(char *end);
@@ -181,12 +181,12 @@ t_envi	*ft_env_to_envi(char **env);
 
 /***********************************BUILTINS***********************************/
 int		ft_builtins(t_exec *exec);
-int		ft_echo(t_exec *exec); //not ok
+int		ft_echo(t_exec	*exec);
+int		ft_pwd(t_exec *exec);
 int		ft_cd(t_exec *exec); //not ok
-int		ft_pwd(t_exec *exec); //not ok
+int		ft_env(t_exec *exec);
 int		ft_export(t_exec *exec); //not ok
 int		ft_unset(t_exec *exec); //not ok
-int		ft_env(t_exec *exec); //not ok
 /******************************************************************************/
 
 #endif

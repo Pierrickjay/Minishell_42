@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:58 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 13:12:52 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 13:46:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/23 13:49:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_env(t_exec *exec)
+void	ft_free_child(t_exec *exec, char **path, char *cmd)
 {
-	size_t	i;
-
-	i = 0;
-	while (exec->env[i])
-	{
-		ft_putendl_fd(exec->env[i], STDOUT);
-		i++;
-	}
-	return (EXIT_SUCCESS);
+	if (exec)
+		ft_free_exec(exec);
+	if (path)
+		ft_free_strs(path);
+	if (cmd)
+		free(cmd);
 }

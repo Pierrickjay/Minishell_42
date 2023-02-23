@@ -38,11 +38,11 @@ SRCS        += main.c
 SRCS        += parsing/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/for_the_trim.c \
 				parsing/type.c
 
-SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
+SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
 			execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c execution/env/ft_envi_size.c execution/env/ft_envi_to_env.c execution/env/ft_env_to_envi.c \
 			execution/parent.c execution/exec_1.c execution/exec_2.c execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars.c \
-			# execution/builtins.c execution/builtins/ft_cd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			# execution/builtins/ft_export.c execution/builtins/ft_pwd.c execution/builtins/ft_unset.c
+			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
+			# execution/builtins/ft_export.c  execution/builtins/ft_cd.c execution/builtins/ft_unset.c
 
 SRCS    := ${addprefix ${SRCS_DIR},${SRCS}}
 

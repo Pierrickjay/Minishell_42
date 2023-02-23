@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 14:29:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:49:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_exec_child(t_exec *exec)
 	char	*tmp;
 	char	**path;
 
+	if (ft_builtins(exec) == 0)
+		return (ft_free_exec(exec), exit(EXIT_SUCCESS));
 	if (access(exec->args[exec->i][0], X_OK) != FAILURE)
 	{
 		execve(exec->args[exec->i][0], exec->args[exec->i], exec->env);
@@ -29,15 +31,13 @@ void	ft_exec_child(t_exec *exec)
 		return (ft_free_exec(exec), exit(FAILURE));
 	tmp = ft_strjoin("/", exec->args[exec->i][0]);
 	if (!tmp)
-		return (ft_free_exec(exec), ft_free_strs(path), exit(FAILURE));
+		return (ft_free_child(exec, path, NULL), exit(FAILURE));
 	cmd = ft_access(tmp, path);
 	if (!cmd)
-		return (ft_free_exec(exec), ft_free_strs(path), free(tmp), exit(-1));
+		return (ft_free_child(exec, path, cmd), exit(-1));
 	free(tmp);
 	execve(cmd, exec->args[exec->i], exec->env);
-	ft_free_exec(exec);
-	ft_free_strs(path);
-	free(cmd);
+	ft_free_child(exec, path, cmd);
 	exit(EXIT_FAILURE);
 }
 
