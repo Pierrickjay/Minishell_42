@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 12:47:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 12:58:04 by pjay             ###   ########.fr       */
+/*   Created: 2023/02/23 12:58:45 by pjay              #+#    #+#             */
+/*   Updated: 2023/02/23 13:01:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../includes/minishell.h"
 
-//to duplicate the string
-char	*ft_strdup(const char *s)
+char	*ft_strdup_modif(char *s, int to_free)
 {
 	char	*dup;
 	size_t	lenth;
@@ -30,5 +29,7 @@ char	*ft_strdup(const char *s)
 		i++;
 	}
 	dup[i] = 0;
+	if (to_free == 1)
+		free(s);
 	return (dup);
 }

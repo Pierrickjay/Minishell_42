@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 15:54:31 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/23 13:01:56 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	fill_enum(t_list *lst);
 char	**trim_all(char **split);
 void	ft_set_type(t_list *lst);
 int		count_quote(char **str);
+char	*make_it_clean(char *str);
+char	*ft_strdup_modif(char *s, int to_free);
 
 #endif
