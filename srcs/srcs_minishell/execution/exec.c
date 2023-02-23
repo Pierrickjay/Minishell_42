@@ -6,11 +6,13 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 11:10:20 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/23 10:38:05 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+extern sig_atomic_t	g_check;
 
 t_vars	*main_exec(t_list *lst, char **env)
 {
@@ -41,12 +43,14 @@ t_vars	*main_exec(t_list *lst, char **env)
 
 int	ft_exec_parent(t_vars *vars)
 {
+	g_check = 1;
 	vars->pid[0] = fork();
 	if (vars->pid[0] == -1)
 		return (FAILURE);
 	if (vars->pid[0] == 0)
 		ft_exec_child(vars);
 	waitpid(vars->pid[0], &vars->status, 0);
+	g_check = 0;
 	return (SUCCESS);
 }
 
@@ -54,6 +58,7 @@ int	ft_exec_pipe_parent(t_vars *vars)
 {
 	size_t	i;
 
+	g_check = 1;
 	while (vars->i < vars->nb)
 	{
 		vars->pid[vars->i] = fork();
@@ -67,11 +72,13 @@ int	ft_exec_pipe_parent(t_vars *vars)
 	i = 0;
 	while (i < vars->nb)
 		waitpid(vars->pid[i++], &vars->status, 0);
+	g_check = 0;
 	return (SUCCESS);
 }
 
 int	ft_exec_redir_parent(t_vars *vars)
 {
+	g_check = 1;
 	ft_nb_redir_type(vars->redir, vars);
 	vars->pid[0] = fork();
 	if (vars->pid[0] == -1)
@@ -79,6 +86,7 @@ int	ft_exec_redir_parent(t_vars *vars)
 	if (vars->pid[0] == 0)
 		ft_exec_redir_child(vars);
 	waitpid(vars->pid[0], &vars->status, 0);
+	g_check = 0;
 	return (SUCCESS);
 }
 
@@ -86,6 +94,7 @@ int	ft_exec_pipe_redir_parent(t_vars *vars)
 {
 	size_t	i;
 
+	g_check = 1;
 	ft_nb_redir_type(vars->redir, vars);
 	while (vars->i < vars->nb)
 	{
@@ -100,5 +109,6 @@ int	ft_exec_pipe_redir_parent(t_vars *vars)
 	i = 0;
 	while (i < vars->nb)
 		waitpid(vars->pid[i++], &vars->status, 0);
+	g_check = 0;
 	return (SUCCESS);
 }

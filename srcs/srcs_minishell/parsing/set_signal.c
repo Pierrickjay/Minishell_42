@@ -6,11 +6,13 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/21 15:14:34 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/23 10:08:32 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/parsing.h"
+
+sig_atomic_t	g_check = 0;
 
 void	block_signal(int signal)
 {
@@ -41,10 +43,15 @@ void	handler_end(int signal)
 		block_signal(SIGINT);
 		return ;
 	}
-	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (g_check == 0)
+	{
+		rl_on_new_line();
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+		write(1, "\n", 1);
 }
 
 int	create_siga(void)
