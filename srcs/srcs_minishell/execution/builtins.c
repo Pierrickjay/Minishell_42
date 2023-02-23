@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:46:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 13:48:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:59:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	ft_builtins(t_exec *exec)
 		return (ft_env(exec));
 	else if (!ft_strcmp(exec->args[exec->i][0], "pwd"))
 		return (ft_pwd(exec));
-	// else if (!ft_strcmp(exec->args[exec->i][0], "cd"))
-	// 	return (ft_cd(exec));
-	// else if (!ft_strcmp(exec->args[exec->i][0], "export"))
-	// 	return (ft_export(exec));
-	// else if (!ft_strcmp(exec->args[exec->i][0], "unset"))
-	// 	return (ft_unset(exec));
+	else if (!ft_strcmp(exec->args[exec->i][0], "cd"))
+		return (ft_cd(exec));
+	else if (!ft_strcmp(exec->args[exec->i][0], "export"))
+		return (ft_export(exec));
+	else if (!ft_strcmp(exec->args[exec->i][0], "unset"))
+		return (ft_unset(exec));
 	return (-1);
 }

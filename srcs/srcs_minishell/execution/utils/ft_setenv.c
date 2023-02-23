@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 13:59:14 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 13:53:07 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/23 13:57:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_cd(t_exec *exec)
+int	ft_setenv(const char *name, const char *value, int overwrite)
 {
-	(void)exec;
-	ft_putendl_fd("TODO: cd", 2);
+	(void)name;
+	(void)value;
+	(void)overwrite;
 	return (EXIT_SUCCESS);
 }
