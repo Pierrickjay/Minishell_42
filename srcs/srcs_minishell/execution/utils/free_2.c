@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 14:29:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:16:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,33 @@ void	ft_free(void **ptr)
 	{
 		free(*ptr);
 		*ptr = NULL;
+	}
+}
+
+void	ft_free_strs_n(char **strs, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		ft_free((void **)&strs[i]);
+		i++;
+	}
+	free(strs);
+}
+
+void	ft_free_envi(t_envi *envi)
+{
+	t_envi	*tmp;
+
+	if (envi)
+	{
+		tmp = envi->next;
+		ft_free((void **)&envi->key);
+		ft_free((void **)&envi->value);
+		ft_free((void **)&envi);
+		envi = tmp;
 	}
 }
 
