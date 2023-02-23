@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:58:45 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/23 13:01:45 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/23 14:45:28 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,21 @@ char	*ft_strdup_modif(char *s, int to_free)
 		free(s);
 	return (dup);
 }
+
+// int check_args_cmd(char *str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (str[1] == '-')
+// 	{
+// 		while (str[i])
+// 		{
+
+// 		}
+// 	}
+// 	else
+// 	{
+
+// 	}
+// }
