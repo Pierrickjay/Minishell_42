@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 14:39:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:44:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	ft_args_size(t_list *lst)
 		size++;
 		lst = lst->next;
 	}
-	while (lst && (lst->type == ARG || lst->type == VAR))
+	while (lst && (lst->type == ARG))
 	{
 		size++;
 		lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:39:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:38:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,12 @@ void	ft_nb_redir_type(t_list *redir, t_exec *exec);
 size_t	ft_args_size(t_list *lst);
 char	**ft_lst_to_args(t_list *lst);
 
-//path
+//path.c
 char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
+
+//vars.c
+void	ft_get_vars(t_list **lst);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
