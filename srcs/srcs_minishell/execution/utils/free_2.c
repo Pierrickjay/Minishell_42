@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:16:18 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:06:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,8 @@ void	ft_free_envi(t_envi *envi)
 	}
 }
 
-void	ft_free_exec(t_exec *exec)
+void	ft_free_exec_2(t_exec *exec)
 {
-	if (exec->lst)
-	{
-		ft_free_lst(exec->lst);
-		exec->lst = NULL;
-	}
-	if (exec->redir)
-	{
-		ft_free_redir(exec->redir);
-		exec->redir = NULL;
-	}
 	if (exec->pid)
 		ft_free((void **)&exec->pid);
 	if (exec->pipes)
@@ -72,5 +62,30 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_args(exec->args, exec->nb);
 		exec->args = NULL;
 	}
+}
+
+void	ft_free_exec(t_exec *exec)
+{
+	if (exec->lst)
+	{
+		ft_free_lst(exec->lst);
+		exec->lst = NULL;
+	}
+	if (exec->env)
+	{
+		ft_free_strs(exec->env);
+		exec->env = NULL;
+	}
+	if (exec->envi)
+	{
+		ft_free_envi(exec->envi);
+		exec->envi = NULL;
+	}
+	if (exec->redir)
+	{
+		ft_free_redir(exec->redir);
+		exec->redir = NULL;
+	}
+	ft_free_exec_2(exec);
 	ft_free((void **)&exec);
 }
