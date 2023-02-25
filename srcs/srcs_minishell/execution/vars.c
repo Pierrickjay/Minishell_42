@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:17:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:32:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_vars_replace(t_list *tmp, char *value, int previous)
 	tmp->content = ft_strdup(value);
 	if (!tmp->content)
 		return (EXIT_FAILURE);
-	if (previous == -1)
+	if (previous == -1 || previous == PIPE || previous == FILES)
 		tmp->type = CMD;
 	else
 		tmp->type = ARG;
