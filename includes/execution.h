@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:56:36 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:22:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,13 +187,16 @@ char	*ft_getenvi(char *name, t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
+//for echo, env, pwd
+int		ft_is_builtins(t_exec *exec);
+//for export, unset, cd
 int		ft_builtins(t_exec *exec);
 int		ft_echo(t_exec	*exec);
 int		ft_pwd(t_exec *exec);
 int		ft_cd(t_exec *exec); //not ok
 int		ft_env(t_exec *exec);
-int		ft_export(t_exec *exec); //not ok
-int		ft_unset(t_exec *exec); //not ok
+int		ft_export(t_exec *exec); //bug need to patch overwrite not duplicate
+int		ft_unset(t_exec *exec);
 /******************************************************************************/
 
 #endif
