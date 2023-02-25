@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 14:41:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 10:18:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 	if (!exec)
 		return (NULL);
 	exec->lst = lst;
-	exec->env = ft_dup_env(env);
+	exec->env = env;
 	if (!exec->env)
 		return (ft_free_exec(exec), NULL);
 	exec->envi = ft_env_to_envi(env);

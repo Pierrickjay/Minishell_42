@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 12:39:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 10:48:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,22 @@ void	free_all(char **split, char *save)
 	free(split);
 }
 
-void	ft_exit(t_list *list, char *save)
+void	ft_exit(t_list *list, char *save, char **envp)
 {
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
 		free(save);
 		ft_free_lst(list);
+		ft_free_strs(envp);
 		exit (0);
 	}
 }
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
+	static char	**envp = NULL;
+
+	envp = ft_dup_env(env);
 	while (1)
 	{
 		save = readline("minishell> ");
@@ -42,15 +46,16 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		}
 		add_history(save);
 		list = ft_fill(save, to_free);
-		ft_exit(list, save);
+		ft_exit(list, save, envp);
 		if (list == NULL)
 		{
 			free_all(to_free->split, save);
+			ft_free_strs(envp);
 			ft_free_lst(list);
 			continue ;
 		}
 		free_all(to_free->split, save);
-		ft_free_exec(main_exec(list, env));
+		envp = main_exec(list, envp);
 	}
 }
 

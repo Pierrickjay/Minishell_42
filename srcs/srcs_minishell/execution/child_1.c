@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 13:49:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:24:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	ft_exec_child(t_exec *exec)
 	char	*tmp;
 	char	**path;
 
-	if (ft_builtins(exec) == 0)
-		return (ft_free_exec(exec), exit(EXIT_SUCCESS));
 	if (access(exec->args[exec->i][0], X_OK) != FAILURE)
 	{
 		execve(exec->args[exec->i][0], exec->args[exec->i], exec->env);
