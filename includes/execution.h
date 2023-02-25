@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:28:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:42:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_exec_pipe_file_child(t_exec *exec);
 //exec.c
 //exec_1.c
 t_exec	*ft_init_exec(t_list *lst, char **env);
-void	*ft_init_exec_bis(t_exec *exec, t_list *lst);
+int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
 char	***ft_init_args(t_exec *exec, t_list *lst);

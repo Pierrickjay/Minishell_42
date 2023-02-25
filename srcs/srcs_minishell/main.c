@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 12:33:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:44:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,22 @@ void	ft_exit(t_list *list, char *save, char **envp)
 		free(save);
 		ft_free_lst(list);
 		ft_free_strs(envp);
-		exit (0);
+		ft_putendl_fd("exit", STDOUT);
+		exit(0);
 	}
 }
 
-void	*ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
+int	ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
 {
 	if (list == NULL)
 	{
 		free_all(to_free->split, save);
 		ft_free_strs(envp);
 		ft_free_lst(list);
-		return (NULL);
+		ft_putendl_fd("exit", STDOUT);
+		return (EXIT_SUCCESS);
 	}
-	return ((void *)1);
+	return (EXIT_FAILURE);
 }
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
@@ -59,7 +61,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		add_history(save);
 		list = ft_fill(save, to_free);
 		ft_exit(list, save, envp);
-		if (ft_check_list(list, to_free, save, envp) == NULL)
+		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
 		free_all(to_free->split, save);
 		envp = main_exec(list, envp);

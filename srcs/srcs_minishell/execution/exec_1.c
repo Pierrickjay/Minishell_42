@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:25:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:41:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 	exec->redir = ft_lst_redir(lst);
 	if (!exec->redir && exec->nb_redir > 0)
 		return (ft_free_exec(exec), NULL);
-	if (exec->nb > 0 && ft_init_exec_bis(exec, lst) == NULL)
+	if (exec->nb > 0 && ft_init_exec_bis(exec, lst) == FAILURE)
 		return (ft_free_exec(exec), NULL);
 	return (exec);
 }
 
-void	*ft_init_exec_bis(t_exec *exec, t_list *lst)
+int	ft_init_exec_bis(t_exec *exec, t_list *lst)
 {
 	exec->pid = ft_init_pid(exec);
 	if (exec->pid == FAIL)
-		return (ft_free_exec(exec), NULL);
+		return (ft_free_exec(exec), FAILURE);
 	exec->pipes = ft_init_pipes(exec);
 	if (exec->pipes == FAIL)
-		return (ft_free_exec(exec), NULL);
+		return (ft_free_exec(exec), FAILURE);
 	exec->args = ft_init_args(exec, lst);
 	if (!exec->args)
-		return (ft_free_exec(exec), NULL);
-	return ((void *)1);
+		return (ft_free_exec(exec), FAILURE);
+	return (SUCCESS);
 }
 
 pid_t	*ft_init_pid(t_exec *exec)
