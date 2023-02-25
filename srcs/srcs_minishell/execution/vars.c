@@ -6,44 +6,44 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 14:38:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:17:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static char	*ft_getenv(char *name, t_envi *envi)
+static int	ft_vars_replace(t_list *tmp, char *value, int previous)
 {
-	while (envi)
-	{
-		if (ft_strcmp(envi->key, name) == 0)
-			return (envi->value);
-		envi = envi->next;
-	}
-	return (NULL);
+	free(tmp->content);
+	tmp->content = ft_strdup(value);
+	if (!tmp->content)
+		return (EXIT_FAILURE);
+	if (previous == -1)
+		tmp->type = CMD;
+	else
+		tmp->type = ARG;
+	return (EXIT_SUCCESS);
 }
 
-void	*ft_get_vars(t_exec *exec)
+int	ft_get_vars(t_exec *exec)
 {
 	t_list	*tmp;
+	int		previous;
 	char	*value;
 
 	tmp = exec->lst;
+	previous = -1;
 	while (tmp)
 	{
 		if (tmp->type == VAR)
 		{
-			value = ft_getenv(&(tmp->content[1]), exec->envi);
+			value = ft_getenvi(&(tmp->content[1]), exec->envi);
 			if (value)
-			{
-				free(tmp->content);
-				tmp->content = ft_strdup(value);
-				if (!tmp->content)
-					return (NULL);
-				tmp->type = ARG;
-			}
+				if (ft_vars_replace(tmp, value, previous) == EXIT_FAILURE)
+					return (EXIT_FAILURE);
 		}
+		previous = tmp->type;
 		tmp = tmp->next;
 	}
-	return ((void *)1);
+	return (EXIT_SUCCESS);
 }

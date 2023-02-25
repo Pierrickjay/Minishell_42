@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 12:45:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:16:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	**ft_get_path(void);
 char	*ft_access(char *cmd, char **path);
 
 //vars.c
-void	*ft_get_vars(t_exec *exec);
+int		ft_get_vars(t_exec *exec);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
@@ -163,9 +163,6 @@ void	ft_free_exec(t_exec *exec);
 //free_3.c
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 
-//setenv.c
-int		ft_setenv(const char *name, const char *value, int overwrite);
-
 //here_doc.c
 int		ft_here_doc(char *end);
 
@@ -185,6 +182,7 @@ char	**ft_envi_to_env(t_envi *envi);
 t_envi	*ft_env_to_envi(char **env);
 char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
+char	*ft_getenvi(char *name, t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
