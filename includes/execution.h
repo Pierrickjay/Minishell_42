@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 10:13:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:45:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ typedef struct s_exec
 
 /***********************************EXECUTION**********************************/
 //parent
+//parent_1.c
 char	**main_exec(t_list *lst, char **env);
+int		ft_check_status(int status, t_exec *exec, char ***envp);
+//parent_2.c
 int		ft_exec_parent(t_exec *exec);
 int		ft_exec_pipe_parent(t_exec *exec);
 int		ft_exec_redir_parent(t_exec *exec);
@@ -180,6 +183,8 @@ size_t	ft_envi_size(t_envi *envi);
 t_envi	*ft_envi_last(t_envi *envi);
 char	**ft_envi_to_env(t_envi *envi);
 t_envi	*ft_env_to_envi(char **env);
+char	*ft_get_key(char *env);
+char	*ft_get_value(char *env);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/

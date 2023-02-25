@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_to_envi.c                                   :+:      :+:    :+:   */
+/*   ft_get_key.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 12:43:24 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/25 12:42:01 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/25 12:42:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-t_envi	*ft_env_to_envi(char **env)
+char	*ft_get_key(char *env)
 {
-	t_envi	*envi;
-	t_envi	*new;
+	int		len;
 	char	*key;
-	char	*value;
-	int		i;
 
-	i = 0;
-	envi = NULL;
-	while (env[i])
-	{
-		key = ft_get_key(env[i]);
-		value = ft_get_value(env[i]);
-		if (!key || !value)
-			return (ft_free_envi(envi), NULL);
-		new = ft_envi_new(key, value);
-		if (!new)
-			return (ft_free_envi(envi), NULL);
-		ft_envi_add_back(&envi, new);
-		i++;
-	}
-	return (envi);
+	len = 0;
+	while (env[len] && env[len] != '=')
+		len++;
+	key = ft_substr(env, 0, len);
+	if (!key)
+		return (NULL);
+	return (key);
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 10:48:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:33:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ void	ft_exit(t_list *list, char *save, char **envp)
 	}
 }
 
+void	*ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
+{
+	if (list == NULL)
+	{
+		free_all(to_free->split, save);
+		ft_free_strs(envp);
+		ft_free_lst(list);
+		return (NULL);
+	}
+	return ((void *)1);
+}
+
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
 	static char	**envp = NULL;
@@ -47,13 +59,8 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		add_history(save);
 		list = ft_fill(save, to_free);
 		ft_exit(list, save, envp);
-		if (list == NULL)
-		{
-			free_all(to_free->split, save);
-			ft_free_strs(envp);
-			ft_free_lst(list);
+		if (ft_check_list(list, to_free, save, envp) == NULL)
 			continue ;
-		}
 		free_all(to_free->split, save);
 		envp = main_exec(list, envp);
 	}
