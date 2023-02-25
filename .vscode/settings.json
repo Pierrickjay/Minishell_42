@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"execution.h": "c",
-		"minishell.h": "c",
-		"typeinfo": "c"
-	},
-	"C_Cpp.errorSquiggles": "disabled"
-}
