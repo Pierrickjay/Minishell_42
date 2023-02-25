@@ -1,4 +1,4 @@
-#COLOR
+# COLOR
 
 RED			:= '\033[0;31m'
 GREEN		:= '\033[0;32m'
@@ -7,13 +7,13 @@ CYAN		:= '\033[0;36m'
 PURPLE		:= '\033[0;35m'
 OFF			:= '\033[0m'
 
-#VARIABLES
+# VARIABLES
 
 NAME			:= minishell
 
-#SRCS
+# SRCS
 
-# LIBFT
+#  LIBFT
 
 SRCS_LIBFT_DIR	:= srcs/libft/
 
@@ -33,17 +33,17 @@ SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isd
 
 SRCS_LIBFT		:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
 
-# MINISHELL
+#  MINISHELL
 
 SRCS_DIR	:= srcs/srcs_minishell/
 
 SRCS		+= main.c
 
-# pjay
+#   pjay
 SRCS		+= parsing/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/for_the_trim.c \
 			parsing/type.c
 
-# obouhlel
+#   obouhlel
 SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c \
 			execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
 			execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c \
@@ -52,11 +52,11 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/parent_1.c execution/parent_2.c execution/exec_1.c execution/exec_2.c \
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			execution/builtins/ft_export.c  execution/builtins/ft_cd.c execution/builtins/ft_unset.c
+			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_unset.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
-#OBJS & DEPS & LIB
+# OBJS & DEPS & LIB
 
 LIB_DIR			:= ./lib/
 
@@ -72,7 +72,7 @@ OBJS			:= $(addprefix $(OBJS_DIR),$(OBJS))
 
 DEPS			:= ${OBJS:.o=.d} ${OBJS_LIBFT:.o=.d}
 
-#COMMANDS
+# COMMANDS
 
 AR				:= ar rcs
 
@@ -84,7 +84,7 @@ RM				:= rm -rf
 
 MKDIR			:= mkdir -p
 
-#RULES
+# RULES
 
 all		: ${NAME}
 
@@ -106,7 +106,7 @@ re		: fclean all
 
 .PHONY	: all clean fclean re test
 
-#RECETTE
+# RECETTE
 
 $(OBJS_DIR)%.o	: %.c
 				@${MKDIR} $(@D)
