@@ -13,23 +13,27 @@ NAME			:= minishell
 
 #SRCS
 
+# LIBFT
+
 SRCS_LIBFT_DIR	:= srcs/libft/
 
-SRCS_LIBFT	:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
-            char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
-            conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
-            malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strmapi.c \
-            malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
-            mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c \
-            print/ft_putchar_fd.c print/ft_putendl_fd.c print/ft_putnbr_fd.c print/ft_putstr_fd.c \
-            string/ft_strchr.c string/ft_striteri.c string/ft_strlcat.c string/ft_strlcpy.c \
-            string/ft_strlen.c string/ft_strcmp.c string/ft_strncmp.c string/ft_strnstr.c string/ft_strrchr.c \
-            gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
-            liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
-            liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
-            liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c
+SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
+				char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
+				conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
+				malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strmapi.c \
+				malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
+				mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c \
+				print/ft_putchar_fd.c print/ft_putendl_fd.c print/ft_putnbr_fd.c print/ft_putstr_fd.c \
+				string/ft_strchr.c string/ft_striteri.c string/ft_strlcat.c string/ft_strlcpy.c \
+				string/ft_strlen.c string/ft_strcmp.c string/ft_strncmp.c string/ft_strnstr.c string/ft_strrchr.c \
+				gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
+				liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
+				liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
+				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c
 
-SRCS_LIBFT	:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
+SRCS_LIBFT		:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
+
+# MINISHELL
 
 SRCS_DIR	:= srcs/srcs_minishell/
 
