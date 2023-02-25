@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:16:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:56:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void	ft_free_envi(t_envi *envi);
 void	ft_free_exec(t_exec *exec);
 //free_3.c
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
+void	ft_free_envi_delone(t_envi *envi);
 
 //here_doc.c
 int		ft_here_doc(char *end);
