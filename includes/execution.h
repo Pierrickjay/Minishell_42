@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 17:26:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:02:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ t_envi	*ft_env_to_envi(char **env);
 char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
 char	*ft_getenvi(char *name, t_envi *envi);
+t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/

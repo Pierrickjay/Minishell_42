@@ -48,7 +48,8 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
 			execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c \
 			execution/env/ft_envi_size.c execution/env/ft_envi_to_env.c execution/env/ft_env_to_envi.c \
-			execution/env/ft_get_key.c execution/env/ft_get_value.c execution/env/ft_get_envi.c execution/env/ft_get_env.c \
+			execution/env/ft_get_key.c execution/env/ft_get_value.c execution/env/ft_get_envi.c \
+			execution/env/ft_get_env.c execution/env/ft_envi_update_value.c \
 			execution/parent_1.c execution/parent_2.c execution/exec_1.c execution/exec_2.c \
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
