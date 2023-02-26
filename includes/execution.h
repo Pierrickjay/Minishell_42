@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/26 13:02:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/26 14:13:13 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		ft_exec_pipe_redir_parent(t_exec *exec);
 void	ft_exec_child(t_exec *exec);
 void	ft_exec_pipe_child(t_exec *exec);
 void	ft_exec_redir_child(t_exec *exec);
+void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out);
 //child_2.c
 void	ft_exec_pipe_file_child(t_exec *exec);
 
