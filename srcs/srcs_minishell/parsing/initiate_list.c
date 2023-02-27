@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/23 14:31:04 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/27 13:14:39 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ t_list	*ft_fill_2(t_free *to_free, t_list *list)
 	return (list);
 }
 
+void	print_string(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		printf("print split %s\n", str[i]);
+		i++;
+	}
+}
+
 t_list	*ft_fill(char *str, t_free *to_free)
 {
 	t_list	*list;
@@ -54,7 +66,8 @@ t_list	*ft_fill(char *str, t_free *to_free)
 	if (!list)
 		return (NULL);
 	list->next = NULL;
-	str_dup = ft_split(str, ' ');
+	str_dup = split_parsing(str, ' ');
+	print_string(str_dup);
 	if (!str_dup || count_quote(str_dup))
 		return (ft_erase_all(str_dup, list, str));
 	to_free->split = trim_all(str_dup);

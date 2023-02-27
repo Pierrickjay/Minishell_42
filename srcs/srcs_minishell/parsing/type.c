@@ -6,26 +6,26 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:44:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 16:10:53 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/27 09:32:18 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	check_tiret(char *str)
-{
-	int	i;
-	int count;
+// int	check_tiret(char *str)
+// {
+// 	int	i;
+// 	int count;
 
-	i = 1;
-	count = 0;
+// 	i = 1;
+// 	count = 0;
 
-	while (str[i])
-	{
-		if (str[i] == '-' )
-			count++;
-	}
-}
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '-' )
+// 			count++;
+// 	}
+// }
 
 int	ft_type_redir(char *str)
 {
@@ -45,10 +45,7 @@ int	ft_type(char *str, int prev)
 	if (ft_type_redir(str) != -1)
 		return (REDIR);
 	else if (str[0] == '-')
-	{
-
 		return (OPT);
-	}
 	else if (str[0] == '$')
 		return (VAR);
 	else if (str[0] == '|')

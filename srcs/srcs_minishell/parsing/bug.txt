@@ -17,3 +17,10 @@ ls: invalid option -- ' '
 Try 'ls --help' for more information.
 pjay@e2r13p10:~/Cursus42/cercle3/Minishell_42$ ls -l -a
 total 124
+
+Gros probleme sur les commandes avec plusieurs tiret a l'interieur de double quote
+
+pjay@e2r13p10:~/Cursus42/cercle3/Minishell_42$  echo ''-n' "test"'
+-n "test"
+
+

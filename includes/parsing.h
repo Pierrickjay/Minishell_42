@@ -6,7 +6,7 @@
 /*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 13:01:56 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/27 13:10:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ void	ft_set_type(t_list *lst);
 int		count_quote(char **str);
 char	*make_it_clean(char *str);
 char	*ft_strdup_modif(char *s, int to_free);
-
+char	**split_parsing(char const *s, char c);
+size_t	split_w_double(const char *s);
+size_t	split_w_single(const char *s);
+int		count_word(const char *s, bool single);
 #endif
