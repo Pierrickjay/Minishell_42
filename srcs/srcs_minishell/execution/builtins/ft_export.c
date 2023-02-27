@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/27 10:49:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/27 10:52:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_export_bis(t_exec *exec, char *key, char *value)
 	if (ft_getenvi(key, exec->envi) != NULL)
 	{
 		exec->envi = ft_envi_update_value(key, value, exec->envi);
+		if (!exec->envi)
+			return (EXIT_FAILURE);
 		free(key);
 		free(value);
 	}
