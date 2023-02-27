@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:22:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/27 10:11:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@ int	ft_pwd(t_exec *exec)
 {
 	char	*pwd;
 
-	(void)exec;
-	pwd = getcwd(NULL, 0);
+	pwd = ft_getenvi("PWD", exec->envi);
 	if (!pwd)
-	{
-		ft_putendl_fd("ERROR PWD", STDERR);
 		return (EXIT_FAILURE);
-	}
 	ft_putendl_fd(pwd, STDOUT);
-	free(pwd);
 	return (EXIT_SUCCESS);
 }

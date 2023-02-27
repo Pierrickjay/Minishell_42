@@ -6,30 +6,58 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/26 14:03:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/27 10:26:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static int	ft_cd_bis_bis(t_exec *exec, char *pwd, char *old_pwd)
+static int	ft_cd_4(t_exec *exec, char *pwd, char *old_pwd)
+{
+	size_t	len;
+
+	len = ft_strlen(old_pwd);
+	while (old_pwd[len] != '/')
+		len--;
+	pwd = (char *)malloc(sizeof(char) * (len + 1));
+	if (!pwd)
+		return (EXIT_FAILURE);
+	ft_strlcpy(pwd, old_pwd, len + 1);
+	exec->envi = ft_envi_update_value("PWD", pwd, exec->envi);
+	if (!exec->envi)
+		return (EXIT_FAILURE);
+	free(pwd);
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_cd_3(t_exec *exec, char *pwd, char *old_pwd)
 {
 	char	*new_pwd;
 	char	*tmp;
+
+	tmp = ft_strjoin("/", pwd);
+	new_pwd = ft_strjoin(old_pwd, tmp);
+	if (!new_pwd)
+		return (EXIT_FAILURE);
+	free(tmp);
+	exec->envi = ft_envi_update_value("PWD", new_pwd, exec->envi);
+	if (!exec->envi)
+		return (EXIT_FAILURE);
+	free(new_pwd);
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_cd_2(t_exec *exec, char *pwd, char *old_pwd)
+{
 	size_t	len;
 
 	len = ft_strlen(pwd);
-	if (ft_strncmp(pwd, old_pwd, len) != 0)
+	if (ft_strncmp(pwd, old_pwd, len) != 0 && ft_cd_3(exec, pwd, old_pwd))
+		return (EXIT_FAILURE);
+	else if (ft_strcmp("..", pwd) == 0 || ft_strcmp(".", pwd) == 0)
 	{
-		tmp = ft_strjoin("/", pwd);
-		new_pwd = ft_strjoin(old_pwd, tmp);
-		if (!new_pwd)
+		if (ft_cd_4(exec, pwd, old_pwd))
 			return (EXIT_FAILURE);
-		free(tmp);
-		exec->envi = ft_envi_update_value("PWD", new_pwd, exec->envi);
-		if (!exec->envi)
-			return (EXIT_FAILURE);
-		free(new_pwd);
 	}
 	else
 	{
@@ -40,14 +68,14 @@ static int	ft_cd_bis_bis(t_exec *exec, char *pwd, char *old_pwd)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_cd_bis(t_exec *exec, char *pwd)
+static int	ft_cd_1(t_exec *exec, char *pwd)
 {
 	char	*old_pwd;
 
 	old_pwd = ft_strdup(ft_getenvi("PWD", exec->envi));
 	if (!old_pwd)
 		return (EXIT_FAILURE);
-	if (ft_cd_bis_bis(exec, pwd, old_pwd))
+	if (ft_cd_2(exec, pwd, old_pwd))
 		return (EXIT_FAILURE);
 	exec->envi = ft_envi_update_value("OLDPWD", old_pwd, exec->envi);
 	if (!exec->envi)
@@ -69,12 +97,12 @@ int	ft_cd(t_exec *exec)
 	{
 		pwd = ft_getenvi("HOME", exec->envi);
 		if (!pwd)
-			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
+			return (ft_putendl_fd("cd: HOME not set", STDERR), EXIT_FAILURE);
 		if (access(pwd, F_OK) == FAILURE)
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
 		if (chdir(pwd) == FAILURE)
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
-		if (ft_cd_bis(exec, pwd))
+		if (ft_cd_1(exec, pwd))
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
 	}
 	else
@@ -83,7 +111,7 @@ int	ft_cd(t_exec *exec)
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
 		if (chdir(args[1]) == FAILURE)
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
-		if (ft_cd_bis(exec, (char *)args[1]))
+		if (ft_cd_1(exec, (char *)args[1]))
 			return (ft_putendl_fd("ERROR CD", STDERR), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
