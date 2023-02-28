@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:12:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:50:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	**main_exec(t_list *lst, char **env)
 {
-	t_exec	*exec;
-	char	**envp;
+	static int	exit_code;
+	t_exec		*exec;
+	char		**envp;
 
 	exec = ft_init_exec(lst, env);
 	if (!exec)
@@ -29,6 +30,8 @@ char	**main_exec(t_list *lst, char **env)
 	if (ft_parent_bis(exec, &envp))
 		return (envp);
 	envp = ft_dup_env(exec->env);
+	exit_code = exec->status;
+	printf("Exit code = %d\n", exit_code);
 	ft_free_exec(exec);
 	return (envp);
 }
