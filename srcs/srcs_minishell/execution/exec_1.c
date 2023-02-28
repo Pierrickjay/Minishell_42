@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:36:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:46:47 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	**ft_init_pipes(t_exec *exec)
 	{
 		pipes[i] = (int *)ft_calloc(sizeof(int), 2);
 		if (!pipes[i])
-			return (ft_free_pipes(pipes, (int	)i), \
+			return (ft_free_pipes(pipes, (int)i), \
 					ft_close_pipes(pipes, (exec->nb - 1)), \
 					ft_msg(exec, NULL, -1, NULL), FAIL);
 	}
