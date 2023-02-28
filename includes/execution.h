@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:47:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:05:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ typedef enum e_redir
 	APPEND,
 	HEREDOC
 }	t_redir;
+
+typedef enum e_error
+{
+	MA = -1,
+	SY = -2,
+	PA = -3,
+	CM = -4
+}	t_error;
 
 //env
 typedef struct s_envi

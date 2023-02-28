@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:42:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:05:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	ft_exec_child(t_exec *exec)
 	path = ft_get_path(exec);
 	tmp = ft_strjoin("/", exec->args[exec->i][0]);
 	if (!tmp)
-		return (ft_free_strs(path), ft_msg(exec, NULL, -1, &exit));
+		return (ft_free_strs(path), ft_msg(exec, NULL, MA, &exit));
 	cmd = ft_access(tmp, path);
 	if (!cmd)
-		return (ft_free_strs(path), free(tmp), ft_msg(exec, NULL, -1, &exit));
+		return (ft_free_strs(path), free(tmp), ft_msg(exec, NULL, MA, &exit));
 	if (cmd == FAIL)
 		return (ft_free_strs(path), free(tmp), \
-				ft_msg(exec, exec->args[exec->i][0], -4, &exit));
+				ft_msg(exec, exec->args[exec->i][0], CM, &exit));
 	free(tmp);
 	execve(cmd, exec->args[exec->i], exec->env);
 	ft_free_child(exec, path, cmd);

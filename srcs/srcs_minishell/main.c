@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:02:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:04:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		free_all(to_free->split, save);
 		envp = main_exec(list, envp);
 		if (!envp)
-			return (ft_msg(NULL, NULL, -1, NULL), EXIT_FAILURE);
+			return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
 	}
 }
 

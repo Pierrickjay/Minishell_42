@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:44:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:02:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void	ft_msg_bis(char *str, int value)
 {
-	if (value == -1)
-		ft_putendl_fd("Malloc fail", STDERR);
-	else if (value == -2)
-		ft_putendl_fd("Syntaxe error", STDERR);
-	else if (value == -3)
+	if (value == MA)
+		ft_putendl_fd("malloc fail", STDERR);
+	else if (value == SY)
+		ft_putendl_fd("syntaxe error", STDERR);
+	else if (value == PA)
 		ft_putendl_fd("PATH not set", STDERR);
-	else if (value == -4)
+	else if (value == CM)
 	{
 		if (str)
 		{
 			ft_putstr_fd(str, STDERR);
 			ft_putstr_fd(": ", STDERR);
 		}
-		ft_putendl_fd("Command not found", STDERR);
+		ft_putendl_fd("command not found", STDERR);
 	}
 }
 

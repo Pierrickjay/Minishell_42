@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:50:04 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:05:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**main_exec(t_list *lst, char **env)
 	{
 		envp = ft_dup_env(env);
 		return (ft_close_pipes(exec->pipes, (exec->nb - 1)), \
-				ft_msg(exec, NULL, -2, NULL), envp);
+				ft_msg(exec, NULL, SY, NULL), envp);
 	}
 	if (ft_parent_bis(exec, &envp))
 		return (envp);
