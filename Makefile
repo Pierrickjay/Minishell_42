@@ -44,7 +44,7 @@ SRCS		+= parsing/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_
 			parsing/type.c
 
 #   obouhlel
-SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c \
+SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c execution/utils/ft_msg.c \
 			execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
 			execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c \
 			execution/env/ft_envi_size.c execution/env/ft_envi_to_env.c execution/env/ft_env_to_envi.c \

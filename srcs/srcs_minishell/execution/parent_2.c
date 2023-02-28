@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:34:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 12:35:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:36:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_exec_parent(t_exec *exec)
 
 int	ft_exec_pipe_parent(t_exec *exec)
 {
-	size_t	i;
+	int	i;
 
 	while (exec->i < exec->nb)
 	{
@@ -66,7 +66,7 @@ int	ft_exec_redir_parent(t_exec *exec)
 
 int	ft_exec_pipe_redir_parent(t_exec *exec)
 {
-	size_t	i;
+	int	i;
 
 	ft_nb_redir_type(exec->redir, exec);
 	while (exec->i < exec->nb)

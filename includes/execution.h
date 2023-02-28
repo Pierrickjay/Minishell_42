@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/27 10:48:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:36:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef enum e_fd
 
 typedef enum e_redir
 {
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	REDIR_HEREDOC
+	INFILE,
+	TRUNC,
+	APPEND,
+	HEREDOC
 }	t_redir;
 
 //env
@@ -85,10 +85,10 @@ typedef struct s_exec
 	t_list	*lst;
 	char	**env;
 	t_envi	*envi;
-	size_t	i;
-	size_t	nb;
-	size_t	nb_redir;
-	size_t	nb_redir_type[4];
+	int		i;
+	int		nb;
+	int		nb_redir;
+	int		nb_redir_type[4];
 	t_list	*redir;
 	pid_t	*pid;
 	int		**pipes;
@@ -100,7 +100,7 @@ typedef struct s_exec
 //parent
 //parent_1.c
 char	**main_exec(t_list *lst, char **env);
-int		ft_check_status(int status, t_exec *exec, char ***envp);
+int		ft_parent_bis(t_exec *exec, char ***envp);
 //parent_2.c
 int		ft_exec_parent(t_exec *exec);
 int		ft_exec_pipe_parent(t_exec *exec);
@@ -135,7 +135,7 @@ size_t	ft_args_size(t_list *lst);
 char	**ft_lst_to_args(t_list *lst);
 
 //path.c
-char	**ft_get_path(void);
+char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
 //vars.c
@@ -165,14 +165,17 @@ void	ft_free_exec(t_exec *exec);
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
 
+//ft_msg.c
+void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
+
 //here_doc.c
 int		ft_here_doc(char *end);
 
 //open.c
 int		ft_open(char *name, t_redir type);
-int		ft_open_infiles(t_list *redir, int infile, int here_doc, int nb);
+int		ft_open_infiles(t_list *redir, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);
-int		ft_open_outfiles(t_list *redir, int outfile, int append);
+int		ft_open_outfiles(t_list *redir);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
