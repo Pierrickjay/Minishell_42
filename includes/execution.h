@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:05:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:20:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_exec_pipe_file_child(t_exec *exec);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, char **env);
+t_exec	*ft_init_exec(t_list *lst, char **env, int exit_code);
 int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
@@ -109,7 +109,7 @@ char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
 //vars.c
-int		ft_get_vars(t_exec *exec);
+int	ft_get_vars(t_exec *exec, int exit_code);
 /******************************************************************************/
 
 /************************************UTILS*************************************/

@@ -6,13 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:04:36 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:21:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_exec	*ft_init_exec(t_list *lst, char **env)
+t_exec	*ft_init_exec(t_list *lst, char **env, int exit_code)
 {
 	t_exec	*exec;
 
@@ -27,7 +27,7 @@ t_exec	*ft_init_exec(t_list *lst, char **env)
 	exec->envi = ft_env_to_envi(env);
 	if (!exec->envi)
 		return (ft_msg(exec, NULL, MA, NULL), NULL);
-	if (ft_get_vars(exec) == EXIT_FAILURE)
+	if (ft_get_vars(exec, exit_code) == EXIT_FAILURE)
 		return (ft_msg(exec, NULL, MA, NULL), NULL);
 	exec->nb = ft_nb_cmds(lst);
 	exec->nb_redir = ft_nb_redir(lst);
