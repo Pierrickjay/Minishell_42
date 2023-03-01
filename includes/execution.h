@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 20:20:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:50:51 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
 //vars.c
-int	ft_get_vars(t_exec *exec, int exit_code);
+int		ft_get_vars(t_exec *exec, int exit_code);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
