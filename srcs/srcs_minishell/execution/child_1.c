@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 12:28:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:23:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,22 @@ void	ft_exec_pipe_child(t_exec *exec)
 	{
 		if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[exec->i][0]);
 	}
 	else if (exec->i == exec->nb - 1)
 	{
 		if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[exec->i - 1][1]);
 	}
 	else
 	{
 		if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[exec->i - 1][1]);
 		if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[exec->i][0]);
 	}
 	ft_close_pipes(exec->pipes, (exec->nb - 1));
 	ft_exec_child(exec);
@@ -92,22 +96,18 @@ void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out)
 	{
 		fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC]);
 		if (fd_in == FAILURE)
-			return (ft_close_pipes(exec->pipes, (exec->nb - 1)), \
-					ft_free_exec(exec), exit(EXIT_FAILURE));
+			return (ft_free_exec(exec), exit(EXIT_FAILURE));
 		if (dup2(fd_in, STDIN) == FAILURE)
-			return (ft_close_pipes(exec->pipes, (exec->nb - 1)), close(fd_in), \
-					ft_free_exec(exec), exit(EXIT_FAILURE));
-		close(fd_in);
+			return (close(fd_in), ft_free_exec(exec), exit(EXIT_FAILURE));
+		ft_close(&fd_in);
 	}
 	if (exec->nb_redir_type[TRUNC] || exec->nb_redir_type[APPEND])
 	{
 		fd_out = ft_open_outfiles(exec->redir);
 		if (fd_out == FAILURE)
-			return (ft_close_pipes(exec->pipes, (exec->nb - 1)), \
-					ft_free_exec(exec), exit(EXIT_FAILURE));
+			return (ft_free_exec(exec), exit(EXIT_FAILURE));
 		if (dup2(fd_out, STDOUT) == FAILURE)
-			return (ft_close_pipes(exec->pipes, (exec->nb - 1)), close(fd_out), \
-					ft_free_exec(exec), exit(EXIT_FAILURE));
-		close(fd_out);
+			return (close(fd_out), ft_free_exec(exec), exit(EXIT_FAILURE));
+		ft_close(&fd_out);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 12:44:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:15:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int		ft_get_vars(t_exec *exec, int exit_code);
 /************************************UTILS*************************************/
 //close.c
 void	ft_close_pipes(int **pipes, size_t nb);
+void	ft_close(int *fd);
 
 //dup_env.c
 char	**ft_dup_env(char **env);
