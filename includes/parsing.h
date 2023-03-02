@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/27 13:10:27 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/01 15:43:01 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,7 @@ char	**split_parsing(char const *s, char c);
 size_t	split_w_double(const char *s);
 size_t	split_w_single(const char *s);
 int		count_word(const char *s, bool single);
+char	*remove_double(char *str);
+char	*remove_single(char *str);
+int		check_order_quote(char *str);
 #endif

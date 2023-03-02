@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/23 10:08:32 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/01 14:03:20 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,14 @@ void	handler_end(int signal)
 	}
 	if (g_check == 0)
 	{
+		block_signal(SIGINT);
+		printf("test\n");
 		rl_on_new_line();
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
+		printf("\ng_check = %d\n", g_check);
 		rl_redisplay();
+		unblock_signal(SIGINT);
 	}
 	else
 		write(1, "\n", 1);

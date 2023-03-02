@@ -6,11 +6,11 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:41:33 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/27 13:45:13 by pjay             ###   ########.fr       */
+/*   Updated: 2023/02/27 15:13:41 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 //error
 static char	**error(char **strs, size_t j)

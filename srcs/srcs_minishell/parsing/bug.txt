@@ -1,26 +1,10 @@
-
-"minishell>echo "cat lol.c | cat > lol.c"
-minishell>echo "cat lol.c | cat > lol.c"
-malloc(): unaligned fastbin chunk detected 3
-Aborted (core dumped)"
-
-echo "cat lol.c | cat > lol.c"
-➜  ~ echo "cat lol.c | cat > lol.c"
-cat lol.c | cat > lol.c
-➜  ~ echo "-n -n" test
--n -n test
-➜  ~ echo "-n" test
-test%
-
-pjay@e2r13p10:~/Cursus42/cercle3/Minishell_42$ ls "-l -a"
-ls: invalid option -- ' '
-Try 'ls --help' for more information.
-pjay@e2r13p10:~/Cursus42/cercle3/Minishell_42$ ls -l -a
-total 124
-
-Gros probleme sur les commandes avec plusieurs tiret a l'interieur de double quote
-
 pjay@e2r13p10:~/Cursus42/cercle3/Minishell_42$  echo ''-n' "test"'
 -n "test"
 
 
+minishell> ls>test>test2>test3
+
+"doit split au > >>"
+ctrl \ doit fonction en mode bloquant du style (cat rien)
+
+Quand on rentre dans plusieurs mminishell bug aavec ctrl c
