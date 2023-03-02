@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 20:23:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:46:34 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	ft_vars_replace(t_list *tmp, char *value, int previous)
 {
+	free(tmp->content);
 	tmp->content = ft_strdup(value);
 	if (!tmp->content)
 		return (EXIT_FAILURE);
-	free(tmp->content);
 	if (previous == -1 || previous == PIPE || previous == FILES)
 		tmp->type = CMD;
 	else
@@ -29,10 +29,10 @@ static int	ft_exitcode(t_list *tmp, int exit_code, int previous)
 {
 	char	*str_exit_code;
 
+	free(tmp->content);
 	str_exit_code = ft_itoa(exit_code);
 	if (!str_exit_code)
 		return (EXIT_FAILURE);
-	free(tmp->content);
 	tmp->content = str_exit_code;
 	if (previous == -1 || previous == PIPE || previous == FILES)
 		tmp->type = CMD;
