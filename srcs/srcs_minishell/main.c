@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 10:56:07 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 14:48:58 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 	envp = ft_dup_env(env);
 	while (1)
 	{
+		create_siga(MAIN);
 		save = readline("minishell> ");
+		create_siga(PARENT);
 		if (save == NULL)
 			exit(0);
 		if (save[0] == '\0')
@@ -81,7 +83,8 @@ int	main(int ac, char **av, char **env)
 	list = NULL;
 	(void)ac;
 	(void)av;
-	create_siga();
+	create_siga(MAIN);
 	boucle_minishell(env, list, &to_free, save);
+	//create_siga();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/01 14:03:20 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 14:56:48 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,47 @@ void	handler_end(int signal)
 	if (g_check == 0)
 	{
 		block_signal(SIGINT);
-		printf("test\n");
+		//printf("test\n");
 		rl_on_new_line();
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
-		printf("\ng_check = %d\n", g_check);
+		//printf("\ng_check = %d\n", g_check);
 		rl_redisplay();
 		unblock_signal(SIGINT);
 	}
-	else
+	else if(g_check == 1)
+	{
+		printf("enter here when g_chech = 1\n");
 		write(1, "\n", 1);
+	}
+	else
+	{
+		printf("enter here when g_chech > 1\n");
+		return ;
+	}
+
 }
 
-int	create_siga(void)
+int	create_siga(int mode)
 {
 	struct sigaction	act;
 
-	signal(SIGQUIT, SIG_IGN);
-	ft_bzero(&act, sizeof(act));
-	act.sa_handler = &handler_end;
-	sigaction(SIGINT, &act, NULL);
+	if (mode == MAIN)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		ft_bzero(&act, sizeof(act));
+		act.sa_handler = &handler_end;
+		sigaction(SIGINT, &act, NULL);
+	}
+	if (mode == CHILD)
+	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+	}
+	if (mode == PARENT)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+	}
 	return (0);
 }

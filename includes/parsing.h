@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/01 15:43:01 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 14:46:34 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
+# define MAIN 0
+# define CHILD 2
+# define PARENT 1
 
 typedef struct s_free
 {
@@ -31,7 +34,7 @@ typedef struct s_free
 
 void	ft_main_parsing(void);
 void	ft_main_parsing_utils(void);
-int		create_siga(void);
+int		create_siga(int mode);
 t_list	*ft_fill(char *str, t_free *to_free);
 void	show_list(t_list *list);
 void	block_signal(int signal);
