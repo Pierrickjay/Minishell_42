@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   dup_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 11:35:59 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/23 11:37:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+char	**ft_dup_env(char **env)
 {
-	char	**args;
+	char	**dup;
 	size_t	i;
-	bool	endl;
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	i = 0;
+	while (env[i])
+		i++;
+	dup = (char **)ft_calloc(sizeof(char *), (i + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (env[i])
 	{
-		endl = false;
+		dup[i] = ft_strdup(env[i]);
+		if (!dup[i])
+			return (ft_free_strs_n(dup, i), NULL);
 		i++;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+	dup[i] = NULL;
+	return (dup);
 }

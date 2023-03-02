@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   free_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 13:46:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/28 11:44:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+void	ft_free_child(t_exec *exec, char **path, char *cmd)
 {
-	char	**args;
-	size_t	i;
-	bool	endl;
+	if (exec)
+		ft_free_exec(exec);
+	if (path)
+		ft_free_strs(path);
+	if (cmd)
+		free(cmd);
+}
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
-	{
-		endl = false;
-		i++;
-	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+void	ft_free_envi_delone(t_envi *envi)
+{
+	ft_free((void **)&envi->key);
+	ft_free((void **)&envi->value);
+	ft_free((void **)&envi);
 }

@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/25 15:21:18 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/25 15:24:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+char	*ft_get_env(char *name, char **env)
 {
-	char	**args;
+	char	*value;
+	size_t	len;
 	size_t	i;
-	bool	endl;
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	len = ft_strlen((const char *)name);
+	i = 0;
+	while (env[i])
 	{
-		endl = false;
+		if (ft_strncmp(name, env[i], len) == 0)
+		{
+			value = ft_get_value(env[i]);
+			if (!value)
+				return (NULL);
+		}
 		i++;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+	return (NULL);
 }

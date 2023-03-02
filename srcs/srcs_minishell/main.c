@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 16:06:00 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 10:56:07 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,36 @@ void	free_all(char **split, char *save)
 	free(split);
 }
 
-void	ft_exit(t_list *list, char *save)
+void	ft_exit(t_list *list, char *save, char **envp)
 {
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
 		free(save);
 		ft_free_lst(list);
-		exit (0);
+		ft_free_strs(envp);
+		ft_putendl_fd("exit", STDOUT);
+		exit(0);
 	}
+}
+
+int	ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
+{
+	if (list == NULL)
+	{
+		free_all(to_free->split, save);
+		ft_free_strs(envp);
+		ft_free_lst(list);
+		ft_putendl_fd("exit", STDOUT);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
+	static char	**envp = NULL;
+
+	envp = ft_dup_env(env);
 	while (1)
 	{
 		save = readline("minishell> ");
@@ -42,11 +60,14 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		}
 		add_history(save);
 		list = ft_fill(save, to_free);
-		if (list == NULL)
+		ft_exit(list, save, envp);
+		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
-		ft_exit(list, save);
 		free_all(to_free->split, save);
-		ft_free_vars(main_exec(list, env));
+		ft_lst_print_type(list);
+		envp = main_exec(list, envp);
+		if (!envp)
+			return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
 	}
 }
 

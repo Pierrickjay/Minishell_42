@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_envi_add_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 10:47:07 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/23 11:32:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+void	ft_envi_add_back(t_envi **envi, t_envi *new)
 {
-	char	**args;
-	size_t	i;
-	bool	endl;
+	t_envi	*last;
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	if (!envi || !new)
+		return ;
+	if (!*envi)
 	{
-		endl = false;
-		i++;
+		*envi = new;
+		return ;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+	last = ft_envi_last(*envi);
+	last->next = new;
 }

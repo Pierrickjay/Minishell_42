@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_envi_update_value.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/26 12:54:52 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/26 13:36:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi)
 {
-	char	**args;
-	size_t	i;
-	bool	endl;
+	t_envi	*to_edit;
+	t_envi	*top;
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	to_edit = NULL;
+	top = envi;
+	while (envi)
 	{
-		endl = false;
-		i++;
+		if (ft_strcmp(envi->key, key) == 0)
+		{
+			to_edit = envi;
+			break ;
+		}
+		envi = envi->next;
 	}
-	while (args[i])
+	if (to_edit)
 	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
+		free(to_edit->value);
+		to_edit->value = ft_strdup(new_value);
+		if (!to_edit->value)
+			return (NULL);
 	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+	return (top);
 }

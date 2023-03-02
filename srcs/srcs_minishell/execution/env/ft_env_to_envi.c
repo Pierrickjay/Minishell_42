@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_env_to_envi.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/02/25 12:43:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_echo(t_exec	*exec)
+t_envi	*ft_env_to_envi(char **env)
 {
-	char	**args;
-	size_t	i;
-	bool	endl;
+	t_envi	*envi;
+	t_envi	*new;
+	char	*key;
+	char	*value;
+	int		i;
 
-	args = exec->args[exec->i];
-	i = 1;
-	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	i = 0;
+	envi = NULL;
+	while (env[i])
 	{
-		endl = false;
+		key = ft_get_key(env[i]);
+		value = ft_get_value(env[i]);
+		if (!key || !value)
+			return (ft_free_envi(envi), NULL);
+		new = ft_envi_new(key, value);
+		if (!new)
+			return (ft_free_envi(envi), NULL);
+		ft_envi_add_back(&envi, new);
 		i++;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (endl)
-		ft_putchar_fd('\n', STDOUT);
-	return (EXIT_SUCCESS);
+	return (envi);
 }
