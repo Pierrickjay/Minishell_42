@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 12:16:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:44:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_exec
 //parent_1.c
 char	**main_exec(t_list *lst, char **env);
 int		ft_parent_bis(t_exec *exec, char ***envp);
+void	ft_update_shlvl(t_exec *exec);
 //parent_2.c
 int		ft_exec_parent(t_exec *exec);
 int		ft_exec_pipe_parent(t_exec *exec);

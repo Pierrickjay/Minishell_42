@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 20:11:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:47:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	**main_exec(t_list *lst, char **env)
 	exec = ft_init_exec(lst, env, exit_code);
 	if (!exec)
 		return (NULL);
+	ft_update_shlvl(exec);
 	if (exec->nb == 0)
 	{
 		envp = ft_dup_env(env);
@@ -55,4 +56,31 @@ int	ft_parent_bis(t_exec *exec, char ***envp)
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	ft_update_shlvl(t_exec *exec)
+{
+	static int	update = false;
+	char		*shlvl;
+	int			nb;
+
+	if (update == false)
+	{
+		shlvl = ft_getenvi("SHLVL", exec->envi);
+		if (shlvl)
+		{
+			ft_free_strs(exec->env);
+			nb = ft_atoi(shlvl);
+			nb++;
+			shlvl = ft_itoa(nb);
+			if (!shlvl)
+				return (ft_msg(NULL, NULL, MA, NULL));
+			exec->envi = ft_envi_update_value("SHLVL", shlvl, exec->envi);
+			exec->env = ft_envi_to_env(exec->envi);
+			if (!exec->env)
+				return (ft_msg(NULL, NULL, MA, NULL));
+			free(shlvl);
+		}
+		update = true;
+	}
 }
