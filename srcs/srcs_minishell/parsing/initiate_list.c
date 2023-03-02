@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initiate_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/01 14:43:16 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:07:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list	*ft_fill(char *str, t_free *to_free)
 		return (NULL);
 	}
 	str_dup = split_parsing(str, ' ');
-	print_string(str_dup);
+	// print_string(str_dup);
 	if (!str_dup || count_quote(str_dup))
 		return (ft_erase_all(str_dup, list, str));
 	to_free->split = trim_all(str_dup);
@@ -83,7 +83,7 @@ t_list	*ft_fill(char *str, t_free *to_free)
 		return (NULL);
 	}
 	list = ft_fill_2(to_free, list);
-	ft_lst_print_type(list);
+	// ft_lst_print_type(list);
 	if (!list)
 		return (NULL);
 	return (list);

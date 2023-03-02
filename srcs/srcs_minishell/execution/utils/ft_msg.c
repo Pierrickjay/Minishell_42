@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:02:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:18:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ static void	ft_msg_bis(char *str, int value)
 			ft_putstr_fd(": ", STDERR);
 		}
 		ft_putendl_fd("command not found", STDERR);
+	}
+	else if (value == EX)
+	{
+		if (str)
+		{
+			ft_putstr_fd(str, STDERR);
+			ft_putstr_fd(": ", STDERR);
+		}
+		ft_putendl_fd("too many arguments", STDERR);
 	}
 }
 

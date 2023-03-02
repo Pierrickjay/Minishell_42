@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/01 11:50:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:16:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef enum e_error
 	MA = -1,
 	SY = -2,
 	PA = -3,
-	CM = -4
+	CM = -4,
+	EX = -5
 }	t_error;
 
 //env
@@ -80,6 +81,7 @@ int		ft_exec_pipe_redir_parent(t_exec *exec);
 //child
 //child_1.c
 void	ft_exec_child(t_exec *exec);
+void	ft_exec_child_bis(t_exec *exec, const int n);
 void	ft_exec_pipe_child(t_exec *exec);
 void	ft_exec_redir_child(t_exec *exec);
 void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out);

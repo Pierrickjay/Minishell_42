@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:05:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:18:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,40 @@
 
 void	ft_exec_child(t_exec *exec)
 {
-	char	*cmd;
-	char	*tmp;
-	char	**path;
+	const int	n = exec->i;
 
 	if (ft_is_builtins(exec) != FAILURE)
 		return (ft_msg(exec, NULL, 0, &exit));
-	if (access(exec->args[exec->i][0], X_OK) != FAILURE)
+	if (ft_strncmp("./", exec->args[n][0], 2) == 0 && \
+		access(exec->args[n][0], X_OK) != FAILURE)
 	{
-		execve(exec->args[exec->i][0], exec->args[exec->i], exec->env);
+		execve(exec->args[n][0], exec->args[n], exec->env);
 		return (ft_msg(exec, NULL, errno, &exit));
 	}
+	ft_exec_child_bis(exec, n);
+}
+
+void	ft_exec_child_bis(t_exec *exec, const int n)
+{
+	char	*tmp;
+	char	*cmd;
+	char	**path;
+
 	path = ft_get_path(exec);
-	tmp = ft_strjoin("/", exec->args[exec->i][0]);
+	tmp = ft_strjoin("/", exec->args[n][0]);
 	if (!tmp)
 		return (ft_free_strs(path), ft_msg(exec, NULL, MA, &exit));
 	cmd = ft_access(tmp, path);
 	if (!cmd)
 		return (ft_free_strs(path), free(tmp), ft_msg(exec, NULL, MA, &exit));
+	if (cmd == FAIL && ft_strcmp("exit", exec->args[n][0]) == 0)
+		return (ft_free_strs(path), free(tmp), \
+				ft_msg(exec, exec->args[n][0], EX, &exit));
 	if (cmd == FAIL)
 		return (ft_free_strs(path), free(tmp), \
-				ft_msg(exec, exec->args[exec->i][0], CM, &exit));
+				ft_msg(exec, exec->args[n][0], CM, &exit));
 	free(tmp);
-	execve(cmd, exec->args[exec->i], exec->env);
+	execve(cmd, exec->args[n], exec->env);
 	ft_free_child(exec, path, cmd);
 	exit(EXIT_FAILURE);
 }

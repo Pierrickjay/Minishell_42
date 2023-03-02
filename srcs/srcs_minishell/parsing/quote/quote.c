@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:45:58 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/01 15:47:52 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:05:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	check_order_quote(char *str)
 	bool	open_single;
 	bool	open_double;
 	int		first;
-	int		opened_first;
+	// int		opened_first;
 
-	opened_first = -1;
+	// opened_first = -1;
 	open_double = false;
 	first = -1;
 	open_single = false;

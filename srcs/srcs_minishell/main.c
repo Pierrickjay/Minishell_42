@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 10:56:07 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 12:14:20 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_exit(t_list *list, char *save, char **envp)
 {
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
+		if (list->next->next && ft_isdigit(list->next->next->content[0]) == 1)
+			return ;
 		free(save);
 		ft_free_lst(list);
 		ft_free_strs(envp);
@@ -64,7 +66,6 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
 		free_all(to_free->split, save);
-		ft_lst_print_type(list);
 		envp = main_exec(list, envp);
 		if (!envp)
 			return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
