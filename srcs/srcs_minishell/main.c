@@ -6,42 +6,11 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 16:26:00 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 12:40:19 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	free_all(char **split, char *save)
-{
-	free(save);
-	free(split);
-}
-
-void	ft_exit(t_list *list, char *save, char **envp)
-{
-	if (ft_strcmp(list->content, "exit") == 0)
-	{
-		free(save);
-		ft_free_lst(list);
-		ft_free_strs(envp);
-		ft_putendl_fd("exit", STDOUT);
-		exit(0);
-	}
-}
-
-int	ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
-{
-	if (list == NULL)
-	{
-		free_all(to_free->split, save);
-		ft_free_strs(envp);
-		ft_free_lst(list);
-		ft_putendl_fd("exit", STDOUT);
-		return (EXIT_SUCCESS);
-	}
-	return (EXIT_FAILURE);
-}
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
@@ -53,18 +22,12 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		create_siga(MAIN);
 		save = readline("minishell> ");
 		create_siga(PARENT);
-		if (save == NULL)
-		{
-			printf("exit\n");
-			exit(0);
-		}
-		if (save[0] == '\0')
-		{
-			free(save);
+		if (save_is_null(save) == -1)
 			continue ;
-		}
 		add_history(save);
 		list = ft_fill(save, to_free);
+		if (list == NULL)
+			continue ;
 		ft_exit(list, save, envp);
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
@@ -88,6 +51,5 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	create_siga(MAIN);
 	boucle_minishell(env, list, &to_free, save);
-	//create_siga();
 	return (0);
 }

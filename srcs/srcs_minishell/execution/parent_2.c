@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:34:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/03 09:35:25 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 09:52:50 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	deal_w_return_pid(int status)
 {
 	if (status == 2)
 		write(1, "\n", 1);
-	if (status == 131)
+	else if (status == 131)
 		printf("Quit (core dumped)\n");
 	else
 		return ;
@@ -110,7 +110,6 @@ int	ft_exec_pipe_redir_parent(t_exec *exec)
 				create_siga(CHILD);
 				ft_exec_pipe_file_child(exec);
 			}
-
 		}
 		exec->i++;
 	}

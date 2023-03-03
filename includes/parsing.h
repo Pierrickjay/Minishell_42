@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 14:46:34 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 12:26:14 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,14 @@ char	**split_parsing(char const *s, char c);
 size_t	split_w_double(const char *s);
 size_t	split_w_single(const char *s);
 int		count_word(const char *s, bool single);
-char	*remove_double(char *str);
-char	*remove_single(char *str);
+char	*remove_double(char *str, int index);
+char	*remove_single(char *str, int index);
 int		check_order_quote(char *str);
+void	free_all(char **split, char *save);
+int		save_is_null(char *save);
+void	ft_exit(t_list *list, char *save, char **envp);
+int		ft_check_list(t_list *list, t_free *to_free, char *save, char **envp);
+void	*free_inverse_split(char **split, int i);
+int		count_quote_single(char *str);
+void	*free_str_quote_error(char *str);
 #endif
