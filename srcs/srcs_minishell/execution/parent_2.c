@@ -6,13 +6,23 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 12:34:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 15:10:22 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 09:35:25 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 extern sig_atomic_t	g_check;
+
+void	deal_w_return_pid(int status)
+{
+	if (status == 2)
+		write(1, "\n", 1);
+	if (status == 131)
+		printf("Quit (core dumped)\n");
+	else
+		return ;
+}
 
 int	ft_exec_parent(t_exec *exec)
 {
@@ -29,7 +39,8 @@ int	ft_exec_parent(t_exec *exec)
 			ft_exec_child(exec);
 		}
 	}
-	waitpid(exec->pid[0], &exec->status, 0);
+	waitpid(exec->pid[0], &exec->status, WUNTRACED);
+	deal_w_return_pid(exec->status);
 	g_check = 0;
 	return (SUCCESS);
 }
@@ -76,7 +87,6 @@ int	ft_exec_redir_parent(t_exec *exec)
 			create_siga(CHILD);
 			ft_exec_redir_child(exec);
 		}
-
 	}
 	waitpid(exec->pid[0], &exec->status, 0);
 	return (SUCCESS);

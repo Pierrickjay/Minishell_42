@@ -7,4 +7,6 @@ minishell> ls>test>test2>test3
 "doit split au > >>"
 ctrl \ doit fonction en mode bloquant du style (cat rien)
 
-Quand on rentre dans plusieurs mminishell bug aavec ctrl c
+Quand on rentre dans plusieurs mminishell bug aavec ctrl c et bug avec l'ajout dhistory
+
+

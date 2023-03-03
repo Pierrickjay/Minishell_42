@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 14:48:58 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/02 16:26:00 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		save = readline("minishell> ");
 		create_siga(PARENT);
 		if (save == NULL)
+		{
+			printf("exit\n");
 			exit(0);
+		}
 		if (save[0] == '\0')
 		{
 			free(save);
