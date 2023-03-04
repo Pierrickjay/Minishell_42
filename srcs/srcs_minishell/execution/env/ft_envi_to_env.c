@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:49:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 10:58:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 15:56:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@ char	**ft_envi_to_env(t_envi *envi)
 	i = 0;
 	while (i < size)
 	{
-		tmp = ft_strjoin(envi->key, "=");
-		if (!tmp)
-			return (ft_free_strs_n(env, i), NULL);
-		env[i] = ft_strjoin(tmp, envi->value);
-		if (!env[i])
-			return (ft_free_strs_n(env, i), NULL);
-		ft_free((void **)&tmp);
+		if (envi->type == NORMAL)
+		{
+			tmp = ft_strjoin(envi->key, "=");
+			if (!tmp)
+				return (ft_free_strs_n(env, i), NULL);
+			env[i] = ft_strjoin(tmp, envi->value);
+			if (!env[i])
+				return (ft_free_strs_n(env, i), NULL);
+			ft_free((void **)&tmp);
+			i++;
+		}
 		envi = envi->next;
-		i++;
 	}
 	env[i] = NULL;
 	return (env);
