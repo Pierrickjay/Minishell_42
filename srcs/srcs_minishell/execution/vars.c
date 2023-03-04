@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 10:43:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:04:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 static int	ft_lst_split_vars(t_list *tmp, char **strs)
 {
 	t_list	*new;
+	t_list	*args;
 	char	*str;
 	int		i;
 
 	tmp->content = ft_strdup(strs[0]);
 	if (!tmp->content)
 		return (EXIT_FAILURE);
+	args = NULL;
 	i = 1;
 	while (strs[i])
 	{
@@ -30,9 +32,10 @@ static int	ft_lst_split_vars(t_list *tmp, char **strs)
 		new = ft_lstnew(str, ARG);
 		if (!new)
 			return (EXIT_FAILURE);
-		ft_lstadd(new, &tmp);
+		ft_lstadd_back(&args, new);
 		i++;
 	}
+	ft_lstadd(&tmp, args);
 	ft_free_strs(strs);
 	return (EXIT_SUCCESS);
 }
