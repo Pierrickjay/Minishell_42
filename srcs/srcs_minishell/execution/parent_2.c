@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:46:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 23:15:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	ft_exec_parent(t_exec *exec)
 	}
 	waitpid(exec->pid[0], &exec->status, WUNTRACED);
 	deal_w_return_pid(exec->status);
-	ft_putnbr_fd(exec->status, STDERR);
-	ft_putchar_fd('\n', STDERR);
 	g_check = 0;
 	return (SUCCESS);
 }
