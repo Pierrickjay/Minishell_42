@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 21:26:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:32:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ int	ft_export(t_exec *exec)
 
 	if (args[1] == NULL)
 		return (FAILURE);
-	i = 1;
-	while (args[i])
+	i = 0;
+	while (args[++i])
 	{
 		if (ft_isdigit(args[i][0]))
 		{
-			ft_msg(NULL, (char *)args[i], EXP1, NULL);
-			i++;
+			ft_msg_builtins("export", (char *)args[i], IDENT);
+			exec->status = 1;
 			continue ;
 		}
 		if (ft_export_create(exec, (char *)args[i]))
@@ -130,7 +130,8 @@ int	ft_export(t_exec *exec)
 		exec->env = ft_envi_to_env(exec->envi);
 		if (!exec->env)
 			return (EXIT_FAILURE);
-		i++;
 	}
+	if (exec->status == 1)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

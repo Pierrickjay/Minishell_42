@@ -6,24 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 16:37:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:26:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
-
-static void	ft_msg_bis_bis(char *str, int value)
-{
-	if (value == EXP1)
-	{
-		if (str)
-		{
-			ft_putstr_fd(str, STDERR);
-			ft_putstr_fd(": ", STDERR);
-		}
-		ft_putendl_fd("not a valid identifier", STDERR);
-	}
-}
 
 static void	ft_msg_bis(char *str, int value)
 {
@@ -51,7 +38,6 @@ static void	ft_msg_bis(char *str, int value)
 		}
 		ft_putendl_fd("too many arguments", STDERR);
 	}
-	ft_msg_bis_bis(str, value);
 }
 
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
@@ -75,4 +61,26 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 		}
 		f(value);
 	}
+}
+
+void	ft_msg_builtins(char *cmd, char *arg, char *str)
+{
+	if (cmd)
+	{
+		ft_putstr_fd(cmd, STDERR);
+		ft_putstr_fd(": ", STDERR);
+	}
+	if (arg && ft_strcmp(cmd, "cd") == 0)
+	{
+		ft_putstr_fd(arg, STDERR);
+		ft_putstr_fd(": ", STDERR);
+	}
+	else if (arg && ft_strcmp(cmd, "export") == 0)
+	{
+		ft_putchar_fd('`', STDERR);
+		ft_putstr_fd(arg, STDERR);
+		ft_putstr_fd("': ", STDERR);
+	}
+	if (str)
+		ft_putendl_fd(str, STDERR);
 }

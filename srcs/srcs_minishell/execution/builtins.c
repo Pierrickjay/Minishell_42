@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:46:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 21:34:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:31:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,30 @@ int	ft_is_builtins(t_exec *exec)
 		return (ft_pwd(exec));
 	else if (!ft_strcmp(exec->args[exec->i][0], "export"))
 		return (ft_envi_print(exec->envi), EXIT_SUCCESS);
-	return (-1);
+	return (FAILURE);
 }
 
 int	ft_builtins(t_exec *exec)
 {
 	if (!ft_strcmp(exec->args[exec->i][0], "cd"))
-		return (ft_cd(exec));
+	{
+		exec->status = ft_cd(exec);
+		return (exec->status);
+	}
 	else if (!ft_strcmp(exec->args[exec->i][0], "export"))
-		return (ft_export(exec));
+	{
+		exec->status = ft_export(exec);
+		if (exec->status == FAILURE)
+		{
+			exec->status = 0;
+			return (FAILURE);
+		}
+		return (exec->status);
+	}
 	else if (!ft_strcmp(exec->args[exec->i][0], "unset"))
-		return (ft_unset(exec));
-	return (-1);
+	{
+		exec->status = ft_unset(exec);
+		return (exec->status);
+	}
+	return (FAILURE);
 }

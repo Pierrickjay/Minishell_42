@@ -6,12 +6,18 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 17:55:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:22:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
+//error messages
+# define PERM "Permission denied"
+# define NOENT "No such file or directory"
+# define HOME "HOME not set"
+# define IDENT "not a valid identifier"
 
 //return values
 # define FAIL (void *)-1
@@ -39,8 +45,7 @@ typedef enum e_error
 	SY = -2,
 	PA = -3,
 	CM = -4,
-	EX = -5,
-	EXP1 = -6,
+	EX = -5
 }	t_error;
 
 enum e_export
@@ -149,10 +154,10 @@ void	ft_free_envi_delone(t_envi *envi);
 
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
+void	ft_msg_builtins(char *cmd, char *arg, char *str);
 
 //ft_nb.c
 size_t	ft_nb_var(char *str);
-size_t	ft_nb_join(char *str);
 
 //here_doc.c
 int		ft_here_doc(char *end);
