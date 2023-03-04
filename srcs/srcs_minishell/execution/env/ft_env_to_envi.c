@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 12:43:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:24:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_envi	*ft_env_to_envi(char **env)
 		value = ft_get_value(env[i]);
 		if (!key || !value)
 			return (ft_free_envi(envi), NULL);
-		new = ft_envi_new(key, value);
+		new = ft_envi_new(key, value, NORMAL);
 		if (!new)
 			return (ft_free_envi(envi), NULL);
 		ft_envi_add_back(&envi, new);

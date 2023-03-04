@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 13:15:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:28:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,18 @@ typedef enum e_error
 	EX = -5
 }	t_error;
 
+enum e_export
+{
+	NORMAL,
+	NO_VALUE
+};
+
 //env
 typedef struct s_envi
 {
 	char			*key;
 	char			*value;
+	int				type;
 	struct s_envi	*next;
 }	t_envi;
 
@@ -70,8 +77,8 @@ typedef struct s_exec
 /***********************************EXECUTION**********************************/
 //parent
 //parent_1.c
-char	**main_exec(t_list *lst, char **env);
-int		ft_parent_bis(t_exec *exec, char ***envp);
+t_envi	*main_exec(t_list *lst, t_envi *envi);
+int		ft_parent_bis(t_exec *exec, t_envi *envp);
 void	ft_update_shlvl(t_exec *exec);
 //parent_2.c
 int		ft_exec_parent(t_exec *exec);
@@ -91,7 +98,7 @@ void	ft_exec_pipe_file_child(t_exec *exec);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, char **env, int exit_code);
+t_exec	*ft_init_exec(t_list *lst, t_envi *env, int exit_code);
 int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
@@ -121,7 +128,7 @@ void	ft_close_pipes(int **pipes, size_t nb);
 void	ft_close(int *fd);
 
 //dup_env.c
-char	**ft_dup_env(char **env);
+t_envi	*ft_dup_envi(t_envi *envi);
 
 //free.c
 //free_1.c
@@ -153,7 +160,7 @@ int		ft_open_outfiles(t_list *redir);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
-t_envi	*ft_envi_new(char *key, char *value);
+t_envi	*ft_envi_new(char *key, char *value, int type);
 void	ft_envi_add_back(t_envi **envi, t_envi *new);
 size_t	ft_envi_size(t_envi *envi);
 t_envi	*ft_envi_last(t_envi *envi);
