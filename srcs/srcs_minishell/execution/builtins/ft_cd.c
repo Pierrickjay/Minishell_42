@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/27 10:26:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:54:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_cd_4(t_exec *exec, char *pwd, char *old_pwd)
 	if (!pwd)
 		return (EXIT_FAILURE);
 	ft_strlcpy(pwd, old_pwd, len + 1);
-	exec->envi = ft_envi_update_value("PWD", pwd, exec->envi);
+	exec->envi = ft_envi_update_value("PWD", pwd, 0, exec->envi);
 	if (!exec->envi)
 		return (EXIT_FAILURE);
 	free(pwd);
@@ -40,7 +40,7 @@ static int	ft_cd_3(t_exec *exec, char *pwd, char *old_pwd)
 	if (!new_pwd)
 		return (EXIT_FAILURE);
 	free(tmp);
-	exec->envi = ft_envi_update_value("PWD", new_pwd, exec->envi);
+	exec->envi = ft_envi_update_value("PWD", new_pwd, 0, exec->envi);
 	if (!exec->envi)
 		return (EXIT_FAILURE);
 	free(new_pwd);
@@ -61,7 +61,7 @@ static int	ft_cd_2(t_exec *exec, char *pwd, char *old_pwd)
 	}
 	else
 	{
-		exec->envi = ft_envi_update_value("PWD", pwd, exec->envi);
+		exec->envi = ft_envi_update_value("PWD", pwd, 0, exec->envi);
 		if (!exec->envi)
 			return (EXIT_FAILURE);
 	}
@@ -77,7 +77,7 @@ static int	ft_cd_1(t_exec *exec, char *pwd)
 		return (EXIT_FAILURE);
 	if (ft_cd_2(exec, pwd, old_pwd))
 		return (EXIT_FAILURE);
-	exec->envi = ft_envi_update_value("OLDPWD", old_pwd, exec->envi);
+	exec->envi = ft_envi_update_value("OLDPWD", old_pwd, 0, exec->envi);
 	if (!exec->envi)
 		return (EXIT_FAILURE);
 	ft_free_strs(exec->env);

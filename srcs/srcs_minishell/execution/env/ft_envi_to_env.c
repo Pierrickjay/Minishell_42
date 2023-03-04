@@ -6,16 +6,29 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:49:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 15:56:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:58:10 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+static int	ft_envi_to_env_bis(char **env, t_envi *envi, size_t i)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(envi->key, "=");
+	if (!tmp)
+		return (ft_free_strs_n(env, i), EXIT_FAILURE);
+	env[i] = ft_strjoin(tmp, envi->value);
+	if (!env[i])
+		return (ft_free_strs_n(env, i), EXIT_FAILURE);
+	ft_free((void **)&tmp);
+	return (EXIT_SUCCESS);
+}
+
 char	**ft_envi_to_env(t_envi *envi)
 {
 	char	**env;
-	char	*tmp;
 	size_t	i;
 	size_t	size;
 
@@ -28,13 +41,8 @@ char	**ft_envi_to_env(t_envi *envi)
 	{
 		if (envi->type == NORMAL)
 		{
-			tmp = ft_strjoin(envi->key, "=");
-			if (!tmp)
-				return (ft_free_strs_n(env, i), NULL);
-			env[i] = ft_strjoin(tmp, envi->value);
-			if (!env[i])
-				return (ft_free_strs_n(env, i), NULL);
-			ft_free((void **)&tmp);
+			if (ft_envi_to_env_bis(env, envi, i) == EXIT_FAILURE)
+				return (NULL);
 			i++;
 		}
 		envi = envi->next;

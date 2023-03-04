@@ -6,11 +6,24 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 13:20:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:37:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
+
+static void	ft_msg_bis_bis(char *str, int value)
+{
+	if (value == EXP1)
+	{
+		if (str)
+		{
+			ft_putstr_fd(str, STDERR);
+			ft_putstr_fd(": ", STDERR);
+		}
+		ft_putendl_fd("not a valid identifier", STDERR);
+	}
+}
 
 static void	ft_msg_bis(char *str, int value)
 {
@@ -38,6 +51,7 @@ static void	ft_msg_bis(char *str, int value)
 		}
 		ft_putendl_fd("too many arguments", STDERR);
 	}
+	ft_msg_bis_bis(str, value);
 }
 
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))

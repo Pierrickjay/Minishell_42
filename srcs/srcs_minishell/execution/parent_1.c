@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:28:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:52:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_update_shlvl(t_exec *exec)
 			shlvl = ft_itoa(nb);
 			if (!shlvl)
 				return (ft_msg(NULL, NULL, MA, NULL));
-			exec->envi = ft_envi_update_value("SHLVL", shlvl, exec->envi);
+			exec->envi = ft_envi_update_value("SHLVL", shlvl, 0, exec->envi);
 			exec->env = ft_envi_to_env(exec->envi);
 			if (!exec->env)
 				return (ft_msg(NULL, NULL, MA, NULL));

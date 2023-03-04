@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:28:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:51:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef enum e_error
 	SY = -2,
 	PA = -3,
 	CM = -4,
-	EX = -5
+	EX = -5,
+	EXP1 = -6,
 }	t_error;
 
 enum e_export
@@ -169,7 +170,7 @@ t_envi	*ft_env_to_envi(char **env);
 char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
 char	*ft_getenvi(char *name, t_envi *envi);
-t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi);
+t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi);
 void	ft_envi_print(t_envi *envi);
 /******************************************************************************/
 
