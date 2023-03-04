@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:58:45 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/27 15:13:55 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 12:24:33 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,14 @@ char	*ft_strdup_modif(char *s, int to_free)
 	return (dup);
 }
 
-// int check_args_cmd(char *str)
-// {
-// 	int	i;
+void	print_string(char **str)
+{
+	int	i;
 
-// 	i = 0;
-// 	if (str[1] == '-')
-// 	{
-// 		while (str[i])
-// 		{
-
-// 		}
-// 	}
-// 	else
-// 	{
-
-// 	}
-// }
+	i = 0;
+	while (str[i])
+	{
+		printf("print split %s\n", str[i]);
+		i++;
+	}
+}

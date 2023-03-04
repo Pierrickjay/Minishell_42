@@ -6,51 +6,65 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/02 10:35:25 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/03 12:43:48 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-
-int		go_next_quote(char *str, char c)
+int	go_next_quote(char *str, int index, char c)
 {
-	int i;
+	int	i;
 
-	i = -1;
+	i = 0;
 	if (c == '\'')
 	{
 		while (str[++i])
+		{
+			if (i <= index)
+				continue ;
 			if (str[i] == '\'')
 				return (i);
+		}
 	}
 	else
+	{
 		while (str[++i])
+		{
+			if (i <= index)
+				continue ;
 			if (str[i] == '\"')
 				return (i);
+		}
+	}
 	return (i);
 }
 
+// le malloc de strdup n'est pas check car si ca a
+// return null alors ca rentrera pas dans le while
+// et ca returnera new_one qui vaut null
+
 char	*make_it_clean(char *str)
 {
-	int		i;
-	char	*new_one;
+	int				i;
+	char			*new_one;
+	int				tmp;
 
 	i = -1;
 	new_one = ft_strdup_modif(str, 0);
-	if (!new_one)
-		return (NULL);
-	while (str[++i])
+	while (new_one[++i] && (size_t)i < ft_strlen(new_one))
 	{
-		if (str[i] == '\'')
+		if (new_one[i] == '\'')
 		{
-			new_one = ft_strdup_modif(remove_single(new_one), 1);
-			i += go_next_quote(&str[i], '\'');
+			tmp = i;
+			i = go_next_quote(new_one, i, '\'') - 2;
+			new_one = ft_strdup_modif(remove_single(new_one, tmp), 1);
 		}
-		if (str[i] == '\"')
+		else if (new_one[i] == '\"')
 		{
-			new_one = ft_strdup_modif(remove_double(new_one), 1);
-			i += go_next_quote(&str[i], '\"');
+			tmp = i;
+			i = go_next_quote(new_one, i, '\"') - 2;
+			new_one = ft_strdup_modif(remove_double(new_one, tmp), 1);
 		}
 		if (!new_one)
 			return (NULL);
@@ -72,9 +86,10 @@ char	**trim_all(char **split)
 	while (split[++i + a])
 	{
 		newsplit[i] = make_it_clean(split[i + a]);
-		//printf("new_split = %s\n next_split = %s", newsplit[i], split[i + 1 + a]);
 		if (!newsplit[i])
 			return (NULL);
+		if (count_quote_single(newsplit[i]) == -1)
+			return (free_inverse_split(split, count_split(split)));
 	}
 	newsplit[i++] = NULL;
 	free_split(split);

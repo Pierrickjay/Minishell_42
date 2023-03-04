@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:56:41 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/04 22:36:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,15 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
 	while (1)
 	{
+		create_siga(MAIN);
 		save = readline("minishell> ");
-		if (save == NULL)
-			exit(0);
-		if (save[0] == '\0')
-		{
-			free(save);
+		create_siga(PARENT);
+		if (save_is_null(save) == -1)
 			continue ;
-		}
 		add_history(save);
 		list = ft_fill(save, to_free);
+		if (list == NULL)
+			continue ;
 		ft_exit(list, save, envp);
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
@@ -85,7 +84,7 @@ int	main(int ac, char **av, char **env)
 	list = NULL;
 	(void)ac;
 	(void)av;
-	create_siga();
+	create_siga(MAIN);
 	boucle_minishell(env, list, &to_free, save);
 	return (0);
 }
