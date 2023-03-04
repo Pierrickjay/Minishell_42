@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 23:14:18 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 23:26:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,4 @@ void	ft_exit_code(t_exec *exec)
 		exec->status = 1;
 	else if (exec->status == 64256)
 		exec->status = 128;
-	else
-		exec->status = exec->status / 256;
 }
