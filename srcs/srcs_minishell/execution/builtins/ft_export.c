@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 18:40:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:26:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	ft_export(t_exec *exec)
 	int			i;
 
 	if (args[1] == NULL)
-		return (ft_envi_print(exec->envi), EXIT_SUCCESS);
+		return (FAILURE);
 	i = 1;
 	while (args[i])
 	{
