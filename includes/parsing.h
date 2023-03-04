@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/03 12:26:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 23:02:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ char	*remove_single(char *str, int index);
 int		check_order_quote(char *str);
 void	free_all(char **split, char *save);
 int		save_is_null(char *save);
-void	ft_exit(t_list *list, char *save, char **envp);
-int		ft_check_list(t_list *list, t_free *to_free, char *save, char **envp);
+void	ft_exit(t_list *list, char *save, t_envi *envp);
+int		ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp);
 void	*free_inverse_split(char **split, int i);
 int		count_quote_single(char *str);
 void	*free_str_quote_error(char *str);

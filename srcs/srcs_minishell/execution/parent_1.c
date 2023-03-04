@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 18:47:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:45:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,8 @@ void	ft_update_shlvl(t_exec *exec)
 		update = true;
 	}
 }
+
+// void	ft_exit_code(t_exec *exec)
+// {
+	
+// }
