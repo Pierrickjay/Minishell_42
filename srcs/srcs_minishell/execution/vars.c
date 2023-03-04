@@ -3,17 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   vars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 11:46:34 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 10:43:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+static int	ft_lst_split_vars(t_list *tmp, char **strs)
+{
+	t_list	*new;
+	char	*str;
+	int		i;
+
+	tmp->content = ft_strdup(strs[0]);
+	if (!tmp->content)
+		return (EXIT_FAILURE);
+	i = 1;
+	while (strs[i])
+	{
+		str = ft_strdup(strs[i]);
+		if (!str)
+			return (EXIT_FAILURE);
+		new = ft_lstnew(str, ARG);
+		if (!new)
+			return (EXIT_FAILURE);
+		ft_lstadd(new, &tmp);
+		i++;
+	}
+	ft_free_strs(strs);
+	return (EXIT_SUCCESS);
+}
+
 static int	ft_vars_replace(t_list *tmp, char *value, int previous)
 {
+	char	**strs;
+
 	free(tmp->content);
 	tmp->content = ft_strdup(value);
 	if (!tmp->content)
@@ -22,6 +49,15 @@ static int	ft_vars_replace(t_list *tmp, char *value, int previous)
 		tmp->type = CMD;
 	else
 		tmp->type = ARG;
+	if (ft_strchr(value, ' '))
+	{
+		strs = ft_split(tmp->content, ' ');
+		if (!strs)
+			return (EXIT_FAILURE);
+		free(tmp->content);
+		if (ft_lst_split_vars(tmp, strs))
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
