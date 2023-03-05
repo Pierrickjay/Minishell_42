@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:39:54 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:05:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// initialize exec struct
 t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int exit_code)
 {
 	t_exec	*exec;
@@ -37,6 +38,7 @@ t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int exit_code)
 	return (exec);
 }
 
+// initialize exec struct bis
 int	ft_init_exec_bis(t_exec *exec, t_list *lst)
 {
 	exec->pid = ft_init_pid(exec);
@@ -51,6 +53,7 @@ int	ft_init_exec_bis(t_exec *exec, t_list *lst)
 	return (SUCCESS);
 }
 
+// initialize pid array
 pid_t	*ft_init_pid(t_exec *exec)
 {
 	pid_t	*pid;
@@ -69,6 +72,7 @@ pid_t	*ft_init_pid(t_exec *exec)
 	return (pid);
 }
 
+// initialize pipes array
 int	**ft_init_pipes(t_exec *exec)
 {
 	int		**pipes;
@@ -97,6 +101,7 @@ int	**ft_init_pipes(t_exec *exec)
 	return (pipes);
 }
 
+// initialize args array
 char	***ft_init_args(t_exec *exec, t_list *lst)
 {
 	char	***args;

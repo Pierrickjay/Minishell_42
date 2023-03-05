@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:07:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:22:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// free one env variable and relink the list
 static t_envi	*ft_unset_bis_bis(t_envi *envi, t_envi *tmp, t_envi *top)
 {
 	if (tmp == NULL)
@@ -36,6 +37,7 @@ static t_envi	*ft_unset_bis_bis(t_envi *envi, t_envi *tmp, t_envi *top)
 	return (top);
 }
 
+// unset a variable
 t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 {
 	t_envi	*tmp;
@@ -53,6 +55,7 @@ t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 	return (top);
 }
 
+// unset a variable
 int	ft_unset(t_exec *exec)
 {
 	const char	**args = (const char **)exec->args[exec->i];

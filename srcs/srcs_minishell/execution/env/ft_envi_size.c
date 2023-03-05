@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:59:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 16:56:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:17:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// return the size of the list
 size_t	ft_envi_size(t_envi *envi)
 {
 	size_t	size;

@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 13:26:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:09:13 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// the child process : infile, here doc, and pipe
 static void	ft_exec_pipe_infile_child(t_exec *exec)
 {
 	int		fd_in;
@@ -31,6 +32,7 @@ static void	ft_exec_pipe_infile_child(t_exec *exec)
 	ft_close(&exec->pipes[exec->i][1]);
 }
 
+// the child process : outfile and pipe
 static void	ft_exec_pipe_outfile_child(t_exec *exec)
 {
 	int		fd_out;
@@ -50,6 +52,7 @@ static void	ft_exec_pipe_outfile_child(t_exec *exec)
 	}
 }
 
+// the child process : pipe and redirections
 void	ft_exec_pipe_file_child(t_exec *exec)
 {
 	if (exec->i == 0)

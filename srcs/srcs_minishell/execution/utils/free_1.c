@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:58:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/22 12:05:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:11:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// free a pointer of pointer and initialize it to NULL
 void	ft_free_strs(char **strs)
 {
 	size_t	i;
@@ -25,6 +26,7 @@ void	ft_free_strs(char **strs)
 	ft_free((void **)&strs);
 }
 
+// free the list andd initialize it to NULL
 void	ft_free_lst(t_list *lst)
 {
 	t_list	*tmp;
@@ -38,6 +40,7 @@ void	ft_free_lst(t_list *lst)
 	}
 }
 
+// free the pipes array and initialize it to NULL
 void	ft_free_pipes(int **pipes, size_t nb)
 {
 	size_t	i;
@@ -51,6 +54,7 @@ void	ft_free_pipes(int **pipes, size_t nb)
 	ft_free((void **)&pipes);
 }
 
+// free the args array and initialize it to NULL
 void	ft_free_args(char ***args, size_t nb)
 {
 	size_t	i;
@@ -65,6 +69,7 @@ void	ft_free_args(char ***args, size_t nb)
 	free(args);
 }
 
+// free the redirections list and initialize it to NULL
 void	ft_free_redir(t_list *lst)
 {
 	t_list	*tmp;

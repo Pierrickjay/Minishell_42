@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 12:23:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:21:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// print the current working directory
 int	ft_pwd(t_exec *exec)
 {
 	char	*pwd;

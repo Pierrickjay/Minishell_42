@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:35:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:51:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:10:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// duplicate the enviroment list
 t_envi	*ft_dup_envi(t_envi *envi)
 {
 	t_envi	*dup;

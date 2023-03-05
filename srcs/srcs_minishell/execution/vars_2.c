@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:46:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:03:10 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// get the type of the variable
 int	ft_get_type_var(int *prev)
 {
 	if (*prev == -1 || *prev == PIPE || *prev == FILES)
@@ -20,6 +21,7 @@ int	ft_get_type_var(int *prev)
 	return (ARG);
 }
 
+// set the exit code when $? is used
 int	ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free)
 {
 	char	*str;
@@ -34,6 +36,7 @@ int	ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free)
 	return (EXIT_SUCCESS);
 }
 
+// update lst content to empty string
 int	ft_update_lst(t_list **lst)
 {
 	ft_free((void **)&(*lst)->content);
@@ -44,6 +47,7 @@ int	ft_update_lst(t_list **lst)
 	return (EXIT_SUCCESS);
 }
 
+// get the number of variables in a string
 size_t	ft_nb_var(char *str)
 {
 	size_t	i;

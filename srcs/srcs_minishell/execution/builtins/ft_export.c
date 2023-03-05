@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:32:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:21:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// export a variable
 static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 {
 	t_envi		*new;
@@ -34,6 +35,7 @@ static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 	return (EXIT_SUCCESS);
 }
 
+// join the value of a variable with the value of another variable
 static int	ft_export_join(t_exec *exec, char *key, char *value, int type)
 {
 	size_t	i;
@@ -63,6 +65,7 @@ static int	ft_export_join(t_exec *exec, char *key, char *value, int type)
 	return (EXIT_SUCCESS);
 }
 
+// set a new value to an existing variable
 static int	ft_export_set_var(t_exec *exec, char *key, char *value, int type)
 {
 	size_t	nb;
@@ -84,6 +87,7 @@ static int	ft_export_set_var(t_exec *exec, char *key, char *value, int type)
 	return (EXIT_SUCCESS);
 }
 
+// create a new enviroment variable
 static int	ft_export_create(t_exec *exec, char *arg)
 {
 	bool		var_exist;
@@ -108,6 +112,7 @@ static int	ft_export_create(t_exec *exec, char *arg)
 	return (EXIT_SUCCESS);
 }
 
+// export builtin function return the exit code
 int	ft_export(t_exec *exec)
 {
 	const char	**args = (const char **)exec->args[exec->i];

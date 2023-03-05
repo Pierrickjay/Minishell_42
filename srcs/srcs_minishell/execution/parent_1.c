@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 23:26:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:00:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// main execution, the big boss
 t_envi	*main_exec(t_list *lst, t_envi *envi)
 {
 	static int	exit_code = 0;
@@ -38,6 +39,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	return (envp);
 }
 
+// parent call the child
 int	ft_parent_bis(t_exec *exec, t_envi *envp)
 {
 	int	status;
@@ -62,6 +64,7 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	return (EXIT_SUCCESS);
 }
 
+// update the SHLVL variable
 void	ft_update_shlvl(t_exec *exec)
 {
 	static int	update = false;
@@ -89,6 +92,7 @@ void	ft_update_shlvl(t_exec *exec)
 	}
 }
 
+// update the exit code
 void	ft_exit_code(t_exec *exec)
 {
 	if (exec->status == 64512)

@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:27:47 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:20:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// get the old pwd and pwd and update the enviroment
 static int	ft_cd_4(t_exec *exec, char *pwd, char *old_pwd)
 {
 	size_t	len;
@@ -30,6 +31,7 @@ static int	ft_cd_4(t_exec *exec, char *pwd, char *old_pwd)
 	return (EXIT_SUCCESS);
 }
 
+// get the old pwd and pwd and update the enviroment
 static int	ft_cd_3(t_exec *exec, char *pwd, char *old_pwd)
 {
 	char	*new_pwd;
@@ -47,6 +49,7 @@ static int	ft_cd_3(t_exec *exec, char *pwd, char *old_pwd)
 	return (EXIT_SUCCESS);
 }
 
+// get the old pwd and pwd and update the enviroment
 static int	ft_cd_2(t_exec *exec, char *pwd, char *old_pwd)
 {
 	size_t	len;
@@ -68,6 +71,7 @@ static int	ft_cd_2(t_exec *exec, char *pwd, char *old_pwd)
 	return (EXIT_SUCCESS);
 }
 
+// get the old pwd and pwd and update the enviroment
 static int	ft_cd_1(t_exec *exec, char *pwd)
 {
 	char	*old_pwd;
@@ -88,6 +92,7 @@ static int	ft_cd_1(t_exec *exec, char *pwd)
 	return (EXIT_SUCCESS);
 }
 
+// return exit code and print error message and main of cd
 int	ft_cd(t_exec *exec)
 {
 	const char	**args = (const char **)exec->args[exec->i];

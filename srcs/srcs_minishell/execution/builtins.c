@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:46:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:31:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:09:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// builtins in child process
 int	ft_is_builtins(t_exec *exec)
 {
 	if (!ft_strcmp(exec->args[exec->i][0], "echo"))
@@ -25,6 +26,7 @@ int	ft_is_builtins(t_exec *exec)
 	return (FAILURE);
 }
 
+// builtins in parent process
 int	ft_builtins(t_exec *exec)
 {
 	if (!ft_strcmp(exec->args[exec->i][0], "cd"))

@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/02 13:23:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:08:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// the main execution child process
 void	ft_exec_child(t_exec *exec)
 {
 	const int	n = exec->i;
@@ -27,6 +28,7 @@ void	ft_exec_child(t_exec *exec)
 	ft_exec_child_bis(exec, n);
 }
 
+// the main execution child process bis
 void	ft_exec_child_bis(t_exec *exec, const int n)
 {
 	char	*tmp;
@@ -52,6 +54,7 @@ void	ft_exec_child_bis(t_exec *exec, const int n)
 	exit(EXIT_FAILURE);
 }
 
+// child process for pipes
 void	ft_exec_pipe_child(t_exec *exec)
 {
 	if (exec->i == 0)
@@ -79,6 +82,7 @@ void	ft_exec_pipe_child(t_exec *exec)
 	ft_exec_child(exec);
 }
 
+// child process for redirections
 void	ft_exec_redir_child(t_exec *exec)
 {
 	int		fd_in;
@@ -90,6 +94,7 @@ void	ft_exec_redir_child(t_exec *exec)
 	ft_exec_child(exec);
 }
 
+// child process for redirections bis
 void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out)
 {
 	if (exec->nb_redir_type[INFILE] || exec->nb_redir_type[HEREDOC])

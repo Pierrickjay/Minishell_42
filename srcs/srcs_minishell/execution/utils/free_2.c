@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:43:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:13:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// free a pointer and initialize it to NULL
 void	ft_free(void **ptr)
 {
 	if (*ptr)
@@ -21,6 +22,7 @@ void	ft_free(void **ptr)
 	}
 }
 
+// free a pointer of pointer n and initialize it to NULL
 void	ft_free_strs_n(char **strs, int n)
 {
 	int	i;
@@ -34,6 +36,7 @@ void	ft_free_strs_n(char **strs, int n)
 	free(strs);
 }
 
+// free the list of envi and initialize it to NULL
 void	ft_free_envi(t_envi *envi)
 {
 	t_envi	*tmp;
@@ -48,7 +51,8 @@ void	ft_free_envi(t_envi *envi)
 	}
 }
 
-void	ft_free_exec_2(t_exec *exec)
+// free the exec struct and initialize it to NULL
+static void	ft_free_exec_bis(t_exec *exec)
 {
 	if (exec->pid)
 		ft_free((void **)&exec->pid);
@@ -64,6 +68,7 @@ void	ft_free_exec_2(t_exec *exec)
 	}
 }
 
+// free the exec struct and initialize it to NULL
 void	ft_free_exec(t_exec *exec)
 {
 	if (exec->lst)
@@ -86,6 +91,6 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_redir(exec->redir);
 		exec->redir = NULL;
 	}
-	ft_free_exec_2(exec);
+	ft_free_exec_bis(exec);
 	ft_free((void **)&exec);
 }

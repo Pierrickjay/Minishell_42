@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 12:24:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:16:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// convert a char **env to a t_envi list
 t_envi	*ft_env_to_envi(char **env)
 {
 	t_envi	*envi;

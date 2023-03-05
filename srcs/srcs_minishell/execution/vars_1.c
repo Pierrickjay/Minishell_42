@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:45:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:02:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// get the value of a variable and split it each time there is a space
 static int	ft_lst_split_vars(t_list *tmp, char **strs)
 {
 	t_list	*new;
@@ -40,6 +41,7 @@ static int	ft_lst_split_vars(t_list *tmp, char **strs)
 	return (EXIT_SUCCESS);
 }
 
+// update lst content for a type VAR
 static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 {
 	char	**strs;
@@ -69,6 +71,7 @@ static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 	return (EXIT_SUCCESS);
 }
 
+// update lst content for a lot of vars
 static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 {
 	t_list		*new_lst;
@@ -98,6 +101,7 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	return (ft_free_strs(vars), ft_lstadd(&lst, new_lst), EXIT_SUCCESS);
 }
 
+// parsing VAR
 int	ft_get_vars(t_exec *exec, int exit_code)
 {
 	t_list	*lst;

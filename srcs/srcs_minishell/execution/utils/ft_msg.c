@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 22:26:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:14:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// print the error message
 static void	ft_msg_bis(char *str, int value)
 {
 	if (value == MA)
@@ -40,6 +41,7 @@ static void	ft_msg_bis(char *str, int value)
 	}
 }
 
+// print the error message and/or free and/or exit
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 {
 	if (value > 0 && str)
@@ -63,6 +65,7 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 	}
 }
 
+// print the error message for builtins
 void	ft_msg_builtins(char *cmd, char *arg, char *str)
 {
 	if (cmd)

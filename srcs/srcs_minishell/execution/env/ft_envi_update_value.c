@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:54:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 16:51:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:17:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// update the value of a node in the list
 t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi)
 {
 	t_envi	*to_edit;

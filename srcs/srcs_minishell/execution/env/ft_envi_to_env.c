@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:49:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 16:58:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:17:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// split of ft_envi_to_env
 static int	ft_envi_to_env_bis(char **env, t_envi *envi, size_t i)
 {
 	char	*tmp;
@@ -26,6 +27,7 @@ static int	ft_envi_to_env_bis(char **env, t_envi *envi, size_t i)
 	return (EXIT_SUCCESS);
 }
 
+// convert a t_envi list to a char **env
 char	**ft_envi_to_env(t_envi *envi)
 {
 	char	**env;

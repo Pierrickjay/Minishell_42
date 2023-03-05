@@ -6,14 +6,15 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 12:44:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:10:20 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	ft_args_size_2(t_list *lst, size_t *size);
+static void	ft_args_size_bis(t_list *lst, size_t *size);
 
+// count the number of arguments in the list CMD OPT ARG OPT
 size_t	ft_args_size(t_list *lst)
 {
 	size_t	size;
@@ -38,11 +39,12 @@ size_t	ft_args_size(t_list *lst)
 		size++;
 		lst = lst->next;
 	}
-	ft_args_size_2(lst, &size);
+	ft_args_size_bis(lst, &size);
 	return (size);
 }
 
-static void	ft_args_size_2(t_list *lst, size_t *size)
+// count the number of arguments in the list CMD OPT ARG OPT
+static void	ft_args_size_bis(t_list *lst, size_t *size)
 {
 	while (lst && lst->type == OPT)
 	{
@@ -51,6 +53,7 @@ static void	ft_args_size_2(t_list *lst, size_t *size)
 	}
 }
 
+// convert the list to an array of arguments
 char	**ft_lst_to_args(t_list *lst)
 {
 	char	**args;

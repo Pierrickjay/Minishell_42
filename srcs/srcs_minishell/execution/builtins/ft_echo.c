@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:23:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:20:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// the echo builtin
 int	ft_echo(t_exec	*exec)
 {
 	char	**args;
@@ -29,7 +30,7 @@ int	ft_echo(t_exec	*exec)
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], STDOUT);
-		if (args[i + 1])
+		if (args[i + 1] && args[i + 1][0] != '\0')
 			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
