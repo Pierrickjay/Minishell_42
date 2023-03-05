@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:44:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:47:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int		ft_get_vars(t_exec *exec, int exit_code);
 int		ft_get_type_var(int *prev);
 int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
 int		ft_update_lst(t_list **lst);
+size_t	ft_nb_var(char *str);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
@@ -160,10 +161,6 @@ void	ft_free_envi_delone(t_envi *envi);
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
 void	ft_msg_builtins(char *cmd, char *arg, char *str);
-
-//ft_nb.c
-size_t	ft_nb_var(char *str);
-size_t	ft_nb_vars(t_list *lst);
 
 //here_doc.c
 int		ft_here_doc(char *end);
@@ -196,9 +193,9 @@ int		ft_is_builtins(t_exec *exec);
 int		ft_builtins(t_exec *exec);
 int		ft_echo(t_exec	*exec);
 int		ft_pwd(t_exec *exec);
-int		ft_cd(t_exec *exec); //not ok
+int		ft_cd(t_exec *exec);
 int		ft_env(t_exec *exec);
-int		ft_export(t_exec *exec); //bug
+int		ft_export(t_exec *exec);
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);
 int		ft_unset(t_exec *exec);
 /******************************************************************************/

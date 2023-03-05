@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:44:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:46:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ int	ft_update_lst(t_list **lst)
 	if (!(*lst)->content)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+size_t	ft_nb_var(char *str)
+{
+	size_t	i;
+	size_t	nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			nb++;
+		i++;
+	}
+	return (nb);
 }
