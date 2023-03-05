@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:30:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:44:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	*ft_access(char *cmd, char **path);
 //vars_1.c
 int		ft_get_vars(t_exec *exec, int exit_code);
 //vars_2.c
-int		ft_get_type_var(int prev);
+int		ft_get_type_var(int *prev);
 int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
 int		ft_update_lst(t_list **lst);
 /******************************************************************************/

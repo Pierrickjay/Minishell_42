@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 12:33:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:45:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 		return (EXIT_FAILURE);
 	free(lst->content);
 	lst->content = value;
-	lst->type = ft_get_type_var(prev);
+	lst->type = ft_get_type_var(&prev);
 	if (ft_strchr(value, ' '))
 	{
 		strs = ft_split(lst->content, ' ');
@@ -76,6 +76,8 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	char		*value;
 	int			i;
 
+	if (ft_strchr(lst->content, '=') != NULL)
+		return (EXIT_SUCCESS);
 	new_lst = NULL;
 	vars = ft_split(lst->content, '$');
 	if (!vars || ft_update_lst(&lst))
@@ -91,8 +93,7 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 		value = ft_strdup(ft_getenvi(vars[i], exec->envi));
 		if (!value)
 			return (ft_free_strs(vars), EXIT_FAILURE);
-		ft_lstadd_back(&new_lst, ft_lstnew(value, ft_get_type_var(prev)));
-		prev = ARG;
+		ft_lstadd_back(&new_lst, ft_lstnew(value, ft_get_type_var(&prev)));
 	}
 	return (ft_free_strs(vars), ft_lstadd(&lst, new_lst), EXIT_SUCCESS);
 }
