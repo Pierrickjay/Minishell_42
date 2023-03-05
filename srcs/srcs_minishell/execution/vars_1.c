@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:02:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:11:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	char		*value;
 	int			i;
 
-	if (ft_strchr(lst->content, '=') != NULL)
-		return (EXIT_SUCCESS);
 	new_lst = NULL;
 	vars = ft_split(lst->content, '$');
-	if (!vars || ft_update_lst(&lst))
+	if (!vars)
 		return (EXIT_FAILURE);
+	if (ft_update_lst(&lst))
+		return (ft_free_strs(vars), EXIT_FAILURE);
 	i = -1;
 	while (vars[++i])
 	{
@@ -120,7 +120,9 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 		}
 		else if (n >= 1 && ft_strchr(lst->content, '$') != NULL)
 		{
-			if (ft_get_var_str(exec, lst, previous, exit_code) == EXIT_FAILURE)
+			if (ft_strchr(lst->content, '=') != NULL)
+				;
+			else if (ft_get_var_str(exec, lst, previous, exit_code) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		previous = lst->type;
