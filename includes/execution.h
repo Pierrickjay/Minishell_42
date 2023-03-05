@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 23:10:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 12:30:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,12 @@ char	**ft_lst_to_args(t_list *lst);
 char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
-//vars.c
+//vars_1.c
 int		ft_get_vars(t_exec *exec, int exit_code);
+//vars_2.c
+int		ft_get_type_var(int prev);
+int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
+int		ft_update_lst(t_list **lst);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
@@ -159,6 +163,7 @@ void	ft_msg_builtins(char *cmd, char *arg, char *str);
 
 //ft_nb.c
 size_t	ft_nb_var(char *str);
+size_t	ft_nb_vars(t_list *lst);
 
 //here_doc.c
 int		ft_here_doc(char *end);
