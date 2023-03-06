@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 16:11:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:00:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,51 @@ static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 	return (EXIT_SUCCESS);
 }
 
+static char	*ft_check_var(t_exec *exec, char *vars, int ec, \
+							const size_t size)
+{
+	char	*str;
+	t_list	*to_join;
+
+	str = NULL;
+	to_join = NULL;
+	exec->exit_code = ec;
+	vars = ft_check_vars(exec, (const size_t) size, &to_join, vars);
+	if (ft_getenvi(vars, exec->envi) != NULL)
+		str = ft_strdup(ft_getenvi(vars, exec->envi));
+	if (str && !to_join)
+		return (free(vars), str);
+	str = ft_lstjoin(to_join);
+	ft_free_lst(to_join);
+	free(vars);
+	return (str);
+}
+
 // update lst content for a lot of vars
 static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 {
-	t_list		*new_lst;
-	char		**vars;
-	char		*value;
-	int			i;
+	const size_t	size = ft_envi_size(exec->envi);
+	char			*tmp;
+	t_list			*to_join;
+	size_t			i;
+	char			**vars;
 
-	new_lst = NULL;
+	to_join = NULL;
 	vars = ft_split(lst->content, '$');
 	if (!vars)
 		return (EXIT_FAILURE);
-	if (ft_update_lst(&lst))
-		return (ft_free_strs(vars), EXIT_FAILURE);
-	i = -1;
-	while (vars[++i])
+	i = 0;
+	while (vars[i])
 	{
-		if (ft_strcmp("?", vars[i]) == 0 && ft_set_exit_code(lst, ec, prev, 0))
-		{
-			i++;
-			continue ;
-		}
-		value = ft_strdup(ft_getenvi(vars[i], exec->envi));
-		if (!value)
-			return (ft_free_strs(vars), EXIT_FAILURE);
-		ft_lstadd_back(&new_lst, ft_lstnew(value, ft_get_type_var(&prev)));
+		tmp = ft_check_var(exec, vars[i], ec, size);
+		if (!tmp)
+			return (EXIT_FAILURE);
+		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
+		i++;
 	}
-	return (ft_free_strs(vars), ft_lstadd(&lst, new_lst), EXIT_SUCCESS);
+	if (ft_update_lst(lst, to_join, &prev))
+		return (EXIT_FAILURE);
+	return (ft_free_lst(to_join), free(vars), EXIT_SUCCESS);
 }
 
 // parsing VAR
@@ -122,7 +139,7 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 		{
 			if (ft_strchr(lst->content, '=') != NULL)
 				;
-			else if (ft_get_var_str(exec, lst, previous, exit_code) == EXIT_FAILURE)
+			else if (ft_get_var_str(exec, lst, previous, exit_code) == 1)
 				return (EXIT_FAILURE);
 		}
 		previous = lst->type;

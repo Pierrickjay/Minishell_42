@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:03:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:59:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free)
 }
 
 // update lst content to empty string
-int	ft_update_lst(t_list **lst)
+int	ft_update_lst(t_list *lst, t_list *to_join, int *prev)
 {
-	ft_free((void **)&(*lst)->content);
-	(*lst)->type = ARG;
-	(*lst)->content = ft_strdup("\0");
-	if (!(*lst)->content)
+	free(lst->content);
+	lst->content = ft_lstjoin(to_join);
+	if (!lst->content)
 		return (EXIT_FAILURE);
+	lst->type = ft_get_type_var(prev);
 	return (EXIT_SUCCESS);
 }
 
@@ -62,4 +62,33 @@ size_t	ft_nb_var(char *str)
 		i++;
 	}
 	return (nb);
+}
+
+char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars)
+{
+	size_t	len;
+	char	*add;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(vars);
+	while (--len && i < size && ft_getenvi(vars, exec->envi) == NULL)
+	{
+		if (len == 1 && ft_strcmp(vars, "?") == 0)
+		{
+			add = ft_itoa(exec->exit_code);
+			if (!add)
+				return (NULL);
+			ft_lstadd_front(to_join, ft_lstnew(add, -1));
+			i++;
+			continue ;
+		}
+		add = ft_strdup(&vars[len - 1]);
+		if (!add)
+			return (NULL);
+		vars[len - 1] = '\0';
+		ft_lstadd_front(to_join, ft_lstnew(add, -1));
+		i++;
+	}
+	return (vars);
 }

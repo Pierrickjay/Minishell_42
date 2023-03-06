@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 16:13:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:16:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,24 @@ int	ft_echo(t_exec	*exec)
 	bool	endl;
 
 	args = exec->args[exec->i];
-	i = 1;
+	i = 0;
 	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
-	{
+	while (args[++i] && ft_strcmp(args[i], "-n") == 0)
 		endl = false;
-		i++;
-	}
-	while (args[i])
+	while (args[++i])
 	{
-		ft_putstr_fd(args[i], STDOUT);
+		if (ft_putstr_fd(args[i], STDOUT))
+			return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
 		if (args[i + 1] && args[i][0] != '\0')
-			ft_putchar_fd(' ', STDOUT);
-		i++;
+		{
+			if (ft_putchar_fd(' ', STDOUT))
+				return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
+		}
 	}
 	if (endl)
-		ft_putchar_fd('\n', STDOUT);
+	{
+		if (ft_putchar_fd('\n', STDOUT))
+			return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

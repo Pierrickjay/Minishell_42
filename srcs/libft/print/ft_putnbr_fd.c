@@ -6,13 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:44:11 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/01 10:01:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:14:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	long int	nb;
 
@@ -20,13 +20,20 @@ void	ft_putnbr_fd(int n, int fd)
 	if (nb < 0)
 	{
 		nb *= -1;
-		ft_putchar_fd('-', fd);
+		if (ft_putchar_fd('-', fd))
+			return (EXIT_FAILURE);
 	}
 	if (nb >= 10)
 	{
-		ft_putnbr_fd(nb / 10, fd);
-		ft_putnbr_fd(nb % 10, fd);
+		if (ft_putnbr_fd(nb / 10, fd))
+			return (EXIT_FAILURE);
+		if (ft_putnbr_fd(nb % 10, fd))
+			return (EXIT_FAILURE);
 	}
 	else
-		ft_putchar_fd((nb + 48), fd);
+	{
+		if (ft_putchar_fd((nb + 48), fd))
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
