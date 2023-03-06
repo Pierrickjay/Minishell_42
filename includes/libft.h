@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/04 18:48:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:06:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ char	*ft_strjoin_all(char **strs, char c);
 char	**ft_split(char const *s, char c);
 
 //print
-void	ft_putchar_fd(char c, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putnbr_fd(int n, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putendl_fd(char *s, int fd);
 
 //liste_chaine
 

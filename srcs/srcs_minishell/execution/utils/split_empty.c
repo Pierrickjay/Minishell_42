@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   split_empty.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 12:44:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:09:33 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/06 14:39:15 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/06 14:42:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../../includes/minishell.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_split_empty(char **strs)
 {
-	if (write(fd, s, ft_strlen(s)) == -1)
+	size_t	i;
+	size_t	n;
+
+	i = 0;
+	n = 0;
+	while (strs[i])
+	{
+		if (ft_strcmp(strs[i], "\0") == 0)
+			n++;
+		i++;
+	}
+	if (i == n)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

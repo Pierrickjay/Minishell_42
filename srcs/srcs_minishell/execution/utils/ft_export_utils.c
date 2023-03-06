@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 12:44:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:09:33 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/06 15:51:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libft.h"
+#include "../../../../includes/minishell.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_is_ident(int c)
 {
-	if (write(fd, s, ft_strlen(s)) == -1)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
+		return (true);
+	return (false);
 }

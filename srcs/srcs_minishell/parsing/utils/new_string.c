@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 16:02:38 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 16:07:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ int	count_lengh(char *str)
 	return (size);
 }
 
+char	*finish_it(char *new_str, int i, int j)
+{
+	new_str[i + j] = '\0';
+	new_str = separate_pipe(new_str);
+	if (!new_str)
+		return (NULL);
+	else
+		return (new_str);
+}
+
 static void	new_string_1(int *i, int *j, char *str, char *new_str)
 {
 	if (str[*i + 2] && str[*i + 2] == '>')
@@ -55,16 +65,6 @@ static void	new_string_2(int *i, int *j, char *str, char *new_str)
 	else
 		*i += fill_string_single(&new_str[*i + *j], &str[*i], '<');
 	*j += 2;
-}
-
-char	*finish_it(char *new_str, int i, int j)
-{
-	new_str[i + j] = '\0';
-	new_str = separate_pipe(new_str);
-	if (!new_str)
-		return (NULL);
-	else
-		return (new_str);
 }
 
 char	*new_string(char *str)

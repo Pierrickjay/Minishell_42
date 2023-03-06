@@ -1,37 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env.c                                       :+:      :+:    :+:   */
+/*   ft_lstjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 15:21:18 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:38:42 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/06 10:50:44 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/06 13:38:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-// return the value of the env variable
-char	*ft_get_env(char *name, char **env)
+static size_t	ft_lstjoin_len(t_list *to_join)
 {
-	char	*value;
 	size_t	len;
-	size_t	i;
 
-	if (!env)
-		return (NULL);
-	len = ft_strlen((const char *)name);
-	i = 0;
-	while (env[i])
+	len = 0;
+	while (to_join)
 	{
-		if (ft_strncmp(name, env[i], len) == 0)
-		{
-			value = ft_get_value(env[i]);
-			if (!value)
-				return (NULL);
-		}
-		i++;
+		len += ft_strlen(to_join->content);
+		to_join = to_join->next;
 	}
-	return (NULL);
+	return (len);
+}
+
+char	*ft_lstjoin(t_list *to_join)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	len;
+
+	len = ft_lstjoin_len(to_join);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (to_join)
+	{
+		j = 0;
+		len = ft_strlen(to_join->content);
+		while (j < len)
+		{
+			str[i] = to_join->content[j];
+			i++;
+			j++;
+		}
+		to_join = to_join->next;
+	}
+	str[i] = '\0';
+	return (str);
 }

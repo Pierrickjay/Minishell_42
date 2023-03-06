@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 13:50:10 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 16:04:37 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,21 @@ void	free_all(char **split, char *save)
 
 void	ft_exit(t_list *list, char *save, t_envi *envp)
 {
+	int	exit_value;
+
+	exit_value = 0;
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
 		if (list->next && list->next->next && \
 			ft_isdigit(list->next->next->content[0]) == 1)
 			return ;
+		if (list->next && list->next->content)
+			exit_value = ft_atoi(list->next->content);
 		free(save);
 		ft_free_lst(list);
 		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
-		exit(0);
+		exit(exit_value);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 11:03:10 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 15:32:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	if (ft_parent_bis(exec, envi))
 		return (envi);
 	envp = ft_dup_envi(exec->envi);
-	if (!envp)
-		return (ft_msg(exec, "parent_1.c (35)", MA, NULL), NULL);
+	if (envp == FAIL)
+		return (ft_free_exec(exec), NULL);
 	ft_exit_code(exec);
 	exit_code = exec->status;
 	ft_free_exec(exec);
@@ -84,7 +84,7 @@ void	ft_update_shlvl(t_exec *exec)
 				return (ft_msg_malloc("parent_1.c (84)"));
 			exec->envi = ft_envi_update_value("SHLVL", shlvl, 0, exec->envi);
 			exec->env = ft_envi_to_env(exec->envi);
-			if (!exec->env)
+			if (exec->env == FAIL)
 				return (ft_msg_malloc("parent_1.c (88)"));
 			free(shlvl);
 		}
