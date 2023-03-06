@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 09:20:52 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 10:47:22 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,14 @@ t_list	*ft_fill(char *str, t_free *to_free)
 		return (NULL);
 	list->next = NULL;
 	str_dup = split_parsing(new_str, ' ');
-	if (str_dup == NULL)
-		return (NULL);
 	if (!str_dup)
 		return (ft_erase_all(str_dup, list, str));
 	to_free->split = trim_all(str_dup);
 	if (!to_free->split || !(to_free->split[0]))
 		return (ft_erase_all(str_dup, list, new_str));
 	list = ft_fill_2(to_free, list);
+	ft_lst_print_type(list);
 	if (!list)
 		return (NULL);
-	free(new_str);
-	return (list);
+	return (free(new_str), list);
 }

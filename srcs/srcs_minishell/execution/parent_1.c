@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:00:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 09:40:00 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,6 @@ void	ft_exit_code(t_exec *exec)
 		exec->status = 1;
 	else if (exec->status == 64256)
 		exec->status = 128;
+	else if (exec->status == 256)
+		exec->status = 1;
 }
