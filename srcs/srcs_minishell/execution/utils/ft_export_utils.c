@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 17:22:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:06:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ int	ft_all_isalnum(char *str)
 		i++;
 	}
 	if (n == len)
+		return (1);
+	return (0);
+}
+
+int	ft_check_last_char(char *str, char c)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	if (str[len - 1] == c)
 		return (1);
 	return (0);
 }

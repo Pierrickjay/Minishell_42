@@ -6,18 +6,18 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:51:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:16:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
 // export a variable
-static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
+int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 {
 	t_envi		*new;
 
-	if (exec->envi && ft_getenvi(key, exec->envi) != NULL)
+	if (ft_getenvi(key, exec->envi) != NULL)
 	{
 		exec->envi = ft_envi_update_value(key, value, type, exec->envi);
 		if (exec->envi == FAIL)
@@ -90,25 +90,28 @@ static int	ft_export_set_var(t_exec *exec, char *key, char *value, int type)
 // create a new enviroment variable
 static int	ft_export_create(t_exec *exec, char *arg)
 {
-	bool		var_exist;
-	char		*key;
-	char		*value;
-	int			type;
+	int		var_exist;
+	int		cat;
+	char	*key;
+	char	*value;
+	int		type;
 
+	cat = false;
 	var_exist = false;
 	type = NORMAL;
-	if (ft_strchr(arg, '=') == NULL)
-		type = NO_VALUE;
-	if (ft_strchr(arg, '$') != NULL)
-		var_exist = true;
+	ft_set(arg, &type, &var_exist);
 	key = ft_get_key(arg);
 	value = ft_get_value(arg);
 	if (!key || !value)
-		return (ft_msg_malloc("export.c (107)"), EXIT_FAILURE);
-	if (var_exist && ft_export_set_var(exec, key, value, type))
-		return (free(value), free(key), ft_msg_malloc("export.c (109)"), 1);
-	else if (!var_exist && ft_export_set(exec, key, value, type))
+		return (ft_msg_malloc("export.c (109)"), EXIT_FAILURE);
+	if (ft_check_last_char(key, '+'))
+		cat = true;
+	if (cat && ft_export_cat(exec, key, value, type))
 		return (free(value), free(key), ft_msg_malloc("export.c (111)"), 1);
+	if (var_exist && ft_export_set_var(exec, key, value, type))
+		return (free(value), free(key), ft_msg_malloc("export.c (113)"), 1);
+	else if (!cat && !var_exist && ft_export_set(exec, key, value, type))
+		return (free(value), free(key), ft_msg_malloc("export.c (115)"), 1);
 	return (EXIT_SUCCESS);
 }
 

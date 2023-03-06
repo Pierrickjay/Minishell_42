@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:06:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:06:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:43:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+# include <stdbool.h>
 //pjay
 # include "parsing.h"
 //obouhlel
