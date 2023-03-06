@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:21:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:04:30 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	is_full_of_space(char *save)
+{
+	int	i;
+
+	i = 0;
+	while (save[i])
+	{
+		if (save[i] != ' ')
+			return (0);
+		i++;
+	}
+	free(save);
+	return (-1);
+}
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
@@ -24,7 +39,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		create_siga(MAIN);
 		save = readline("minishell> ");
 		create_siga(PARENT);
-		if (save_is_null(save) == -1)
+		if (save_is_null(save, envp) == -1 || is_full_of_space(save) == -1)
 			continue ;
 		add_history(save);
 		list = ft_fill(save, to_free);

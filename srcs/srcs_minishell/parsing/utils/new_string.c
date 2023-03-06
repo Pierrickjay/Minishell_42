@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 14:25:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:07:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int	count_lengh(char *str)
 		}
 	}
 	return (size);
+}
+
+char	*finish_it(char *new_str, int i, int j)
+{
+	new_str[i + j] = '\0';
+	new_str = separate_pipe(new_str);
+	if (!new_str)
+		return (NULL);
+	else
+		return (new_str);
 }
 
 static void	new_string_1(int *i, int *j, char *str, char *new_str)
@@ -81,6 +91,5 @@ char	*new_string(char *str)
 		else
 			new_str[i + j] = str[i];
 	}
-	new_str[i + j] = '\0';
-	return (new_str);
+	return (finish_it(new_str, i, j));
 }
