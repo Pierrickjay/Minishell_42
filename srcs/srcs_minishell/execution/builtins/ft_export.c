@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 10:13:12 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:43:51 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 {
 	t_envi		*new;
 
-	if (ft_getenvi(key, exec->envi) != NULL)
+	if (exec->envi && ft_getenvi(key, exec->envi) != NULL)
 	{
 		exec->envi = ft_envi_update_value(key, value, type, exec->envi);
-		if (!exec->envi)
+		if (exec->envi == FAIL)
 			return (EXIT_FAILURE);
 		free(key);
 		free(value);
@@ -123,7 +123,8 @@ int	ft_export(t_exec *exec)
 	i = 0;
 	while (args[++i])
 	{
-		if (ft_isdigit(args[i][0]))
+		if (ft_isdigit(args[i][0]) || args[i][0] == '?' || args[i][0] == '!' \
+						|| args[i][0] == '@' || args[i][0] == '#')
 		{
 			ft_msg_builtins("export", (char *)args[i], IDENT);
 			exec->status = 1;
@@ -131,9 +132,10 @@ int	ft_export(t_exec *exec)
 		}
 		if (ft_export_create(exec, (char *)args[i]))
 			return (EXIT_FAILURE);
-		ft_free_strs(exec->env);
+		if (exec->env)
+			ft_free_strs(exec->env);
 		exec->env = ft_envi_to_env(exec->envi);
-		if (!exec->env)
+		if (exec->env == FAIL)
 			return (EXIT_FAILURE);
 	}
 	if (exec->status == 1)

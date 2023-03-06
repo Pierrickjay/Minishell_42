@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:42:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:20:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int		ft_builtins(t_exec *exec);
 int		ft_echo(t_exec	*exec);
 int		ft_pwd(t_exec *exec);
 int		ft_cd(t_exec *exec);
+int		ft_cd_1(t_exec *exec, char *pwd);
 int		ft_env(t_exec *exec);
 int		ft_export(t_exec *exec);
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);

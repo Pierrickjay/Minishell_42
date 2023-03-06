@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 15:21:18 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:18:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:38:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_get_env(char *name, char **env)
 	size_t	len;
 	size_t	i;
 
+	if (!env)
+		return (NULL);
 	len = ft_strlen((const char *)name);
 	i = 0;
 	while (env[i])

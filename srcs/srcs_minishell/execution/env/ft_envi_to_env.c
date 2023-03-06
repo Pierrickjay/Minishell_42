@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:49:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:17:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:22:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,19 @@ char	**ft_envi_to_env(t_envi *envi)
 	size_t	i;
 	size_t	size;
 
+	if (!envi)
+		return (NULL);
 	size = ft_envi_size(envi);
 	env = malloc(sizeof(char *) * (size + 1));
 	if (!env)
-		return (NULL);
+		return (FAIL);
 	i = 0;
 	while (i < size)
 	{
 		if (envi->type == NORMAL)
 		{
 			if (ft_envi_to_env_bis(env, envi, i) == EXIT_FAILURE)
-				return (NULL);
+				return (FAIL);
 			i++;
 		}
 		envi = envi->next;

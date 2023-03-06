@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 10:13:54 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:24:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int exit_code)
 		return (ft_msg_malloc("exec_1.c (23)"), NULL);
 	exec->lst = lst;
 	exec->env = ft_envi_to_env(envi);
-	if (!exec->env)
+	if (exec->env == FAIL)
 		return (ft_msg(exec, "exec_1.c (27)", MA, NULL), NULL);
 	exec->envi = envi;
 	if (ft_get_vars(exec, exit_code) == EXIT_FAILURE)

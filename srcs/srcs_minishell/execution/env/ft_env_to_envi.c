@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:16:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:23:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_envi	*ft_env_to_envi(char **env)
 	char	*value;
 	int		i;
 
+	if (!env)
+		return (NULL);
 	i = 0;
 	envi = NULL;
 	while (env[i])
@@ -28,10 +30,10 @@ t_envi	*ft_env_to_envi(char **env)
 		key = ft_get_key(env[i]);
 		value = ft_get_value(env[i]);
 		if (!key || !value)
-			return (ft_free_envi(envi), NULL);
+			return (ft_free_envi(envi), FAIL);
 		new = ft_envi_new(key, value, NORMAL);
 		if (!new)
-			return (ft_free_envi(envi), NULL);
+			return (ft_free_envi(envi), FAIL);
 		ft_envi_add_back(&envi, new);
 		i++;
 	}

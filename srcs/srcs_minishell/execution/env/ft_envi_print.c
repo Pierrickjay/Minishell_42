@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:17:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:44:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // print the list
 void	ft_envi_print(t_envi *envi)
 {
+	if (!envi)
+		return ;
 	while (envi)
 	{
 		ft_putstr_fd("declare -x ", STDOUT);

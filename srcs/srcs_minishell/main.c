@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:31:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:21:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 	static t_envi	*envp = NULL;
 
 	envp = ft_env_to_envi(env);
-	if (!envp)
+	if (envp == FAIL)
 		return (ft_msg_malloc("main.c (21)"), EXIT_FAILURE);
 	while (1)
 	{
@@ -35,7 +35,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 			continue ;
 		free_all(to_free->split, save);
 		envp = main_exec(list, envp);
-		if (!envp)
+		if (envp == FAIL)
 			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:22:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:24:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_unset(t_exec *exec)
 	ft_free_strs(exec->env);
 	exec->envi = ft_unset_bis(args[1], exec->envi);
 	exec->env = ft_envi_to_env(exec->envi);
-	if (!exec->env)
+	if (exec->env == FAIL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
