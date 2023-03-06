@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/04 23:15:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:50:10 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	save_is_null(char *save)
+int	save_is_null(char *save, t_envi *envp)
 {
 	if (save == NULL)
 	{
 		printf("exit\n");
+		ft_free_envi(envp);
 		exit(0);
 	}
 	if (save[0] == '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 16:11:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 11:45:59 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 		{
 			if (ft_strchr(lst->content, '=') != NULL)
 				;
-			else if (ft_get_var_str(exec, lst, previous, exit_code) == EXIT_FAILURE)
+			else if (ft_get_var_str(exec, lst, previous, exit_code) == 1)
 				return (EXIT_FAILURE);
 		}
 		previous = lst->type;
