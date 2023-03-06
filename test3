@@ -1,0 +1,11 @@
+a.out
+includes
+lib
+libs
+Makefile
+minishell
+objs
+srcs
+test1
+test2
+test3

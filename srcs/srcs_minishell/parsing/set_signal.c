@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/03 12:39:45 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 09:09:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,11 @@ int	create_siga(int mode)
 	}
 	if (mode == CHILD)
 	{
-		printf("enter here child\n");
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
 	if (mode == PARENT)
 	{
-		printf("enter here parent\n");
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}

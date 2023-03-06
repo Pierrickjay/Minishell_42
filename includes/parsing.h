@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/03 12:26:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 12:22:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,6 @@ int		ft_check_list(t_list *list, t_free *to_free, char *save, char **envp);
 void	*free_inverse_split(char **split, int i);
 int		count_quote_single(char *str);
 void	*free_str_quote_error(char *str);
+int		go_next_quote(char *str, int index, char c);
+char	*new_string(char *str);
 #endif

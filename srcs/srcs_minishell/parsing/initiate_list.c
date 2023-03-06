@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/03 12:39:29 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 12:25:51 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,29 @@ t_list	*ft_fill(char *str, t_free *to_free)
 {
 	t_list	*list;
 	char	**str_dup;
+	char	*new_str;
 
 	if (count_quote_single(str) == -1)
 		return (free_str_quote_error(str));
+	new_str = new_string(str);
+	if (!new_str)
+		return (NULL);
 	list = NULL;
 	list = ft_calloc(sizeof(*list), 1);
 	if (!list)
 		return (NULL);
 	list->next = NULL;
-	str_dup = split_parsing(str, ' ');
+	str_dup = split_parsing(new_str, ' ');
 	if (str_dup == NULL)
 		return (NULL);
 	if (!str_dup)
 		return (ft_erase_all(str_dup, list, str));
 	to_free->split = trim_all(str_dup);
 	if (!to_free->split || !(to_free->split[0]))
-		return (ft_erase_all(str_dup, list, str));
+		return (ft_erase_all(str_dup, list, new_str));
 	list = ft_fill_2(to_free, list);
 	if (!list)
 		return (NULL);
+	free(new_str);
 	return (list);
 }
