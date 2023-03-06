@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 09:21:05 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 10:39:41 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,8 @@ int		count_quote_single(char *str);
 void	*free_str_quote_error(char *str);
 int		go_next_quote(char *str, int index, char c);
 char	*new_string(char *str);
+int		to_go_next_quote_double(char *str, char *new_str, int i, int j);
+int		to_go_next_quote_single(char *str, char *new_str, int i, int j);
+int		fill_string_double(char *new_str, char *str, char c);
+int		fill_string_single(char *new_str, char *str, char c);
 #endif

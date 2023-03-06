@@ -42,7 +42,7 @@ SRCS		+= main.c
 #   pjay
 SRCS        += parsing/utils/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/quote/for_the_trim.c \
 				parsing/type.c parsing/quote/quote.c parsing/utils/utils_2.c parsing/utils/split_parsing.c parsing/utils/split_utils.c \
-				parsing/exit_boucle.c parsing/quote/check_quote.c parsing/utils/new_string.c
+				parsing/exit_boucle.c parsing/quote/check_quote.c parsing/utils/new_string.c parsing/utils/new_string_utils.c
 
 #   obouhlel
 SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c execution/utils/ft_msg.c \
