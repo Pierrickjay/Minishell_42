@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 16:04:37 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 16:37:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	save_is_null(char *save, t_envi *envp)
 {
 	if (save == NULL)
 	{
-		printf("exit\n");
+		ft_putendl_fd("exit", STDOUT);
 		ft_free_envi(envp);
 		exit(0);
 	}
@@ -30,11 +30,11 @@ int	save_is_null(char *save, t_envi *envp)
 
 void	free_all(char **split, char *save)
 {
-	free(save);
+	ft_free((void **)&save);
 	free(split);
 }
 
-void	ft_exit(t_list *list, char *save, t_envi *envp)
+void	ft_exit(t_list *list, t_envi *envp)
 {
 	int	exit_value;
 
@@ -46,7 +46,6 @@ void	ft_exit(t_list *list, char *save, t_envi *envp)
 			return ;
 		if (list->next && list->next->content)
 			exit_value = ft_atoi(list->next->content);
-		free(save);
 		ft_free_lst(list);
 		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
