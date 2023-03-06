@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:03:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:23:16 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,6 @@ char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars);
 void	ft_close_pipes(int **pipes, size_t nb);
 void	ft_close(int *fd);
 
-//dup_env.c
-t_envi	*ft_dup_envi(t_envi *envi);
-
 //free.c
 //free_1.c
 void	ft_free_strs(char **strs);
@@ -162,14 +159,6 @@ void	ft_free_exec(t_exec *exec);
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
 
-//ft_export_utils.c
-int		ft_is_ident(int c);
-int		ft_all_isalnum(char *str);
-int		ft_check_last_char(char *str, char c);
-
-//ft_lstjoin.c
-char	*ft_lstjoin(t_list *to_join);
-
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
 void	ft_msg_builtins(char *cmd, char *arg, char *str);
@@ -184,8 +173,12 @@ int		ft_open_infiles(t_list *redir, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir);
 
-//split_empty.c
+//utils.c
+int		ft_is_ident(int c);
+int		ft_all_isalnum(char *str);
+int		ft_check_last_char(char *str, char c);
 int		ft_split_empty(char **strs);
+t_envi	*ft_dup_envi(t_envi *envi);
 /******************************************************************************/
 
 /*************************************ENV**************************************/

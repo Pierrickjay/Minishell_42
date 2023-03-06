@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:06:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:22:51 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ int	ft_is_ident(int c)
 	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
 		return (true);
 	return (false);
+}
+
+int	ft_check_last_char(char *str, char c)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	if (str[len - 1] == c)
+		return (1);
+	return (0);
 }
 
 int	ft_all_isalnum(char *str)
@@ -39,12 +49,44 @@ int	ft_all_isalnum(char *str)
 	return (0);
 }
 
-int	ft_check_last_char(char *str, char c)
+int	ft_split_empty(char **strs)
 {
-	size_t	len;
+	size_t	i;
+	size_t	n;
 
-	len = ft_strlen(str);
-	if (str[len - 1] == c)
-		return (1);
-	return (0);
+	i = 0;
+	n = 0;
+	while (strs[i])
+	{
+		if (ft_strcmp(strs[i], "\0") == 0)
+			n++;
+		i++;
+	}
+	if (i == n)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+// duplicate the enviroment list
+t_envi	*ft_dup_envi(t_envi *envi)
+{
+	t_envi	*dup;
+	t_envi	*tmp;
+	char	*key;
+	char	*value;
+
+	dup = NULL;
+	while (envi)
+	{
+		key = ft_strdup(envi->key);
+		value = ft_strdup(envi->value);
+		if (!key || !value)
+			return (ft_free_envi(dup), ft_msg_malloc("parent_1.c (29)"), NULL);
+		tmp = ft_envi_new(key, value, envi->type);
+		if (!tmp)
+			return (NULL);
+		ft_envi_add_back(&dup, tmp);
+		envi = envi->next;
+	}
+	return (dup);
 }
