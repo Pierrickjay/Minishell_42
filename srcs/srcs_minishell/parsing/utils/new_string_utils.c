@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_string_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:16:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 10:39:55 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 14:25:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	to_go_next_quote_single(char *str, char *new_str, int i, int j)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = i;
 	while (i <= go_next_quote(str, tmp, '\''))
