@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:31:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:05:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// count the number of commands in the list
 size_t	ft_nb_cmds(t_list *lst)
 {
 	size_t	nb;
@@ -26,6 +27,7 @@ size_t	ft_nb_cmds(t_list *lst)
 	return (nb);
 }
 
+// count the number of redirection in the list
 size_t	ft_nb_redir(t_list *lst)
 {
 	size_t	nb;
@@ -40,19 +42,21 @@ size_t	ft_nb_redir(t_list *lst)
 	return (nb);
 }
 
+// set the type of the redirection
 t_redir	ft_redir_type(char *str)
 {
-	if (ft_strncmp(str, ">\0", 2) == 0)
+	if (ft_strcmp(str, ">\0") == 0)
 		return (TRUNC);
-	else if (ft_strncmp(str, ">>\0", 3) == 0)
+	else if (ft_strcmp(str, ">>\0") == 0)
 		return (APPEND);
-	else if (ft_strncmp(str, "<\0", 2) == 0)
+	else if (ft_strcmp(str, "<\0") == 0)
 		return (INFILE);
-	else if (ft_strncmp(str, "<<\0", 3) == 0)
+	else if (ft_strcmp(str, "<<\0") == 0)
 		return (HEREDOC);
 	return (FAILURE);
 }
 
+// get the list of redirections
 t_list	*ft_lst_redir(t_list *lst)
 {
 	t_list	*redir;
@@ -73,6 +77,7 @@ t_list	*ft_lst_redir(t_list *lst)
 	return (redir);
 }
 
+// get the number of each type of redirection
 void	ft_nb_redir_type(t_list *redir, t_exec *exec)
 {
 	exec->nb_redir_type[INFILE] = 0;

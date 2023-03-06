@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/21 14:57:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:15:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// get the heredoc from the user
 int	ft_here_doc(char *end)
 {
 	static char	*line = "START";

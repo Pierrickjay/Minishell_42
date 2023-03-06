@@ -20,7 +20,7 @@ SRCS_LIBFT_DIR	:= srcs/libft/
 SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
 				char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
 				conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
-				malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strmapi.c \
+				malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strjoin_all.c malloc/ft_strmapi.c \
 				malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
 				mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c \
 				print/ft_putchar_fd.c print/ft_putendl_fd.c print/ft_putnbr_fd.c print/ft_putstr_fd.c \
@@ -29,7 +29,7 @@ SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isd
 				gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
 				liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
 				liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
-				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c
+				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c liste_chaine/ft_lstadd.c
 
 SRCS_LIBFT		:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
 
@@ -52,7 +52,7 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/env/ft_get_key.c execution/env/ft_get_value.c execution/env/ft_get_envi.c \
 			execution/env/ft_get_env.c execution/env/ft_envi_update_value.c execution/env/ft_envi_print.c \
 			execution/parent_1.c execution/parent_2.c execution/exec_1.c execution/exec_2.c \
-			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars.c \
+			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars_1.c execution/vars_2.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
 			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_unset.c
 

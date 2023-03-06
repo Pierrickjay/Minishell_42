@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/03 09:50:58 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/04 23:15:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-void	free_all(char **split, char *save)
-{
-	free(save);
-	free(split);
-}
 
 int	save_is_null(char *save)
 {
@@ -33,24 +27,33 @@ int	save_is_null(char *save)
 	return (0);
 }
 
-void	ft_exit(t_list *list, char *save, char **envp)
+void	free_all(char **split, char *save)
+{
+	free(save);
+	free(split);
+}
+
+void	ft_exit(t_list *list, char *save, t_envi *envp)
 {
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
+		if (list->next && list->next->next && \
+			ft_isdigit(list->next->next->content[0]) == 1)
+			return ;
 		free(save);
 		ft_free_lst(list);
-		ft_free_strs(envp);
+		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
 		exit(0);
 	}
 }
 
-int	ft_check_list(t_list *list, t_free *to_free, char *save, char **envp)
+int	ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp)
 {
 	if (list == NULL)
 	{
 		free_all(to_free->split, save);
-		ft_free_strs(envp);
+		ft_free_envi(envp);
 		ft_free_lst(list);
 		ft_putendl_fd("exit", STDOUT);
 		return (EXIT_SUCCESS);

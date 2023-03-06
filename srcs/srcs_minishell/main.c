@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 10:04:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/03 12:40:19 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/04 23:03:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
-	static char	**envp = NULL;
+	static t_envi	*envp = NULL;
 
-	envp = ft_dup_env(env);
+	envp = ft_env_to_envi(env);
+	if (!envp)
+		return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
 	while (1)
 	{
 		create_siga(MAIN);
@@ -32,7 +34,6 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
 		free_all(to_free->split, save);
-		ft_lst_print_type(list);
 		envp = main_exec(list, envp);
 		if (!envp)
 			return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);

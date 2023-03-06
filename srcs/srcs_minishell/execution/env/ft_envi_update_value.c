@@ -6,13 +6,14 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 12:54:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/26 13:36:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:17:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi)
+// update the value of a node in the list
+t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi)
 {
 	t_envi	*to_edit;
 	t_envi	*top;
@@ -30,8 +31,10 @@ t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi)
 	}
 	if (to_edit)
 	{
-		free(to_edit->value);
-		to_edit->value = ft_strdup(new_value);
+		if (to_edit->value)
+			free(to_edit->value);
+		to_edit->type = type;
+		to_edit->value = ft_strdup(value);
 		if (!to_edit->value)
 			return (NULL);
 	}

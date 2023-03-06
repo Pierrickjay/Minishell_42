@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:46:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 11:44:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:14:13 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// free the child process variables
 void	ft_free_child(t_exec *exec, char **path, char *cmd)
 {
 	if (exec)
@@ -22,6 +23,7 @@ void	ft_free_child(t_exec *exec, char **path, char *cmd)
 		free(cmd);
 }
 
+// free one element of the list of envi and initialize it to NULL
 void	ft_free_envi_delone(t_envi *envi)
 {
 	ft_free((void **)&envi->key);

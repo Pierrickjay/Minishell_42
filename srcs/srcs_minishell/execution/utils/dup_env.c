@@ -6,31 +6,32 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:35:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/23 11:37:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:10:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-char	**ft_dup_env(char **env)
+// duplicate the enviroment list
+t_envi	*ft_dup_envi(t_envi *envi)
 {
-	char	**dup;
-	size_t	i;
+	t_envi	*dup;
+	t_envi	*tmp;
+	char	*key;
+	char	*value;
 
-	i = 0;
-	while (env[i])
-		i++;
-	dup = (char **)ft_calloc(sizeof(char *), (i + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (env[i])
+	dup = NULL;
+	while (envi)
 	{
-		dup[i] = ft_strdup(env[i]);
-		if (!dup[i])
-			return (ft_free_strs_n(dup, i), NULL);
-		i++;
+		key = ft_strdup(envi->key);
+		value = ft_strdup(envi->value);
+		if (!key || !value)
+			return (ft_free_envi(dup), ft_msg(NULL, NULL, MA, NULL), NULL);
+		tmp = ft_envi_new(key, value, envi->type);
+		if (!tmp)
+			return (NULL);
+		ft_envi_add_back(&dup, tmp);
+		envi = envi->next;
 	}
-	dup[i] = NULL;
 	return (dup);
 }

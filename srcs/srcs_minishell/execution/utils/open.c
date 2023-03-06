@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 12:32:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:16:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// open the files and return the fd
 int	ft_open(char *name, t_redir type)
 {
 	if (type == INFILE)
@@ -25,6 +26,7 @@ int	ft_open(char *name, t_redir type)
 	return (FAILURE);
 }
 
+// split of ft_open_infiles
 void	ft_open_init_fd_infile(int *fd, int type)
 {
 	if (*fd != -1 && (type == INFILE || type == HEREDOC))
@@ -34,6 +36,7 @@ void	ft_open_init_fd_infile(int *fd, int type)
 	}
 }
 
+// open all the infile and return the fd of the last infile
 int	ft_open_infiles(t_list *redir, int nb)
 {
 	int		fd;
@@ -61,6 +64,7 @@ int	ft_open_infiles(t_list *redir, int nb)
 	return (fd);
 }
 
+// open all the here_doc and return the fd of the last here_doc
 int	ft_open_infiles_here_doc(t_list *redir)
 {
 	int		fd;
@@ -84,6 +88,7 @@ int	ft_open_infiles_here_doc(t_list *redir)
 	return (fd);
 }
 
+// open all the outfile and return the fd of the last outfile
 int	ft_open_outfiles(t_list *redir)
 {
 	int	fd;

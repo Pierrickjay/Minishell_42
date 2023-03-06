@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:44:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/28 13:05:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:07:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// get the path from envi for the child
 char	**ft_get_path(t_exec *exec)
 {
 	char	**path;
@@ -26,6 +27,7 @@ char	**ft_get_path(t_exec *exec)
 	return (path);
 }
 
+// check if the command is found and executable
 char	*ft_access(char *cmd, char **path)
 {
 	int		i;

@@ -6,12 +6,18 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/01 11:50:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/05 13:17:09 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
+//error messages
+# define PERM "Permission denied"
+# define NOENT "No such file or directory"
+# define HOME "HOME not set"
+# define IDENT "not a valid identifier"
 
 //return values
 # define FAIL (void *)-1
@@ -38,14 +44,22 @@ typedef enum e_error
 	MA = -1,
 	SY = -2,
 	PA = -3,
-	CM = -4
+	CM = -4,
+	EX = -5
 }	t_error;
+
+enum e_export
+{
+	NORMAL,
+	NO_VALUE
+};
 
 //env
 typedef struct s_envi
 {
 	char			*key;
 	char			*value;
+	int				type;
 	struct s_envi	*next;
 }	t_envi;
 
@@ -69,8 +83,10 @@ typedef struct s_exec
 /***********************************EXECUTION**********************************/
 //parent
 //parent_1.c
-char	**main_exec(t_list *lst, char **env);
-int		ft_parent_bis(t_exec *exec, char ***envp);
+t_envi	*main_exec(t_list *lst, t_envi *envi);
+int		ft_parent_bis(t_exec *exec, t_envi *envp);
+void	ft_update_shlvl(t_exec *exec);
+void	ft_exit_code(t_exec *exec);
 //parent_2.c
 int		ft_exec_parent(t_exec *exec);
 int		ft_exec_pipe_parent(t_exec *exec);
@@ -80,6 +96,7 @@ int		ft_exec_pipe_redir_parent(t_exec *exec);
 //child
 //child_1.c
 void	ft_exec_child(t_exec *exec);
+void	ft_exec_child_bis(t_exec *exec, const int n);
 void	ft_exec_pipe_child(t_exec *exec);
 void	ft_exec_redir_child(t_exec *exec);
 void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out);
@@ -88,7 +105,7 @@ void	ft_exec_pipe_file_child(t_exec *exec);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, char **env, int exit_code);
+t_exec	*ft_init_exec(t_list *lst, t_envi *env, int exit_code);
 int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
@@ -108,16 +125,22 @@ char	**ft_lst_to_args(t_list *lst);
 char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
-//vars.c
+//vars_1.c
 int		ft_get_vars(t_exec *exec, int exit_code);
+//vars_2.c
+int		ft_get_type_var(int *prev);
+int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
+int		ft_update_lst(t_list **lst);
+size_t	ft_nb_var(char *str);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
 //close.c
 void	ft_close_pipes(int **pipes, size_t nb);
+void	ft_close(int *fd);
 
 //dup_env.c
-char	**ft_dup_env(char **env);
+t_envi	*ft_dup_envi(t_envi *envi);
 
 //free.c
 //free_1.c
@@ -137,6 +160,7 @@ void	ft_free_envi_delone(t_envi *envi);
 
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
+void	ft_msg_builtins(char *cmd, char *arg, char *str);
 
 //here_doc.c
 int		ft_here_doc(char *end);
@@ -149,7 +173,7 @@ int		ft_open_outfiles(t_list *redir);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
-t_envi	*ft_envi_new(char *key, char *value);
+t_envi	*ft_envi_new(char *key, char *value, int type);
 void	ft_envi_add_back(t_envi **envi, t_envi *new);
 size_t	ft_envi_size(t_envi *envi);
 t_envi	*ft_envi_last(t_envi *envi);
@@ -158,7 +182,7 @@ t_envi	*ft_env_to_envi(char **env);
 char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
 char	*ft_getenvi(char *name, t_envi *envi);
-t_envi	*ft_envi_update_value(char *key, char *new_value, t_envi *envi);
+t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi);
 void	ft_envi_print(t_envi *envi);
 /******************************************************************************/
 
@@ -169,9 +193,9 @@ int		ft_is_builtins(t_exec *exec);
 int		ft_builtins(t_exec *exec);
 int		ft_echo(t_exec	*exec);
 int		ft_pwd(t_exec *exec);
-int		ft_cd(t_exec *exec); //not ok
+int		ft_cd(t_exec *exec);
 int		ft_env(t_exec *exec);
-int		ft_export(t_exec *exec); //bug
+int		ft_export(t_exec *exec);
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);
 int		ft_unset(t_exec *exec);
 /******************************************************************************/

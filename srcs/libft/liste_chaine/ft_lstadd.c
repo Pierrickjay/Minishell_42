@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_key.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 12:42:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:18:19 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/04 10:39:00 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/04 20:03:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/libft.h"
 
-// return the key of the env variable
-char	*ft_get_key(char *env)
+void	ft_lstadd(t_list **list, t_list *new_list)
 {
-	int		len;
-	char	*key;
+	t_list	*last;
+	t_list	*tmp;
 
-	len = 0;
-	while (env[len] && env[len] != '=')
-		len++;
-	key = ft_substr(env, 0, len);
-	if (!key)
-		return (NULL);
-	return (key);
+	tmp = NULL;
+	if ((*list)->next && (*list)->next->next)
+		tmp = (*list)->next->next;
+	(*list)->next = new_list;
+	last = ft_lstlast(new_list);
+	last->next = tmp;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 12:34:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/03 09:52:50 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/04 22:36:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/05 13:00:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 extern sig_atomic_t	g_check;
 
+// exit code for signal
 void	deal_w_return_pid(int status)
 {
 	if (status == 2)
-		write(1, "\n", 1);
+		ft_putchar_fd('\n', STDERR);
 	else if (status == 131)
-		printf("Quit (core dumped)\n");
+		ft_putendl_fd("Quit (core dumped)\n", STDERR);
 	else
 		return ;
 }
 
+// child for one command and no redirection
 int	ft_exec_parent(t_exec *exec)
 {
 	g_check = 1;
@@ -45,6 +47,7 @@ int	ft_exec_parent(t_exec *exec)
 	return (SUCCESS);
 }
 
+// child for n commands and no redirection
 int	ft_exec_pipe_parent(t_exec *exec)
 {
 	int	i;
@@ -73,6 +76,7 @@ int	ft_exec_pipe_parent(t_exec *exec)
 	return (SUCCESS);
 }
 
+// child for one command and redirection
 int	ft_exec_redir_parent(t_exec *exec)
 {
 	ft_nb_redir_type(exec->redir, exec);
@@ -92,6 +96,7 @@ int	ft_exec_redir_parent(t_exec *exec)
 	return (SUCCESS);
 }
 
+// child for n commands and redirection
 int	ft_exec_pipe_redir_parent(t_exec *exec)
 {
 	int	i;
