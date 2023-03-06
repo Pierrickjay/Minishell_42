@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:51:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:16:13 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,25 @@ int	ft_is_ident(int c)
 	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
 		return (true);
 	return (false);
+}
+
+int	ft_all_isalnum(char *str)
+{
+	size_t	i;
+	size_t	n;
+	size_t	len;
+
+	len = ft_strlen(str);
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]))
+			n++;
+		i++;
+	}
+	printf("len = %ld\nn = %ld\n", len, n);
+	if (n == len)
+		return (1);
+	return (0);
 }
