@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:20:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:13:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_cd(t_exec *exec)
 		if (chdir(pwd) == FAILURE)
 			return (ft_msg(NULL, pwd, errno, NULL), 1);
 		if (ft_cd_1(exec, pwd))
-			return (ft_msg(NULL, NULL, MA, NULL), 1);
+			return (ft_msg_malloc("cd.c (111)"), 1);
 	}
 	else
 	{
@@ -117,7 +117,7 @@ int	ft_cd(t_exec *exec)
 		if (chdir(args[1]) == FAILURE)
 			return (ft_msg_builtins("cd", (char *)args[1], PERM), 1);
 		if (ft_cd_1(exec, (char *)args[1]))
-			return (ft_msg(NULL, NULL, MA, NULL), 1);
+			return (ft_msg_malloc("parent_1.c (120)"), 1);
 	}
 	return (EXIT_SUCCESS);
 }

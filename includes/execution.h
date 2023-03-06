@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:17:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:06:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void	ft_free_envi_delone(t_envi *envi);
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
 void	ft_msg_builtins(char *cmd, char *arg, char *str);
+void	ft_msg_malloc(char *files);
 
 //here_doc.c
 int		ft_here_doc(char *end);

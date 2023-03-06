@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:21:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:13:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ static int	ft_export_create(t_exec *exec, char *arg)
 	key = ft_get_key(arg);
 	value = ft_get_value(arg);
 	if (!key || !value)
-		return (ft_msg(NULL, NULL, MA, NULL), EXIT_FAILURE);
+		return (ft_msg_malloc("export.c (107)"), EXIT_FAILURE);
 	if (var_exist && ft_export_set_var(exec, key, value, type))
-		return (free(value), free(key), ft_msg(NULL, NULL, MA, NULL), 1);
+		return (free(value), free(key), ft_msg_malloc("export.c (109)"), 1);
 	else if (!var_exist && ft_export_set(exec, key, value, type))
-		return (free(value), free(key), ft_msg(NULL, NULL, MA, NULL), 1);
+		return (free(value), free(key), ft_msg_malloc("export.c (111)"), 1);
 	return (EXIT_SUCCESS);
 }
 

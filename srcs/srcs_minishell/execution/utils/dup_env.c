@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:35:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:10:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:10:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_envi	*ft_dup_envi(t_envi *envi)
 		key = ft_strdup(envi->key);
 		value = ft_strdup(envi->value);
 		if (!key || !value)
-			return (ft_free_envi(dup), ft_msg(NULL, NULL, MA, NULL), NULL);
+			return (ft_free_envi(dup), ft_msg_malloc("parent_1.c (29)"), NULL);
 		tmp = ft_envi_new(key, value, envi->type);
 		if (!tmp)
 			return (NULL);
