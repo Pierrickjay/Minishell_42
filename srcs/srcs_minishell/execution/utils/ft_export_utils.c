@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 17:16:13 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:22:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	ft_all_isalnum(char *str)
 			n++;
 		i++;
 	}
-	printf("len = %ld\nn = %ld\n", len, n);
 	if (n == len)
 		return (1);
 	return (0);
