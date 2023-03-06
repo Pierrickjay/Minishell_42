@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:43:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:51:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ int	ft_export(t_exec *exec)
 	i = 0;
 	while (args[++i])
 	{
-		if (ft_isdigit(args[i][0]) || args[i][0] == '?' || args[i][0] == '!' \
-						|| args[i][0] == '@' || args[i][0] == '#')
+		if (ft_is_ident(args[i][0]))
 		{
 			ft_msg_builtins("export", (char *)args[i], IDENT);
 			exec->status = 1;
