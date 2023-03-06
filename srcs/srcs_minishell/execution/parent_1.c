@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:00:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:14:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 		return (envi);
 	envp = ft_dup_envi(exec->envi);
 	if (!envp)
-		return (ft_msg(exec, NULL, MA, NULL), NULL);
+		return (ft_msg(exec, "parent_1.c (35)", MA, NULL), NULL);
 	ft_exit_code(exec);
 	exit_code = exec->status;
 	ft_free_exec(exec);
@@ -57,7 +57,7 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	{
 		envp = ft_dup_envi(exec->envi);
 		if (!envp)
-			return (ft_msg(exec, NULL, MA, NULL), EXIT_FAILURE);
+			return (ft_msg(exec, "parent_1.c (60)", MA, NULL), EXIT_FAILURE);
 		ft_msg(exec, NULL, errno, NULL);
 		return (EXIT_FAILURE);
 	}
@@ -81,11 +81,11 @@ void	ft_update_shlvl(t_exec *exec)
 			nb++;
 			shlvl = ft_itoa(nb);
 			if (!shlvl)
-				return (ft_msg(NULL, NULL, MA, NULL));
+				return (ft_msg_malloc("parent_1.c (84)"));
 			exec->envi = ft_envi_update_value("SHLVL", shlvl, 0, exec->envi);
 			exec->env = ft_envi_to_env(exec->envi);
 			if (!exec->env)
-				return (ft_msg(NULL, NULL, MA, NULL));
+				return (ft_msg_malloc("parent_1.c (88)"));
 			free(shlvl);
 		}
 		update = true;

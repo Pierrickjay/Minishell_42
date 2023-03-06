@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:14:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:15:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	ft_msg_bis(char *str, int value)
 {
 	if (value == MA)
-		ft_putendl_fd("malloc fail", STDERR);
+		ft_msg_malloc(str);
 	else if (value == SY)
 		ft_putendl_fd("syntaxe error", STDERR);
 	else if (value == PA)
@@ -86,4 +86,15 @@ void	ft_msg_builtins(char *cmd, char *arg, char *str)
 	}
 	if (str)
 		ft_putendl_fd(str, STDERR);
+}
+
+// message for malloc fail or not
+void	ft_msg_malloc(char *files)
+{
+	if (files)
+	{
+		ft_putstr_fd(files, STDERR);
+		ft_putstr_fd(": ", STDERR);
+	}
+	ft_putendl_fd("malloc fail", STDERR);
 }

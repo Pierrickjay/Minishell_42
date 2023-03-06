@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   new_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/04 12:27:28 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 09:57:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-
 int	count_lengh(char *str)
 {
 	int	size;
 	int	i;
-	int	tmp;
+	// int	tmp;
 
 	i = -1;
-	tmp = 0;
+	// tmp = 0;
 	size = (int)ft_strlen(str);
 	while (str[++i])
 	{
