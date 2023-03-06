@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 14:52:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:56:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	ft_exit(t_list *list, char *save, t_envi *envp)
 		if (list->next && list->next->next && \
 			ft_isdigit(list->next->next->content[0]) == 1)
 			return ;
-		free(save);
-		if (list->next->content)
+		if (list->next && list->next->content)
 			exit_value = ft_atoi(list->next->content);
+		free(save);
 		ft_free_lst(list);
 		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
