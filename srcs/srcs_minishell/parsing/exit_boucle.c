@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/04 23:15:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:52:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,21 @@ void	free_all(char **split, char *save)
 
 void	ft_exit(t_list *list, char *save, t_envi *envp)
 {
+	int	exit_value;
+
+	exit_value = 0;
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
 		if (list->next && list->next->next && \
 			ft_isdigit(list->next->next->content[0]) == 1)
 			return ;
 		free(save);
+		if (list->next->content)
+			exit_value = ft_atoi(list->next->content);
 		ft_free_lst(list);
 		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
-		exit(0);
+		exit(exit_value);
 	}
 }
 

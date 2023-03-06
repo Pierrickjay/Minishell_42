@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:16:46 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:42:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,9 @@ int		ft_open(char *name, t_redir type);
 int		ft_open_infiles(t_list *redir, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir);
+
+//split_empty.c
+int		ft_split_empty(char **strs);
 /******************************************************************************/
 
 /*************************************ENV**************************************/

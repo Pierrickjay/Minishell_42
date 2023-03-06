@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:00:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:45:14 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	vars = ft_split(lst->content, '$');
 	if (!vars)
 		return (EXIT_FAILURE);
+	if (ft_split_empty(vars))
+		return (ft_free_strs(vars), EXIT_SUCCESS);
 	i = 0;
 	while (vars[i])
 	{

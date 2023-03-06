@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 10:08:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:31:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 
 	envp = ft_env_to_envi(env);
 	if (!envp)
-		return (ft_msg_malloc("parent_1.c (21)"), EXIT_FAILURE);
+		return (ft_msg_malloc("main.c (21)"), EXIT_FAILURE);
 	while (1)
 	{
 		create_siga(MAIN);
@@ -36,7 +36,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		free_all(to_free->split, save);
 		envp = main_exec(list, envp);
 		if (!envp)
-			return (ft_msg_malloc("parent_1.c (39)"), EXIT_FAILURE);
+			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);
 	}
 }
 
