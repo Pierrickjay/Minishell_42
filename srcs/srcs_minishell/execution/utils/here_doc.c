@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:15:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:25:59 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_here_doc(char *end)
 		return (-1);
 	if (pipe(fd) == -1)
 		return (free(limiter), -1);
+	create_siga(MAIN);
 	while (1)
 	{
 		if (line)

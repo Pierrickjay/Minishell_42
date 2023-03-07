@@ -6,11 +6,13 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:50:58 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 14:14:49 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 15:35:17 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+extern sig_atomic_t	g_check;
 
 // main execution, the big boss
 t_envi	*main_exec(t_list *lst, t_envi *envi)
@@ -24,6 +26,8 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 		exit_code = 2;
 		return (envi);
 	}
+	if (ft_check_lst_cmds_here_doc(lst, &exit_code))
+		return (envi);
 	exec = ft_init_exec(lst, envi, exit_code);
 	if (!exec)
 		return (NULL);
@@ -39,14 +43,41 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	return (envp);
 }
 
+//for check if have cmd
+int	ft_check_lst_cmds_here_doc(t_list *lst, int *exit_code)
+{
+	int		fd;
+	size_t	nb_cmds;
+
+	g_check = 1;
+	create_siga(MAIN);
+	nb_cmds = ft_nb_cmds(lst);
+	if (nb_cmds == 0)
+	{
+		*exit_code = 0;
+		while (lst)
+		{
+			if (lst->type == REDIR && !ft_strcmp("<<", lst->content) \
+				&& lst->next)
+			{
+				*exit_code = 1;
+				fd = ft_open(lst->next->content, HEREDOC);
+				if (fd == FAILURE)
+					return (ft_msg(NULL, NULL, errno, NULL), EXIT_FAILURE);
+				ft_close(&fd);
+			}
+			lst = lst->next;
+		}
+	}
+	return (EXIT_SUCCESS);
+}
+
 // parent call the child
 int	ft_parent_bis(t_exec *exec, t_envi *envp)
 {
 	int	status;
 
 	status = 0;
-	if (exec->nb == 0)
-		return (ft_msg(exec, NULL, SY, NULL), EXIT_FAILURE);
 	if (exec->nb == 1 && exec->nb_redir == 0)
 		status = ft_exec_parent(exec);
 	else if (exec->nb > 1 && exec->nb_redir == 0)
