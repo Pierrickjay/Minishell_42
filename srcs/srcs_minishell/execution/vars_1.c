@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 17:19:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:52:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,26 @@ static int	ft_lst_split_vars(t_list *tmp)
 	if (!strs)
 		return (EXIT_FAILURE);
 	free(tmp->content);
-	tmp->content = ft_strdup(strs[0]);
+	tmp->content = strs[0];
 	if (!tmp->content)
 		return (EXIT_FAILURE);
 	args = NULL;
-	i = 0;
-	while (strs[++i])
+	i = 1;
+	while (strs[i])
 	{
-		str = ft_strdup(strs[i]);
+		str = strs[i++];
 		new = ft_lstnew(str, ARG);
-		if (!new && !str)
+		if (!new)
 			return (EXIT_FAILURE);
 		ft_lstadd_back(&args, new);
 	}
-	return (ft_lstadd(&tmp, args), ft_free_strs(strs), EXIT_SUCCESS);
+	return (ft_lstadd(&tmp, args), free(strs), EXIT_SUCCESS);
 }
 
 // update lst content for a type VAR
 static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 {
+	size_t	len;
 	char	*value;
 
 	if (ft_strcmp("$?", lst->content) == 0)
@@ -58,6 +59,9 @@ static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 	free(lst->content);
 	lst->content = value;
 	lst->type = ft_get_type_var(&prev);
+	len = ft_strlen(value);
+	if (value[len - 1] == ' ')
+		value[len - 1] = '\0';
 	if (ft_strchr(value, ' '))
 	{
 		if (ft_lst_split_vars(lst))
@@ -138,7 +142,7 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 	while (exec->envi && lst)
 	{
 		n = ft_nb_var(lst->content);
-		if (n == 1 && lst->type == VAR)
+		if (n == 1 && lst->type == VAR && ft_all_isalnum(&lst->content[1]))
 		{
 			if (ft_get_var_type(exec, lst, previous, exit_code))
 				return (EXIT_FAILURE);
