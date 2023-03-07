@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 08:38:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:18:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	ft_exec_child(t_exec *exec)
 
 	if (ft_is_builtins(exec) != FAILURE)
 		return (ft_msg(exec, NULL, 0, &exit));
-	if (ft_strncmp("./", exec->args[n][0], 2) == 0 && \
-		access(exec->args[n][0], X_OK) != FAILURE)
+	if ((ft_strncmp("./", exec->args[n][0], 2) == 0 && \
+		access(exec->args[n][0], X_OK) != FAILURE) || \
+		ft_strchr(exec->args[n][0], '/') != NULL)
 	{
 		execve(exec->args[n][0], exec->args[n], exec->env);
-		return (ft_msg(exec, NULL, errno, &exit));
+		ft_msg(exec, exec->args[n][0], errno, &exit);
 	}
 	ft_exec_child_bis(exec, n);
 }
