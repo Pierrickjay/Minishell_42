@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:52:17 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 10:26:24 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 11:06:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	check_redir_nb(t_list *lst)
 	}
 	return (0);
 }
-
 
 int	check_arrow_pipe(t_list *lst)
 {

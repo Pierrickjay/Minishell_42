@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:16:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 09:45:10 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 11:06:14 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,10 @@ int	fill_string_single(char *new_str, char *str, char c)
 		new_str[2] = ' ';
 	}
 	return (1);
+}
+
+void	increment_fill(char *str, char *new_str, int *i, int j)
+{
+	new_str[*i + j] = str[*i];
+	(*i)++;
 }

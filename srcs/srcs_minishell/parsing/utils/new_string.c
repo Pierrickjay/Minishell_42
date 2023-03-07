@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 10:29:53 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 11:02:29 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@ static void	new_string_1(int *i, int *j, char *str, char *new_str)
 	if (str[*i + 1] && str[*i + 1] == '>')
 		*i += fill_string_double(&new_str[*i + *j], &str[*i], '>');
 	else
+	{
+		printf("enter here\n");
 		*i += fill_string_single(&new_str[*i + *j], &str[*i], '>');
-	*j += 1;
+	}
+	*j += 2;
+	if (str[*i] != '>')
+		new_str[*i + *j] = str[*i];
 }
 
 static void	new_string_2(int *i, int *j, char *str, char *new_str)
@@ -66,6 +71,8 @@ static void	new_string_2(int *i, int *j, char *str, char *new_str)
 	else
 		*i += fill_string_single(&new_str[*i + *j], &str[*i], '<');
 	*j += 2;
+	if (str[*i] != '<')
+		new_str[*i + *j] = str[*i];
 }
 
 char	*new_string(char *str)
@@ -75,11 +82,11 @@ char	*new_string(char *str)
 	int		j;
 
 	j = 0;
-	i = -1;
+	i = 0;
 	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 2));
 	if (!new_str)
 		return (NULL);
-	while (str[++i])
+	while (str[i])
 	{
 		if (str[i] == '\'')
 			i = to_go_next_quote_single(str, new_str, i, j);
@@ -89,7 +96,8 @@ char	*new_string(char *str)
 			new_string_1(&i, &j, str, new_str);
 		else if (str[i] && str[i] == '<')
 			new_string_2(&i, &j, str, new_str);
-		new_str[i + j] = str[i];
+		else
+			increment_fill(str, new_str, &i, j);
 	}
 	return (finish_it(new_str, i, j));
 }

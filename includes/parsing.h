@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 09:51:28 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 11:05:44 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ char	*separate_pipe(char *str);
 int		check_arrow_pipe(t_list *lst);
 void	ft_print_exeptected_token(char *str);
 int		check_redir_nb(t_list *lst);
+void	increment_fill(char *str, char *new_str, int *i, int j);
 #endif
