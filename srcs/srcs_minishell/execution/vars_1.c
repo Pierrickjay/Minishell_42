@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 12:34:18 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 14:25:35 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,25 @@ static char	*ft_check_var(t_exec *exec, char *vars, int ec, \
 	str = NULL;
 	to_join = NULL;
 	exec->exit_code = ec;
-	if (ft_all_isalnum(vars))
+	if (vars[0] == '$' && ft_all_isalnum(&vars[1]))
 	{
-		str = ft_strdup(ft_getenvi(vars, exec->envi));
+		str = ft_strdup(ft_getenvi(&vars[1], exec->envi));
 		if (!str)
-			return (free(vars), ft_strdup(""));
-		free(vars);
+			return (ft_strdup(""));
 		return (str);
 	}
 	vars = ft_check_vars(exec, (const size_t) size, &to_join, vars);
-	if (ft_getenvi(vars, exec->envi) != NULL)
-		str = ft_strdup(ft_getenvi(vars, exec->envi));
-	if (str && !to_join)
-		return (free(vars), str);
+	if (vars[0] == '$' && ft_getenvi(&vars[1], exec->envi))
+	{
+		str = ft_strdup(ft_getenvi(&vars[1], exec->envi));
+		if (!str)
+			return (ft_strdup(""));
+		ft_lstadd_front(&to_join, ft_lstnew(str, -1));
+	}
+	else
+		ft_lstadd_front(&to_join, ft_lstnew(ft_strdup(vars), -1));
 	str = ft_lstjoin(to_join);
-	ft_free_lst(to_join);
-	free(vars);
-	return (str);
+	return (ft_free_lst(to_join), str);
 }
 
 // update lst content for a lot of vars
@@ -109,11 +111,12 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	char			**vars;
 
 	to_join = NULL;
-	vars = ft_split(lst->content, '$');
+	lst->content = ft_content_update(lst->content);
+	if (!lst->content)
+		return (EXIT_FAILURE);
+	vars = ft_split(lst->content, ' ');
 	if (!vars)
 		return (EXIT_FAILURE);
-	if (ft_split_empty(vars))
-		return (ft_free_strs(vars), EXIT_SUCCESS);
 	i = 0;
 	while (vars[i])
 	{
@@ -125,7 +128,7 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 	}
 	if (ft_update_lst(lst, to_join, &prev))
 		return (EXIT_FAILURE);
-	return (ft_free_lst(to_join), free(vars), EXIT_SUCCESS);
+	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
 }
 
 // parsing VAR

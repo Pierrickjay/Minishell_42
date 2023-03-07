@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:50:58 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 12:30:58 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 14:14:49 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	if (!exec)
 		return (NULL);
 	ft_update_shlvl(exec);
-	ft_lst_print_type(lst);
 	if (ft_parent_bis(exec, envi))
 		return (envi);
 	envp = ft_dup_envi(exec->envi);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 17:20:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:16:15 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars)
 
 	i = 0;
 	len = ft_strlen(vars);
-	while (!ft_all_isalnum(vars) && --len && i < size)
+	while (vars[0] == '$' && !ft_all_isalnum(&vars[1]) && len-- && i < size)
 	{
-		if (len == 1 && ft_strcmp(vars, "?") == 0)
+		if (ft_strcmp(vars, "$?") == 0)
 		{
 			add = ft_itoa(exec->exit_code);
 			if (!add)
 				return (NULL);
 			ft_lstadd_front(to_join, ft_lstnew(add, -1));
-			i++;
-			continue ;
+			ft_bzero(vars, ft_strlen(vars));
+			break ;
 		}
 		add = ft_strdup(&vars[len]);
 		if (!add)
