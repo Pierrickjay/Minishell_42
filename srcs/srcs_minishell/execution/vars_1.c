@@ -3,48 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 14:25:35 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 17:19:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // get the value of a variable and split it each time there is a space
-static int	ft_lst_split_vars(t_list *tmp, char **strs)
+static int	ft_lst_split_vars(t_list *tmp)
 {
+	char	**strs;
 	t_list	*new;
 	t_list	*args;
 	char	*str;
 	int		i;
 
+	strs = ft_split(tmp->content, ' ');
+	if (!strs)
+		return (EXIT_FAILURE);
+	free(tmp->content);
 	tmp->content = ft_strdup(strs[0]);
 	if (!tmp->content)
 		return (EXIT_FAILURE);
 	args = NULL;
-	i = 1;
-	while (strs[i])
+	i = 0;
+	while (strs[++i])
 	{
 		str = ft_strdup(strs[i]);
-		if (!str)
-			return (EXIT_FAILURE);
 		new = ft_lstnew(str, ARG);
-		if (!new)
+		if (!new && !str)
 			return (EXIT_FAILURE);
 		ft_lstadd_back(&args, new);
-		i++;
 	}
-	ft_lstadd(&tmp, args);
-	ft_free_strs(strs);
-	return (EXIT_SUCCESS);
+	return (ft_lstadd(&tmp, args), ft_free_strs(strs), EXIT_SUCCESS);
 }
 
 // update lst content for a type VAR
 static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 {
-	char	**strs;
 	char	*value;
 
 	if (ft_strcmp("$?", lst->content) == 0)
@@ -61,11 +60,7 @@ static int	ft_get_var_type(t_exec *exec, t_list *lst, int prev, int ec)
 	lst->type = ft_get_type_var(&prev);
 	if (ft_strchr(value, ' '))
 	{
-		strs = ft_split(lst->content, ' ');
-		if (!strs)
-			return (EXIT_FAILURE);
-		free(lst->content);
-		if (ft_lst_split_vars(lst, strs))
+		if (ft_lst_split_vars(lst))
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -126,7 +121,7 @@ static int	ft_get_var_str(t_exec *exec, t_list *lst, int prev, int ec)
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
 		i++;
 	}
-	if (ft_update_lst(lst, to_join, &prev))
+	if (ft_update_lst(lst, to_join, &prev) || ft_lst_split_vars(lst))
 		return (EXIT_FAILURE);
 	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
 }

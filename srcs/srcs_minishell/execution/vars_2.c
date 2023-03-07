@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 14:16:15 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 17:21:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_get_type_var(int *prev)
 {
 	if (*prev == -1 || *prev == PIPE || *prev == FILES)
 		return (CMD);
-	*prev = ARG;
 	return (ARG);
 }
 

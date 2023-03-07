@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:28:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 08:36:12 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:00:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,25 @@ void	ft_set(char *arg, int *type, int *var_exist)
 
 int	ft_export_cat(t_exec *exec, char *key, char *value, int type)
 {
+	int		create;
 	char	*tmp;
 	char	*new_value;
 	size_t	len;
 
+	create = false;
 	len = ft_strlen(key);
 	if (key[len - 1] == '+')
 		key[len - 1] = '\0';
 	tmp = ft_getenvi(key, exec->envi);
-	if (!tmp)
-		return (EXIT_FAILURE);
-	new_value = ft_strjoin(tmp, value);
-	if (!value)
-		return (EXIT_FAILURE);
-	free(value);
-	if (ft_export_set(exec, key, new_value, type) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	if (tmp)
+	{
+		new_value = ft_strjoin(tmp, value);
+		if (!value)
+			return (EXIT_FAILURE);
+		free(value);
+		if (ft_export_set(exec, key, new_value, type) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
