@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 08:37:12 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:41:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,23 @@ int	ft_all_isalnum(char *str)
 	return (0);
 }
 
-int	ft_split_empty(char **strs)
-{
-	size_t	i;
-	size_t	n;
+// int	ft_split_empty(char **strs)
+// {
+// 	size_t	i;
+// 	size_t	n;
 
-	i = 0;
-	n = 0;
-	while (strs[i])
-	{
-		if (ft_strcmp(strs[i], "\0") == 0)
-			n++;
-		i++;
-	}
-	if (i == n)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
+// 	i = 0;
+// 	n = 0;
+// 	while (strs[i])
+// 	{
+// 		if (ft_strcmp(strs[i], "\0") == 0)
+// 			n++;
+// 		i++;
+// 	}
+// 	if (i == n)
+// 		return (EXIT_FAILURE);
+// 	return (EXIT_SUCCESS);
+// }
 
 // duplicate the enviroment list
 t_envi	*ft_dup_envi(t_envi *envi)
@@ -92,4 +92,29 @@ t_envi	*ft_dup_envi(t_envi *envi)
 		envi = envi->next;
 	}
 	return (dup);
+}
+
+char	*ft_content_update(char *str)
+{
+	size_t	nb_dolars;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+	char	*new_str;
+
+	nb_dolars = ft_nb_var(str);
+	len = ft_strlen(str);
+	new_str = ft_calloc((nb_dolars + len + 1), sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			new_str[j++] = ' ';
+		new_str[j++] = str[i++];
+	}
+	ft_free((void **)&str);
+	return (new_str);
 }

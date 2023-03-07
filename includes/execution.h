@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 08:38:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:41:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,9 @@ int		ft_open_outfiles(t_list *redir);
 int		ft_nb_args_child(char **args);
 int		ft_all_isalnum(char *str);
 int		ft_check_last_char(char *str, char c);
-int		ft_split_empty(char **strs);
+// int		ft_split_empty(char **strs);
 t_envi	*ft_dup_envi(t_envi *envi);
+char	*ft_content_update(char *str);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
