@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 11:05:57 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/07 11:50:58 by pjay              #+#    #+#             */
+/*   Updated: 2023/03/07 11:57:12 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	t_exec		*exec;
 	t_envi		*envp;
 
+	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1)
+		return (envi);
 	exec = ft_init_exec(lst, envi, exit_code);
 	if (!exec)
 		return (NULL);
 	ft_update_shlvl(exec);
-	if (exec->nb == 0)
-	{
-		envp = ft_dup_envi(exec->envi);
-		return (ft_msg(exec, NULL, SY, NULL), envp);
-	}
 	if (ft_parent_bis(exec, envi))
 		return (envi);
 	envp = ft_dup_envi(exec->envi);
@@ -45,6 +42,8 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	int	status;
 
 	status = 0;
+	if (exec->nb == 0)
+		return (ft_msg(exec, NULL, SY, NULL), EXIT_FAILURE);
 	if (exec->nb == 1 && exec->nb_redir == 0)
 		status = ft_exec_parent(exec);
 	else if (exec->nb > 1 && exec->nb_redir == 0)
@@ -103,4 +102,12 @@ void	ft_exit_code(t_exec *exec)
 		exec->status = 128;
 	else if (exec->status == 256)
 		exec->status = 1;
+	else
+	{
+		if (exec->status > 255)
+		{
+			while (exec->status > 255)
+				exec->status -= 256;
+		}
+	}
 }

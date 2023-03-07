@@ -6,15 +6,32 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 10:15:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:58:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-// print the error message
-static void	ft_msg_bis(char *str, int value)
+// msg for exit
+static void	ft_msg_exit(char **args, const int n)
 {
+	if (n == 1)
+		return ;
+	else if (n >= 2 && ft_isalpha(args[1][0]))
+	{
+		ft_putstr_fd("exit: ", STDERR);
+		ft_putstr_fd(args[1], STDERR);
+		ft_putendl_fd(": numeric argument required", STDERR);
+	}
+	else if (n >= 3)
+		ft_putendl_fd("exit: too many arguments", STDERR);
+}
+
+// print the error message
+static void	ft_msg_bis(char *str, int value, char **args)
+{
+	const int	n = ft_nb_args_child(args);
+
 	if (value == MA)
 		ft_msg_malloc(str);
 	else if (value == SY)
@@ -31,14 +48,7 @@ static void	ft_msg_bis(char *str, int value)
 		ft_putendl_fd("command not found", STDERR);
 	}
 	else if (value == EX)
-	{
-		if (str)
-		{
-			ft_putstr_fd(str, STDERR);
-			ft_putstr_fd(": ", STDERR);
-		}
-		ft_putendl_fd("too many arguments", STDERR);
-	}
+		ft_msg_exit(args, n);
 }
 
 // print the error message and/or free and/or exit
@@ -49,9 +59,7 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 	else if (value > 0)
 		ft_putendl_fd(strerror(errno), STDERR);
 	else if (value < 0)
-	{
-		ft_msg_bis(str, value);
-	}
+		ft_msg_bis(str, value, exec->args[exec->i]);
 	if (!f && exec)
 		ft_free_exec(exec);
 	if (f)

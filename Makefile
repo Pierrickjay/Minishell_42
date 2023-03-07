@@ -29,7 +29,8 @@ SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isd
 				gnl/get_next_line.c gnl/get_next_line_utils.c liste_chaine/ft_lstnew.c \
 				liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
 				liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
-				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c liste_chaine/ft_lstadd.c
+				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c \
+				liste_chaine/ft_lstadd.c liste_chaine/ft_lstjoin.c 
 
 SRCS_LIBFT		:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
 
@@ -47,8 +48,7 @@ SRCS        += parsing/utils/utils_1.c parsing/set_signal.c parsing/free.c parsi
 
 #   obouhlel
 SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c execution/utils/ft_msg.c \
-			execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/dup_env.c \
-			execution/utils/ft_lstjoin.c execution/utils/split_empty.c execution/utils/ft_export_utils.c \
+			execution/utils/open.c execution/utils/close.c execution/utils/here_doc.c execution/utils/utils.c \
 			execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c \
 			execution/env/ft_envi_size.c execution/env/ft_envi_to_env.c execution/env/ft_env_to_envi.c \
 			execution/env/ft_get_key.c execution/env/ft_get_value.c execution/env/ft_get_envi.c \
@@ -56,7 +56,8 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/parent_1.c execution/parent_2.c execution/exec_1.c execution/exec_2.c \
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars_1.c execution/vars_2.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c
+			execution/builtins/ft_export.c execution/builtins/ft_export_bis.c execution/builtins/ft_cd.c \
+			execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 

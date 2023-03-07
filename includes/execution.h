@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:50:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:38:09 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTION_H
 
 //error messages
+# define EXPORT_ERROR "export: write error"
 # define ECHO_ERROR "echo: write error"
 # define PERM "Permission denied"
 # define NOENT "No such file or directory"
@@ -142,9 +143,6 @@ char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars);
 void	ft_close_pipes(int **pipes, size_t nb);
 void	ft_close(int *fd);
 
-//dup_env.c
-t_envi	*ft_dup_envi(t_envi *envi);
-
 //free.c
 //free_1.c
 void	ft_free_strs(char **strs);
@@ -161,12 +159,6 @@ void	ft_free_exec(t_exec *exec);
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
 
-//ft_export_utils.c
-int		ft_is_ident(int c);
-
-//ft_lstjoin.c
-char	*ft_lstjoin(t_list *to_join);
-
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
 void	ft_msg_builtins(char *cmd, char *arg, char *str);
@@ -181,8 +173,12 @@ int		ft_open_infiles(t_list *redir, int nb);
 int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir);
 
-//split_empty.c
+//utils.c
+int		ft_nb_args_child(char **args);
+int		ft_all_isalnum(char *str);
+int		ft_check_last_char(char *str, char c);
 int		ft_split_empty(char **strs);
+t_envi	*ft_dup_envi(t_envi *envi);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
@@ -196,7 +192,7 @@ char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
 char	*ft_getenvi(char *name, t_envi *envi);
 t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi);
-void	ft_envi_print(t_envi *envi);
+void	ft_envi_print(t_exec *exec, t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
@@ -204,12 +200,22 @@ void	ft_envi_print(t_envi *envi);
 int		ft_is_builtins(t_exec *exec);
 //for export, unset, cd
 int		ft_builtins(t_exec *exec);
+//echo
 int		ft_echo(t_exec	*exec);
+//pwd
 int		ft_pwd(t_exec *exec);
+//cd
 int		ft_cd(t_exec *exec);
 int		ft_cd_1(t_exec *exec, char *pwd);
+//env
 int		ft_env(t_exec *exec);
+//export
+int		ft_is_ident(int c);
 int		ft_export(t_exec *exec);
+void	ft_set(char *arg, int *type, int *var_exist);
+int		ft_export_cat(t_exec *exec, char *key, char *value, int type);
+int		ft_export_set(t_exec *exec, char *key, char *value, int type);
+//unset
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);
 int		ft_unset(t_exec *exec);
 /******************************************************************************/

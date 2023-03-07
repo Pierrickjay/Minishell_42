@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 13:59:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:20:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars)
 
 	i = 0;
 	len = ft_strlen(vars);
-	while (--len && i < size && ft_getenvi(vars, exec->envi) == NULL)
+	while (!ft_all_isalnum(vars) && --len && i < size)
 	{
 		if (len == 1 && ft_strcmp(vars, "?") == 0)
 		{
@@ -83,10 +83,10 @@ char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars)
 			i++;
 			continue ;
 		}
-		add = ft_strdup(&vars[len - 1]);
+		add = ft_strdup(&vars[len]);
 		if (!add)
 			return (NULL);
-		vars[len - 1] = '\0';
+		vars[len] = '\0';
 		ft_lstadd_front(to_join, ft_lstnew(add, -1));
 		i++;
 	}

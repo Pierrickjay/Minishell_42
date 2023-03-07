@@ -1,3 +1,0 @@
-coucou$? : crach need to find why
-echo $PATH:$PWD
-Write the path and join with :

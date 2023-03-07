@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 09:49:30 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 11:07:31 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/07 11:51:32 by pjay              #+#    #+#             */
+/*   Updated: 2023/03/07 11:54:47 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	save_is_null(char *save, t_envi *envp)
 {
 	if (save == NULL)
 	{
-		printf("exit\n");
+		ft_putendl_fd("exit", STDOUT);
 		ft_free_envi(envp);
 		exit(0);
 	}
@@ -30,26 +30,45 @@ int	save_is_null(char *save, t_envi *envp)
 
 void	free_all(char **split, char *save)
 {
-	free(save);
+	ft_free((void **)&save);
 	free(split);
 }
 
-void	ft_exit(t_list *list, char *save, t_envi *envp, t_free *to_free)
+static void	ft_exit_bis(t_list *list, t_envi *envp)
+{
+	if (list->next && list->next->content && \
+		ft_isalpha(list->next->content[0]))
+	{
+		ft_putstr_fd("exit: ", STDERR);
+		ft_putstr_fd(list->next->content, STDERR);
+		ft_putendl_fd(": numeric argument required", STDERR);
+		if (envp)
+			ft_free_envi(envp);
+		ft_free_lst(list);
+		exit(2);
+	}
+}
+
+void	ft_exit(t_list *list, t_envi *envp)
 {
 	int	exit_value;
 
 	exit_value = 0;
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
+		ft_exit_bis(list, envp);
 		if (list->next && list->next->next && \
 			ft_isdigit(list->next->next->content[0]) == 1)
 			return ;
-		if (list->next && list->next->content)
+		if (list->next && list->next->content && \
+			ft_isdigit(list->next->content[0]))
 			exit_value = ft_atoi(list->next->content);
-		free_all(to_free->split, save);
-		ft_free_lst(list);
-		ft_free_envi(envp);
 		ft_putendl_fd("exit", STDOUT);
+		if (envp)
+			ft_free_envi(envp);
+		ft_free_lst(list);
+		while (exit_value > 255)
+			exit_value -= 256;
 		exit(exit_value);
 	}
 }

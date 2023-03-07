@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 16:04:24 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 17:21:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ static char	*ft_check_var(t_exec *exec, char *vars, int ec, \
 	str = NULL;
 	to_join = NULL;
 	exec->exit_code = ec;
+	if (ft_all_isalnum(vars))
+	{
+		str = ft_strdup(ft_getenvi(vars, exec->envi));
+		if (!str)
+			return (free(vars), ft_strdup(""));
+		free(vars);
+		return (str);
+	}
 	vars = ft_check_vars(exec, (const size_t) size, &to_join, vars);
 	if (ft_getenvi(vars, exec->envi) != NULL)
 		str = ft_strdup(ft_getenvi(vars, exec->envi));
@@ -129,19 +137,19 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 
 	previous = -1;
 	lst = exec->lst;
-	while (lst)
+	while (exec->envi && lst)
 	{
 		n = ft_nb_var(lst->content);
 		if (n == 1 && lst->type == VAR)
 		{
-			if (ft_get_var_type(exec, lst, previous, exit_code) == EXIT_FAILURE)
+			if (ft_get_var_type(exec, lst, previous, exit_code))
 				return (EXIT_FAILURE);
 		}
 		else if (n >= 1 && ft_strchr(lst->content, '$') != NULL)
 		{
 			if (ft_strchr(lst->content, '=') != NULL)
 				;
-			else if (ft_get_var_str(exec, lst, previous, exit_code) == 1)
+			else if (ft_get_var_str(exec, lst, previous, exit_code))
 				return (EXIT_FAILURE);
 		}
 		previous = lst->type;

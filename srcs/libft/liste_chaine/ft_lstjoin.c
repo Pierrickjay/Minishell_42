@@ -6,11 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:50:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 13:38:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:21:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/libft.h"
 
 static size_t	ft_lstjoin_len(t_list *to_join)
 {
