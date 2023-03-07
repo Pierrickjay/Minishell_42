@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:28:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:32:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:08:23 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	t_exec		*exec;
 	t_envi		*envp;
 
+	// if (check_arrow_pipe(lst) == -1 || check_redir_nb(lst) == -1)
+	// 	return (envi);
 	exec = ft_init_exec(lst, envi, exit_code);
 	if (!exec)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:16:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 16:04:34 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 09:45:10 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,17 @@ int	fill_string_double(char *new_str, char *str, char c)
 {
 	if (c == '>')
 	{
-		new_str[0] = str[0];
-		new_str[1] = ' ';
+		new_str[0] = ' ';
+		new_str[1] = str[0];
 		new_str[2] = '>';
-		new_str[3] = '>';
-		new_str[4] = ' ';
+		new_str[3] = ' ';
 	}
 	else
 	{
-		new_str[0] = str[0];
-		new_str[1] = ' ';
+		new_str[0] = ' ';
+		new_str[1] = str[0];
 		new_str[2] = '<';
-		new_str[3] = '<';
-		new_str[4] = ' ';
+		new_str[3] = ' ';
 	}
 	return (2);
 }
@@ -65,17 +63,15 @@ int	fill_string_single(char *new_str, char *str, char c)
 {
 	if (c == '>')
 	{
-		new_str[0] = str[0];
-		new_str[1] = ' ';
-		new_str[2] = '>';
-		new_str[3] = ' ';
+		new_str[0] = ' ';
+		new_str[1] = str[0];
+		new_str[2] = ' ';
 	}
 	if (c == '<')
 	{
-		new_str[0] = str[0];
-		new_str[1] = ' ';
-		new_str[2] = '<';
-		new_str[3] = ' ';
+		new_str[0] = ' ';
+		new_str[1] = str[0];
+		new_str[2] = ' ';
 	}
 	return (1);
 }

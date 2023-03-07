@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:45:58 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/04 23:05:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:21:13 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*remove_single(char *str, int index)
 		}
 	}
 	new_one[i] = '\0';
-	free(str);
+	ft_free((void **)&str);
 	return (new_one);
 }
 

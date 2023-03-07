@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 16:04:30 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 10:08:50 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		list = ft_fill(save, to_free);
 		if (list == NULL)
 			continue ;
-		ft_exit(list, save, envp);
+		ft_exit(list, save, envp, to_free);
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
 		free_all(to_free->split, save);
+		if (check_arrow_pipe(list) == -1 || check_redir_nb(list) == -1)
+			continue ;
 		envp = main_exec(list, envp);
 		if (envp == FAIL)
 			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);

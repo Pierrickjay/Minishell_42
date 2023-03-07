@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:57:25 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 09:51:28 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*remove_single(char *str, int index);
 int		check_order_quote(char *str);
 void	free_all(char **split, char *save);
 int		save_is_null(char *save, t_envi *envp);
-void	ft_exit(t_list *list, char *save, t_envi *envp);
+void	ft_exit(t_list *list, char *save, t_envi *envp, t_free *to_free);
 int		ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp);
 void	*free_inverse_split(char **split, int i);
 int		count_quote_single(char *str);
@@ -69,4 +69,7 @@ int		to_go_next_quote_single(char *str, char *new_str, int i, int j);
 int		fill_string_double(char *new_str, char *str, char c);
 int		fill_string_single(char *new_str, char *str, char c);
 char	*separate_pipe(char *str);
+int		check_arrow_pipe(t_list *lst);
+void	ft_print_exeptected_token(char *str);
+int		check_redir_nb(t_list *lst);
 #endif

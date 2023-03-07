@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:58:45 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/03 12:24:33 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/06 17:10:16 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,12 @@ void	print_string(char **str)
 		printf("print split %s\n", str[i]);
 		i++;
 	}
+}
+
+void	ft_print_exeptected_token(char *str)
+{
+	ft_putstr_fd(SYNTAXE_ERROR, STDERR);
+	ft_putstr_fd(" `", STDERR);
+	ft_putstr_fd(str, STDERR);
+	ft_putendl_fd("\'", STDERR);
 }
