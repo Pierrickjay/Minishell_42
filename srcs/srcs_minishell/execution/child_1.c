@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:08:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:38:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_exec_child_bis(t_exec *exec, const int n)
 	cmd = ft_access(tmp, path);
 	if (!cmd)
 		return (ft_free_strs(path), free(tmp), ft_msg(exec, NULL, MA, &exit));
-	if (cmd == FAIL && ft_strcmp("exit", exec->args[n][0]) == 0)
+	if (cmd == FAIL && !ft_strcmp("exit", exec->args[n][0]))
 		return (ft_free_strs(path), free(tmp), \
 				ft_msg(exec, exec->args[n][0], EX, &exit));
 	if (cmd == FAIL)

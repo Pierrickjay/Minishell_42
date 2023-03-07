@@ -6,17 +6,20 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:22:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:37:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_is_ident(int c)
+int	ft_nb_args_child(char **args)
 {
-	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
-		return (true);
-	return (false);
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
 }
 
 int	ft_check_last_char(char *str, char c)

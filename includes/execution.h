@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:23:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:38:09 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int		ft_open_infiles_here_doc(t_list *redir);
 int		ft_open_outfiles(t_list *redir);
 
 //utils.c
-int		ft_is_ident(int c);
+int		ft_nb_args_child(char **args);
 int		ft_all_isalnum(char *str);
 int		ft_check_last_char(char *str, char c);
 int		ft_split_empty(char **strs);
@@ -210,6 +210,7 @@ int		ft_cd_1(t_exec *exec, char *pwd);
 //env
 int		ft_env(t_exec *exec);
 //export
+int		ft_is_ident(int c);
 int		ft_export(t_exec *exec);
 void	ft_set(char *arg, int *type, int *var_exist);
 int		ft_export_cat(t_exec *exec, char *key, char *value, int type);

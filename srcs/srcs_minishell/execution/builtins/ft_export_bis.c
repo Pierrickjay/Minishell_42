@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:28:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:11:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:36:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ int	ft_export_cat(t_exec *exec, char *key, char *value, int type)
 	if (ft_export_set(exec, key, new_value, type) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+int	ft_is_ident(int c)
+{
+	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
+		return (true);
+	return (false);
 }
