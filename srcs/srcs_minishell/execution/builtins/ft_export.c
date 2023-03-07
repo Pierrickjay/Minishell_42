@@ -6,14 +6,22 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:16:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:31:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// check ident for ident error
+static int	ft_is_ident(int c)
+{
+	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
+		return (true);
+	return (false);
+}
+
 // export a variable
-int	ft_export_set(t_exec *exec, char *key, char *value, int type)
+static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 {
 	t_envi		*new;
 
@@ -35,71 +43,43 @@ int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 	return (EXIT_SUCCESS);
 }
 
-// join the value of a variable with the value of another variable
-static int	ft_export_join(t_exec *exec, char *key, char *value, int type)
+//cat the export value
+static int	ft_export_cat(t_exec *exec, char *key, char *value, int type)
 {
-	size_t	i;
-	char	**vars;
+	int		create;
 	char	*tmp;
+	char	*new_value;
+	size_t	len;
 
-	vars = ft_split(value, ':');
-	if (!vars)
-		return (EXIT_FAILURE);
-	free(value);
-	i = 0;
-	while (vars[i])
+	create = false;
+	len = ft_strlen(key);
+	if (key[len - 1] == '+')
+		key[len - 1] = '\0';
+	tmp = ft_getenvi(key, exec->envi);
+	if (tmp)
 	{
-		tmp = ft_getenvi(&vars[i][1], exec->envi);
-		free(vars[i]);
-		vars[i] = ft_strdup(tmp);
-		if (!vars[i])
-			return (ft_free_strs(vars), EXIT_FAILURE);
-		i++;
-	}
-	value = ft_strjoin_all(vars, ':');
-	if (!value)
-		return (ft_free_strs(vars), EXIT_FAILURE);
-	ft_free_strs(vars);
-	if (ft_export_set(exec, key, value, type))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-// set a new value to an existing variable
-static int	ft_export_set_var(t_exec *exec, char *key, char *value, int type)
-{
-	size_t	nb;
-	char	*tmp;
-
-	nb = ft_nb_var(value);
-	if (nb == 1)
-	{
-		tmp = value;
-		value = ft_strdup(ft_getenvi(&tmp[1], exec->envi));
+		new_value = ft_strjoin(tmp, value);
 		if (!value)
-			return (free(tmp), EXIT_FAILURE);
-		free(tmp);
-		if (ft_export_set(exec, key, value, type))
-			return (free(tmp), EXIT_FAILURE);
+			return (EXIT_FAILURE);
+		free(value);
+		if (ft_export_set(exec, key, new_value, type) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	}
-	else if (nb > 1 && ft_export_join(exec, key, value, type))
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 // create a new enviroment variable
 static int	ft_export_create(t_exec *exec, char *arg)
 {
-	int		var_exist;
 	int		cat;
 	char	*key;
 	char	*value;
 	int		type;
 
 	cat = false;
-	var_exist = false;
 	type = NORMAL;
-	ft_set(arg, &type, &var_exist);
+	if (ft_strchr(arg, '=') == NULL)
+		type = NO_VALUE;
 	key = ft_get_key(arg);
 	value = ft_get_value(arg);
 	if (!key || !value)
@@ -108,9 +88,7 @@ static int	ft_export_create(t_exec *exec, char *arg)
 		cat = true;
 	if (cat && ft_export_cat(exec, key, value, type))
 		return (free(value), free(key), ft_msg_malloc("export.c (111)"), 1);
-	if (var_exist && ft_export_set_var(exec, key, value, type))
-		return (free(value), free(key), ft_msg_malloc("export.c (113)"), 1);
-	else if (!cat && !var_exist && ft_export_set(exec, key, value, type))
+	else if (!cat && ft_export_set(exec, key, value, type))
 		return (free(value), free(key), ft_msg_malloc("export.c (115)"), 1);
 	return (EXIT_SUCCESS);
 }

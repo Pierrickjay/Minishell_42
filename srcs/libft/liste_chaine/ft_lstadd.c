@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 10:39:00 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 17:43:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:16:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstadd(t_list **list, t_list *new_list)
 	t_list	*last;
 	t_list	*tmp;
 
-	if (!(*list)->next)
+	if ((*list)->next)
 	{
 		tmp = NULL;
 		if ((*list)->next && (*list)->next->next)

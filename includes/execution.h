@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 14:40:47 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 18:33:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,11 +211,7 @@ int		ft_cd_1(t_exec *exec, char *pwd);
 //env
 int		ft_env(t_exec *exec);
 //export
-int		ft_is_ident(int c);
 int		ft_export(t_exec *exec);
-void	ft_set(char *arg, int *type, int *var_exist);
-int		ft_export_cat(t_exec *exec, char *key, char *value, int type);
-int		ft_export_set(t_exec *exec, char *key, char *value, int type);
 //unset
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);
 int		ft_unset(t_exec *exec);

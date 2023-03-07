@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 17:52:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:28:13 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,15 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 	while (exec->envi && lst)
 	{
 		n = ft_nb_var(lst->content);
-		if (n == 1 && lst->type == VAR && ft_all_isalnum(&lst->content[1]))
+		if (n == 1 && lst->type == VAR && !ft_isdigit(lst->content[1]) \
+			&& (&lst->content[1]))
 		{
 			if (ft_get_var_type(exec, lst, previous, exit_code))
 				return (EXIT_FAILURE);
 		}
 		else if (n >= 1 && ft_strchr(lst->content, '$') != NULL)
 		{
-			if (ft_strchr(lst->content, '=') != NULL)
-				;
-			else if (ft_get_var_str(exec, lst, previous, exit_code))
+			if (ft_get_var_str(exec, lst, previous, exit_code))
 				return (EXIT_FAILURE);
 		}
 		previous = lst->type;

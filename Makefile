@@ -56,8 +56,7 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/parent_1.c execution/parent_2.c execution/exec_1.c execution/exec_2.c \
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/vars_1.c execution/vars_2.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			execution/builtins/ft_export.c execution/builtins/ft_export_bis.c execution/builtins/ft_cd.c \
-			execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c
+			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
