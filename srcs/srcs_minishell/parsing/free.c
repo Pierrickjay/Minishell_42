@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:53:12 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/03 12:40:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 11:28:53 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	*free_inverse_split(char **split, int i)
 	while (a < i)
 	{
 		free(split[i]);
-		printf("i = %d", i);
 		i++;
 	}
 	free(split);
