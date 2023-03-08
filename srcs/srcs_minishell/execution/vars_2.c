@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 12:08:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:22:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,3 +95,13 @@ int	ft_lst_split_vars(t_list *tmp)
 	return (ft_lstadd(&tmp, args), free(strs), EXIT_SUCCESS);
 }
 
+char	*ft_check_envi(char *key, t_envi *envi)
+{
+	char	*value;
+
+	if (ft_getenvi(key, envi) != NULL)
+		value = ft_strdup(ft_getenvi(key, envi));
+	else
+		value = ft_strdup("\0");
+	return (value);
+}
