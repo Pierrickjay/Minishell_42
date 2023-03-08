@@ -6,14 +6,14 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:17:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 14:18:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:05:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // main execution, the big boss
-t_envi	*main_exec(t_list *lst, t_envi *envi)
+t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 {
 	static int	exit_code = 0;
 	t_exec		*exec;
@@ -26,9 +26,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	}
 	if (ft_get_vars(envi, lst, exit_code))
 		return (ft_free_lst(lst), ft_msg_malloc("parent_1.c (30)"), envi);
-	if (ft_check_lst_cmds_here_doc(lst, &exit_code))
-		return (envi);
-	exec = ft_init_exec(lst, envi);
+	exec = ft_init_exec(lst, envi, count_line);
 	if (!exec)
 		return (NULL);
 	ft_update_shlvl(exec);
@@ -43,31 +41,15 @@ t_envi	*main_exec(t_list *lst, t_envi *envi)
 	return (envp);
 }
 
-//for check if have cmd
-int	ft_check_lst_cmds_here_doc(t_list *lst, int *exit_code)
+// exit code for signal
+void	deal_w_return_pid(int status)
 {
-	int		fd;
-	size_t	nb_cmds;
-
-	nb_cmds = ft_nb_cmds(lst);
-	if (nb_cmds == 0)
-	{
-		*exit_code = 0;
-		while (lst)
-		{
-			if (lst->type == REDIR && !ft_strcmp("<<", lst->content) \
-				&& lst->next)
-			{
-				*exit_code = 1;
-				fd = ft_open(lst->next->content, HEREDOC);
-				if (fd == FAILURE)
-					return (ft_msg(NULL, NULL, errno, NULL), EXIT_FAILURE);
-				ft_close(&fd);
-			}
-			lst = lst->next;
-		}
-	}
-	return (EXIT_SUCCESS);
+	if (status == 2)
+		ft_putchar_fd('\n', STDERR);
+	else if (status == 131)
+		ft_putendl_fd("Quit (core dumped)\n", STDERR);
+	else
+		return ;
 }
 
 // parent call the child
@@ -76,6 +58,8 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	int	status;
 
 	status = 0;
+	if (exec->nb == 0)
+		status = ft_exec_parent_no_cmd(exec);
 	if (exec->nb == 1 && exec->nb_redir == 0)
 		status = ft_exec_parent(exec);
 	else if (exec->nb > 1 && exec->nb_redir == 0)

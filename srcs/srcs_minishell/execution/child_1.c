@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 12:18:57 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 15:55:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out)
 {
 	if (exec->nb_redir_type[INFILE] || exec->nb_redir_type[HEREDOC])
 	{
-		fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC]);
+		fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC], \
+								exec->count_line, exec);
 		if (fd_in == FAILURE)
 			return (ft_free_exec(exec), exit(EXIT_FAILURE));
 		if (dup2(fd_in, STDIN) == FAILURE)
@@ -109,7 +110,7 @@ void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out)
 	}
 	if (exec->nb_redir_type[TRUNC] || exec->nb_redir_type[APPEND])
 	{
-		fd_out = ft_open_outfiles(exec->redir);
+		fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
 		if (fd_out == FAILURE)
 			return (ft_free_exec(exec), exit(EXIT_FAILURE));
 		if (dup2(fd_out, STDOUT) == FAILURE)

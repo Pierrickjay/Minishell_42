@@ -3,24 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:11:46 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 14:59:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// exit code for signal
-void	deal_w_return_pid(int status)
+// execution for no command and with redirection
+int	ft_exec_parent_no_cmd(t_exec *exec)
 {
-	if (status == 2)
-		ft_putchar_fd('\n', STDERR);
-	else if (status == 131)
-		ft_putendl_fd("Quit (core dumped)\n", STDERR);
-	else
-		return ;
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		return (FAILURE);
+	if (pid == 0)
+	{
+		create_siga(CHILD);
+		ft_exec_child_no_cmd(exec);
+	}
+	waitpid(pid, &exec->status, WUNTRACED);
+	deal_w_return_pid(exec->status);
+	return (SUCCESS);
 }
 
 // child for one command and no redirection

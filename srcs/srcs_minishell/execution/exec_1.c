@@ -6,14 +6,14 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:36:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:05:14 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // initialize exec struct
-t_exec	*ft_init_exec(t_list *lst, t_envi *envi)
+t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int *count_line)
 {
 	t_exec	*exec;
 
@@ -26,6 +26,7 @@ t_exec	*ft_init_exec(t_list *lst, t_envi *envi)
 	if (exec->env == FAIL)
 		return (ft_msg(exec, "exec_1.c (27)", MA, NULL), NULL);
 	exec->envi = envi;
+	exec->count_line = count_line;
 	exec->nb = ft_nb_cmds(lst);
 	exec->nb_redir = ft_nb_redir(lst);
 	exec->redir = ft_lst_redir(lst);

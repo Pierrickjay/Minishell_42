@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/08 13:18:44 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 15:55:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/parsing.h"
-
-sig_atomic_t 	g_test = 0;
 
 void	block_signal(int signal)
 {
@@ -46,14 +44,18 @@ void	handler_quit(int signal)
 void	handler_end_spe(int signal)
 {
 	if (signal == SIGINT)
-		g_test = 1;
+	{
+		write(1, "\n", 1);
+		exit(2);
+	}
+	else
+		return ;
 }
 
 void	handler_end(int signal)
 {
 	if (signal == SIGINT)
 	{
-
 		block_signal(SIGINT);
 		rl_on_new_line();
 		write(1, "\n", 1);

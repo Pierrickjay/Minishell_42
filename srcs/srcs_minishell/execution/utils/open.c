@@ -6,14 +6,14 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:16:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:55:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
 // open the files and return the fd
-int	ft_open(char *name, t_redir type)
+int	ft_open(char *name, t_redir type, int *count_line, t_exec *exec)
 {
 	if (type == INFILE)
 		return (open(name, O_RDONLY));
@@ -22,7 +22,7 @@ int	ft_open(char *name, t_redir type)
 	else if (type == APPEND)
 		return (open(name, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	else if (type == HEREDOC)
-		return (ft_here_doc(name));
+		return (ft_here_doc(name, count_line, exec));
 	return (FAILURE);
 }
 
@@ -37,19 +37,19 @@ void	ft_open_init_fd_infile(int *fd, int type)
 }
 
 // open all the infile and return the fd of the last infile
-int	ft_open_infiles(t_list *redir, int nb)
+int	ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec)
 {
 	int		fd;
 	int		fd_here_doc;
 
 	fd = -1;
-	fd_here_doc = ft_open_infiles_here_doc(redir);
+	fd_here_doc = ft_open_infiles_here_doc(redir, count_line, exec);
 	while (redir)
 	{
 		ft_open_init_fd_infile(&fd, redir->type);
 		if (redir->type == INFILE)
 		{
-			fd = ft_open(redir->content, INFILE);
+			fd = ft_open(redir->content, INFILE, count_line, exec);
 			if (fd == -1)
 				return (ft_msg(NULL, redir->content, errno, NULL), FAILURE);
 		}
@@ -65,7 +65,7 @@ int	ft_open_infiles(t_list *redir, int nb)
 }
 
 // open all the here_doc and return the fd of the last here_doc
-int	ft_open_infiles_here_doc(t_list *redir)
+int	ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec)
 {
 	int		fd;
 
@@ -79,7 +79,7 @@ int	ft_open_infiles_here_doc(t_list *redir)
 		}
 		if (redir->type == HEREDOC)
 		{
-			fd = ft_open(redir->content, HEREDOC);
+			fd = ft_open(redir->content, HEREDOC, count_line, exec);
 			if (fd == -1)
 				return (FAILURE);
 		}
@@ -89,7 +89,7 @@ int	ft_open_infiles_here_doc(t_list *redir)
 }
 
 // open all the outfile and return the fd of the last outfile
-int	ft_open_outfiles(t_list *redir)
+int	ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec)
 {
 	int	fd;
 
@@ -103,13 +103,13 @@ int	ft_open_outfiles(t_list *redir)
 		}
 		if (redir->type == TRUNC)
 		{
-			fd = ft_open(redir->content, TRUNC);
+			fd = ft_open(redir->content, TRUNC, count_line, exec);
 			if (fd == -1)
 				return (ft_msg(NULL, redir->content, errno, NULL), FAILURE);
 		}
 		else if (redir->type == APPEND)
 		{
-			fd = ft_open(redir->content, APPEND);
+			fd = ft_open(redir->content, APPEND, count_line, exec);
 			if (fd == -1)
 				return (ft_msg(NULL, redir->content, errno, NULL), FAILURE);
 		}

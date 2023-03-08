@@ -3,57 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:04:26 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 15:58:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-extern int	count_line;
-extern sig_atomic_t g_test;
-
-void	to_print_error(char *end)
+void	to_print_error(char *end, int *count_line, t_exec *exec, int fd[2])
 {
 	ft_putstr_fd("bash: warning: here-document at line ", 2);
-	ft_putnbr_fd(count_line, 2);
+	ft_putnbr_fd(*count_line, 2);
 	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
 	ft_putstr_fd(end, 2);
 	ft_putendl_fd("')", 2);
+	ft_free_exec(exec);
+	ft_close(&fd[0]);
+	ft_close(&fd[1]);
+	exit(2);
 }
 
 // get the heredoc from the user
-int	ft_here_doc(char *end)
+int	ft_here_doc(char *end, int *count_line, t_exec *exec)
 {
-	static char	*line = "START";
-	char		*limiter;
+	char		*line;
 	int			fd[2];
 
-	limiter = ft_strjoin(end, "\n");
-	if (!limiter)
-		return (-1);
-	if (pipe(fd) == -1)
-		return (free(limiter), -1);
 	create_siga(HEREDOC);
+	if (pipe(fd) == -1)
+		return (-1);
 	while (1)
 	{
-		ft_putstr_fd("> ", 1);
-		line = get_next_line(0);
+		line = readline("> ");
+		(*count_line)++;
 		if (!line)
-		{
-			if (g_test == 0)
-				to_print_error(end);
-			break ;
-		}
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-			return (free(limiter), free(line), close(fd[1]), fd[0]);
-		ft_putstr_fd(line, fd[1]);
+			to_print_error(end, count_line, exec, fd);
+		if (ft_strncmp(line, end, ft_strlen(end)) == 0)
+			return (free(line), ft_close(&fd[1]), fd[0]);
+		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
-	g_test = 0;
-	free(limiter);
-	close(fd[1]);
+	ft_close (&fd[1]);
 	return (fd[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 08:58:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:26:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 	{
 		if (exec)
 		{
-			ft_close_pipes(exec->pipes, (exec->nb - 1));
+			if (exec->pipes)
+				ft_close_pipes(exec->pipes, (exec->nb - 1));
 			ft_free_exec(exec);
 		}
 		f(value);

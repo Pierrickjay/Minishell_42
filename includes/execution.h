@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:36:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:54:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,19 @@ typedef struct s_exec
 	int		**pipes;
 	char	***args;
 	int		status;
-	int		exit_code;
+	int		*count_line;
 }	t_exec;
 
 /***********************************EXECUTION**********************************/
 //parent
 //parent_1.c
-t_envi	*main_exec(t_list *lst, t_envi *envi);
-int		ft_check_lst_cmds_here_doc(t_list *lst, int *exit_code);
+t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line);
+void	deal_w_return_pid(int status);
 int		ft_parent_bis(t_exec *exec, t_envi *envp);
 void	ft_update_shlvl(t_exec *exec);
 void	ft_exit_code(t_exec *exec);
 //parent_2.c
+int		ft_exec_parent_no_cmd(t_exec *exec);
 int		ft_exec_parent(t_exec *exec);
 int		ft_exec_pipe_parent(t_exec *exec);
 int		ft_exec_redir_parent(t_exec *exec);
@@ -106,10 +107,11 @@ void	ft_exec_redir_child(t_exec *exec);
 void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out);
 //child_2.c
 void	ft_exec_pipe_file_child(t_exec *exec);
+void	ft_exec_child_no_cmd(t_exec *exec);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, t_envi *envi);
+t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int *count_line);
 int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
@@ -175,13 +177,13 @@ void	ft_msg_builtins(char *cmd, char *arg, char *str);
 void	ft_msg_malloc(char *files);
 
 //here_doc.c
-int		ft_here_doc(char *end);
+int		ft_here_doc(char *end, int *count_line, t_exec *exec);
 
 //open.c
-int		ft_open(char *name, t_redir type);
-int		ft_open_infiles(t_list *redir, int nb);
-int		ft_open_infiles_here_doc(t_list *redir);
-int		ft_open_outfiles(t_list *redir);
+int		ft_open(char *name, t_redir type, int *count_line, t_exec *exec);
+int		ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec);
+int		ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec);
+int		ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec);
 
 //utils.c
 int		ft_nb_args_child(char **args);
