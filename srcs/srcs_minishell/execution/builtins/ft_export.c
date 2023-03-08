@@ -6,19 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 19:14:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:17:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
-
-// check ident for ident error
-static int	ft_is_ident(int c)
-{
-	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#')
-		return (true);
-	return (false);
-}
 
 // export a variable
 static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
@@ -104,7 +96,7 @@ int	ft_export(t_exec *exec)
 	i = 0;
 	while (args[++i])
 	{
-		if (ft_is_ident(args[i][0]))
+		if (ft_var_special(args[i][0]))
 		{
 			ft_msg_builtins("export", (char *)args[i], IDENT);
 			exec->status = 1;
