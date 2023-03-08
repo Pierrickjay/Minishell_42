@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 11:50:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:03:16 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ char	*ft_content_update(char *str)
 	return (new_str);
 }
 
+char	**ft_lst_split_vars_bis(t_list *tmp)
+{
+	char	**strs;
+
+	strs = ft_split(tmp->content, ' ');
+	if (!strs)
+		return (FAIL);
+	free(tmp->content);
+	tmp->content = strs[0];
+	return (strs);
+}
+
 // split vars, when we have a lot espace, and we have one cmd, and opt or arg
 int	ft_lst_split_vars(t_list *tmp)
 {
@@ -63,22 +75,22 @@ int	ft_lst_split_vars(t_list *tmp)
 	char	*str;
 	int		i;
 
-	strs = ft_split(tmp->content, ' ');
-	if (!strs)
-		return (EXIT_FAILURE);
-	free(tmp->content);
-	tmp->content = strs[0];
-	if (!tmp->content)
+	if (tmp->content[0] == '\0')
+		return (EXIT_SUCCESS);
+	strs = ft_lst_split_vars_bis(tmp);
+	if (strs == FAIL)
 		return (EXIT_FAILURE);
 	args = NULL;
 	i = 1;
 	while (strs[i])
 	{
-		str = strs[i++];
+		str = strs[i];
 		new = ft_lstnew(str, ARG);
 		if (!new)
 			return (EXIT_FAILURE);
 		ft_lstadd_back(&args, new);
+		i++;
 	}
 	return (ft_lstadd(&tmp, args), free(strs), EXIT_SUCCESS);
 }
+
