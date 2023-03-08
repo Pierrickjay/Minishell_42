@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:50:58 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 17:34:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:04:28 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-extern sig_atomic_t	g_check;
 
 // main execution, the big boss
 t_envi	*main_exec(t_list *lst, t_envi *envi)
@@ -50,8 +49,6 @@ int	ft_check_lst_cmds_here_doc(t_list *lst, int *exit_code)
 	int		fd;
 	size_t	nb_cmds;
 
-	g_check = 1;
-	create_siga(MAIN);
 	nb_cmds = ft_nb_cmds(lst);
 	if (nb_cmds == 0)
 	{

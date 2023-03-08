@@ -6,11 +6,13 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 11:55:18 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 12:04:25 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	count_line = 0;
 
 int	is_full_of_space(char *save)
 {
@@ -37,6 +39,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 	while (1)
 	{
 		create_siga(MAIN);
+		count_line++;
 		save = readline("minishell> ");
 		create_siga(PARENT);
 		if (save_is_null(save, envp) == -1 || is_full_of_space(save) == -1)

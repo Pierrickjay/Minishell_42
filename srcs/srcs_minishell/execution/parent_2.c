@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:00:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:11:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-extern sig_atomic_t	g_check;
 
 // exit code for signal
 void	deal_w_return_pid(int status)
@@ -28,10 +26,8 @@ void	deal_w_return_pid(int status)
 // child for one command and no redirection
 int	ft_exec_parent(t_exec *exec)
 {
-	g_check = 1;
 	if (ft_builtins(exec) == FAILURE)
 	{
-		g_check++;
 		exec->pid[0] = fork();
 		if (exec->pid[0] == -1)
 			return (FAILURE);
@@ -43,7 +39,6 @@ int	ft_exec_parent(t_exec *exec)
 	}
 	waitpid(exec->pid[0], &exec->status, WUNTRACED);
 	deal_w_return_pid(exec->status);
-	g_check = 0;
 	return (SUCCESS);
 }
 
@@ -52,7 +47,6 @@ int	ft_exec_pipe_parent(t_exec *exec)
 {
 	int	i;
 
-	g_check = 1;
 	while (exec->i < exec->nb)
 	{
 		if (ft_builtins(exec) == FAILURE)
@@ -72,7 +66,6 @@ int	ft_exec_pipe_parent(t_exec *exec)
 	i = 0;
 	while (i < exec->nb)
 		waitpid(exec->pid[i++], &exec->status, 0);
-	g_check = 0;
 	return (SUCCESS);
 }
 
@@ -82,7 +75,6 @@ int	ft_exec_redir_parent(t_exec *exec)
 	ft_nb_redir_type(exec->redir, exec);
 	if (ft_builtins(exec) == FAILURE)
 	{
-		g_check++;
 		exec->pid[0] = fork();
 		if (exec->pid[0] == -1)
 			return (FAILURE);
@@ -101,7 +93,6 @@ int	ft_exec_pipe_redir_parent(t_exec *exec)
 {
 	int	i;
 
-	g_check = 1;
 	ft_nb_redir_type(exec->redir, exec);
 	while (exec->i < exec->nb)
 	{
@@ -122,6 +113,5 @@ int	ft_exec_pipe_redir_parent(t_exec *exec)
 	i = 0;
 	while (i < exec->nb)
 		waitpid(exec->pid[i++], &exec->status, 0);
-	g_check = 0;
 	return (SUCCESS);
 }

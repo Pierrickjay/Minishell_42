@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 11:55:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/07 16:35:30 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define MAIN 0
 # define CHILD 2
 # define PARENT 1
+# define HEREDOC 3
 
 typedef struct s_free
 {
@@ -73,4 +74,5 @@ int		check_arrow_pipe(t_list *lst);
 void	ft_print_exeptected_token(char *str);
 int		check_redir_nb(t_list *lst);
 void	increment_fill(char *str, char *new_str, int *i, int j);
+void	handler_quit(int signal);
 #endif
