@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:51:32 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 11:54:47 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/08 19:22:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ static void	ft_exit_bis(t_list *list, t_envi *envp)
 	}
 }
 
-void	ft_exit(t_list *list, t_envi *envp)
+void	ft_exit(t_list *list, t_envi *envp, char **split, char *save)
 {
 	int	exit_value;
 
 	exit_value = 0;
+	free(split);
+	free(save);
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
 		ft_exit_bis(list, envp);
