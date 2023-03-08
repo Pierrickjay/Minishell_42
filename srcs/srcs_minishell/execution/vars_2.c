@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 12:03:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:08:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// for var special example $1, $$ etc..
 int	ft_check_var_3(char *var, t_list **to_join, int exit_code)
 {
 	char	*add;
