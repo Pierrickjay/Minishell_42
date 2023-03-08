@@ -6,88 +6,79 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 17:21:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:50:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// get the type of the variable
-int	ft_get_type_var(int *prev)
+int	ft_check_var_3(char *var, t_list **to_join, int exit_code)
 {
-	if (*prev == -1 || *prev == PIPE || *prev == FILES)
-		return (CMD);
-	return (ARG);
-}
+	char	*add;
 
-// set the exit code when $? is used
-int	ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free)
-{
-	char	*str;
-
-	str = ft_itoa(exit_code);
-	if (!str)
-		return (EXIT_FAILURE);
-	if (mode_free)
-		free(lst->content);
-	lst->content = str;
-	lst->type = ft_get_type_var(&prev);
+	add = NULL;
+	if (!ft_strcmp("$?", var))
+	{
+		add = ft_itoa(exit_code);
+		if (!add)
+			return (EXIT_FAILURE);
+		ft_lstadd_front(to_join, ft_lstnew(add, -1));
+	}
+	ft_bzero(var, ft_strlen(var));
 	return (EXIT_SUCCESS);
 }
 
-// update lst content to empty string
-int	ft_update_lst(t_list *lst, t_list *to_join, int *prev)
+// update the string when we have a lot dorlars and add space before dolars
+char	*ft_content_update(char *str)
 {
-	free(lst->content);
-	lst->content = ft_lstjoin(to_join);
-	if (!lst->content)
-		return (EXIT_FAILURE);
-	lst->type = ft_get_type_var(prev);
-	return (EXIT_SUCCESS);
-}
-
-// get the number of variables in a string
-size_t	ft_nb_var(char *str)
-{
+	size_t	nb_dolars;
+	size_t	len;
 	size_t	i;
-	size_t	nb;
+	size_t	j;
+	char	*new_str;
 
+	nb_dolars = ft_nb_var(str);
+	len = ft_strlen(str);
+	new_str = ft_calloc((nb_dolars + len + 1), sizeof(char));
+	if (!new_str)
+		return (NULL);
 	i = 0;
-	nb = 0;
+	j = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
-			nb++;
-		i++;
+			new_str[j++] = ' ';
+		new_str[j++] = str[i++];
 	}
-	return (nb);
+	ft_free((void **)&str);
+	return (new_str);
 }
 
-char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars)
+// split vars, when we have a lot espace, and we have one cmd, and opt or arg
+int	ft_lst_split_vars(t_list *tmp)
 {
-	size_t	len;
-	char	*add;
-	size_t	i;
+	char	**strs;
+	t_list	*new;
+	t_list	*args;
+	char	*str;
+	int		i;
 
-	i = 0;
-	len = ft_strlen(vars);
-	while (vars[0] == '$' && !ft_all_isalnum(&vars[1]) && len-- && i < size)
+	strs = ft_split(tmp->content, ' ');
+	if (!strs)
+		return (EXIT_FAILURE);
+	free(tmp->content);
+	tmp->content = strs[0];
+	if (!tmp->content)
+		return (EXIT_FAILURE);
+	args = NULL;
+	i = 1;
+	while (strs[i])
 	{
-		if (ft_strcmp(vars, "$?") == 0)
-		{
-			add = ft_itoa(exec->exit_code);
-			if (!add)
-				return (NULL);
-			ft_lstadd_front(to_join, ft_lstnew(add, -1));
-			ft_bzero(vars, ft_strlen(vars));
-			break ;
-		}
-		add = ft_strdup(&vars[len]);
-		if (!add)
-			return (NULL);
-		vars[len] = '\0';
-		ft_lstadd_front(to_join, ft_lstnew(add, -1));
-		i++;
+		str = strs[i++];
+		new = ft_lstnew(str, ARG);
+		if (!new)
+			return (EXIT_FAILURE);
+		ft_lstadd_back(&args, new);
 	}
-	return (vars);
+	return (ft_lstadd(&tmp, args), free(strs), EXIT_SUCCESS);
 }

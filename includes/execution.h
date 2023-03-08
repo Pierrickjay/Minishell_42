@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 18:33:36 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 11:30:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,20 @@ char	*ft_access(char *cmd, char **path);
 
 //vars_1.c
 int		ft_get_vars(t_exec *exec, int exit_code);
+int		ft_only_one_var(t_exec *exec, t_list *lst, int prev, int ec);
+int		ft_update_str_var(t_exec *exec, t_list *lst, int prev, int ec);
+char	*ft_check_var_1(t_exec *exec, char *vars, int ec, size_t size);
+char	*ft_check_var_2(t_exec *exec, size_t size, t_list **to_join, char *var);
 //vars_2.c
-int		ft_get_type_var(int *prev);
-int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
-int		ft_update_lst(t_list *lst, t_list *to_join, int *prev);
+int		ft_check_var_3(char *var, t_list **to_join, int exit_code);
+int		ft_lst_split_vars(t_list *tmp);
+char	*ft_content_update(char *str);
+//vars_3.c
 size_t	ft_nb_var(char *str);
-char	*ft_check_vars(t_exec *exec, size_t size, t_list **to_join, char *vars);
+int		ft_var_special(char c);
+int		ft_get_type_var(int *prev);
+int		ft_update_lst(t_list *lst, t_list *to_join, int *prev);
+int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
@@ -179,7 +187,6 @@ int		ft_nb_args_child(char **args);
 int		ft_all_isalnum(char *str);
 int		ft_check_last_char(char *str, char c);
 t_envi	*ft_dup_envi(t_envi *envi);
-char	*ft_content_update(char *str);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
