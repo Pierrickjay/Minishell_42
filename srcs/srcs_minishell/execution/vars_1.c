@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 11:46:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:15:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_get_vars(t_exec *exec, int exit_code)
 		!ft_var_special(lst->content[1]) && ft_all_isalnum(&lst->content[1]) \
 		&& ft_only_one_var(exec, lst, previous, exit_code))
 			return (EXIT_FAILURE);
+		else if (n == 1 && lst->type == VAR && !ft_strcmp("$", lst->content))
+			lst->type = ARG;
 		else if (n >= 1 && lst->content[1] && \
 				ft_update_str_var(exec, lst, previous, exit_code))
 			return (EXIT_FAILURE);
