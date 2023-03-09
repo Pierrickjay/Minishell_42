@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:28:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:28:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:07:19 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp)
 	{
 		free_all(to_free->newsplit, save);
 		free(to_free->not_expend);
+		free(to_free->is_in_quote);
 		ft_free_envi(envp);
 		ft_free_lst(list);
 		ft_putendl_fd("exit", STDOUT);

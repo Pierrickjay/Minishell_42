@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:31:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:16:49 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_free
 {
 	char	**newsplit;
 	bool	*not_expend;
+	bool	*is_in_quote;
 }	t_free;
 
 void	ft_main_parsing(void);
@@ -79,5 +80,8 @@ int		check_next_arrow(t_list *lst);
 void	block_signal(int signal);
 void	unblock_signal(int signal);
 void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save);
-
+int		check_pipe(t_list *lst);
+int		free_trim_all(t_free *to_free, int i);
+int		check_if_expend(char *old_str);
+int		check_if_in_quote(char *old_str);
 #endif

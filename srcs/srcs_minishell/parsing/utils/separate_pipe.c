@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:10:09 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 14:30:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 18:45:49 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_lengh_pipe(char *str)
 		else
 			i++;
 	}
-	return (count);
+	return (count + i);
 }
 
 void	fill_new_string(char *new_str, int *i, int *j, char *str)
@@ -57,7 +57,7 @@ char	*separate_pipe(char *str)
 
 	j = 0;
 	i = -1;
-	new_str = malloc(sizeof(char) * (count_lengh_pipe(str) + 1));
+	new_str = malloc(sizeof(char) * (count_lengh_pipe(str) + 2));
 	if (!new_str)
 	{
 		free(str);

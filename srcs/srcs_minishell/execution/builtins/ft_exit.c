@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:21:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:30:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:07:07 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save)
 
 	exit_value = 0;
 	free(to_free->not_expend);
+	free(to_free->is_in_quote);
 	free(to_free->newsplit);
 	free(save);
 	if (ft_strcmp(list->content, "exit") == 0)

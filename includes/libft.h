@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:23:45 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:36:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:47:52 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lst_print_type(t_list *lst);
 void	ft_lstadd(t_list **list, t_list *new_list);
 char	*ft_lstjoin(t_list *to_join);
-t_list	*ft_lstnew_spe(char *content, int type, bool expend);
+t_list	*ft_lstnew_spe(char *content, int type, bool expend, bool inquote);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 14:54:42 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 21:17:09 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,6 @@ char	*make_it_clean(char *str, int tmp)
 	return (new_one);
 }
 
-int	check_if_expend(char *old_str)
-{
-	int	i;
-
-	i = -1;
-	while (old_str[++i])
-	{
-		if (old_str[i] == '\'')
-		{
-			while (old_str[++i] && old_str[i] != '\'')
-			{
-				if (old_str[i] == '$')
-					return (1);
-			}
-		}
-		if (old_str[i] == '\"')
-		{
-			while (old_str[++i] && old_str[i] != '\"')
-			{
-				if (old_str[i] == '$')
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-
 int	trim_all_2(char **split, t_free *to_free)
 {
 	to_free->newsplit = malloc(sizeof(char *) * (count_split(split) + 1));
@@ -104,6 +77,14 @@ int	trim_all_2(char **split, t_free *to_free)
 	to_free->not_expend = ft_calloc(sizeof(char *), (count_split(split) + 1));
 	if (!to_free->not_expend)
 	{
+		ft_free_strs(split);
+		return (-1);
+	}
+	to_free->is_in_quote = ft_calloc(sizeof(char *), (count_split(split) + 1));
+	if (!to_free->is_in_quote)
+	{
+		free(to_free->not_expend);
+		free(to_free->is_in_quote);
 		ft_free_strs(split);
 		return (-1);
 	}
@@ -123,14 +104,15 @@ int	trim_all(char **split, t_free *to_free)
 		tmp = 0;
 		to_free->newsplit[i] = make_it_clean(split[i], tmp);
 		if (!to_free->newsplit[i])
-		{
-			free_inverse_split(to_free->newsplit, i, false);
-			free(to_free->not_expend);
-			return (-1);
-		}
+			return (free_trim_all(to_free, i));
 		if (ft_strcmp(to_free->newsplit[i], split[i])
 			&& check_if_expend(split[i]))
 			to_free->not_expend[i] = true;
+		if (check_if_in_quote(split[i]))
+		{
+			printf("enter here");
+			to_free->is_in_quote[i] = true;
+		}
 	}
 	to_free->newsplit[i++] = NULL;
 	free_split(split);

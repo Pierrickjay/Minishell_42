@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:53:12 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 13:30:00 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 18:52:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*free_inverse_split(char **split, int i, bool print)
 
 	a = 0;
 	if (print == TRUE)
-		ft_putendl_fd("synthaxe error", 2);
+		ft_putendl_fd("syntaxe error", 2);
 	while (a < i)
 	{
 		free(split[i]);
@@ -40,8 +40,7 @@ void	*free_inverse_split(char **split, int i, bool print)
 
 void	*free_str_quote_error(char *str)
 {
-	printf("here");
-	ft_putendl_fd("synthaxe error", 2);
+	ft_putendl_fd("syntaxe error", 2);
 	free(str);
 	return (NULL);
 }

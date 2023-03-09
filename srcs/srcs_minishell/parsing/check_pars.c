@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:52:17 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 10:26:49 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 21:12:52 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,33 @@ int	check_next_arrow(t_list *lst)
 			if (!lst->next && (ft_strcmp(lst->content, "<<") || i == 0))
 			{
 				ft_print_exeptected_token("newline");
+				return (ft_free_lst((t_list *)tmp), -1);
+			}
+		}
+		lst = lst->next;
+		i++;
+	}
+	return (0);
+}
+
+int	check_pipe(t_list *lst)
+{
+	const t_list	*tmp = lst;
+	int				i;
+
+	i = 0;
+	while (lst)
+	{
+		if (lst->type == PIPE)
+		{
+			if (!lst->next)
+			{
+				ft_putendl_fd("syntaxe error", STDERR);
+				return (ft_free_lst((t_list *)tmp), -1);
+			}
+			if (i == 0)
+			{
+				ft_print_exeptected_token("|");
 				return (ft_free_lst((t_list *)tmp), -1);
 			}
 		}

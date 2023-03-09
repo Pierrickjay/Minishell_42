@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 14:29:46 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 21:17:41 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_erase_all(char **str_dup, t_list *list, char *str)
 {
 	if (str_dup)
 	{
-		ft_putendl_fd("synthaxe error", 2);
+		ft_putendl_fd("syntaxe error", 2);
 		ft_free_strs(str_dup);
 	}
 	free(list);
@@ -34,7 +34,8 @@ t_list	*ft_fill_2(t_free *to_free, t_list *list)
 	list->content = to_free->newsplit[0];
 	while (to_free->newsplit[i])
 	{
-		tmp = ft_lstnew_spe(to_free->newsplit[i], -1, to_free->not_expend[i]);
+		tmp = ft_lstnew_spe(to_free->newsplit[i], \
+			-1, to_free->not_expend[i], to_free->is_in_quote[i]);
 		if (tmp == NULL)
 			return (NULL);
 		ft_lstadd_back(&list, tmp);
