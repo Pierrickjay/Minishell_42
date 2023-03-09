@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstprint_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:17:21 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/22 11:18:10 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 14:29:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	ft_lst_print_type(t_list *lst)
 		ft_putendl_fd("(null)", 1);
 	while (lst)
 	{
-		printf("%s | %s\n", lst->content, ft_print_type(lst->type));
+		printf("%s | %s | not_expend = %d\n", lst->content, \
+				ft_print_type(lst->type), lst->not_expend);
 		lst = lst->next;
 	}
 }

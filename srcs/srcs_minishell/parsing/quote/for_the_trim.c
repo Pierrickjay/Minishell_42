@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   for_the_trim.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/04 23:06:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:54:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,15 @@ int	go_next_quote(char *str, int index, char c)
 	return (i);
 }
 
-// le malloc de strdup n'est pas check car si ca a
-// return null alors ca rentrera pas dans le while
-// et ca returnera new_one qui vaut null
-
-char	*make_it_clean(char *str)
+char	*make_it_clean(char *str, int tmp)
 {
 	int				i;
 	char			*new_one;
-	int				tmp;
 
 	i = -1;
 	new_one = ft_strdup_modif(str, 0);
+	if (!new_one)
+		return (NULL);
 	while (new_one[++i] && (size_t)i < ft_strlen(new_one))
 	{
 		if (new_one[i] == '\'')
@@ -72,26 +69,70 @@ char	*make_it_clean(char *str)
 	return (new_one);
 }
 
-char	**trim_all(char **split)
+int	check_if_expend(char *old_str)
 {
-	int		i;
-	char	**newsplit;
-	int		a;
+	int	i;
 
-	a = 0;
-	newsplit = malloc(sizeof(char *) * (count_split(split) + 1));
-	if (!newsplit)
-		return (NULL);
 	i = -1;
-	while (split[++i + a])
+	while (old_str[++i])
 	{
-		newsplit[i] = make_it_clean(split[i + a]);
-		if (!newsplit[i])
-			return (NULL);
-		if (count_quote_single(newsplit[i]) == -1)
-			return (free_inverse_split(split, count_split(split)));
+		if (old_str[i] == '\'')
+		{
+			while (old_str[++i] && old_str[i] != '\'')
+			{
+				if (old_str[i] == '$')
+					return (1);
+			}
+		}
+		if (old_str[i] == '\"')
+		{
+			while (old_str[++i] && old_str[i] != '\"')
+			{
+				if (old_str[i] == '$')
+					return (1);
+			}
+		}
 	}
-	newsplit[i++] = NULL;
+	return (0);
+}
+
+int	trim_all_2(char **split, t_free *to_free)
+{
+	to_free->newsplit = malloc(sizeof(char *) * (count_split(split) + 1));
+	if (!to_free->newsplit)
+		return (-1);
+	to_free->not_expend = ft_calloc(sizeof(char *), (count_split(split) + 1));
+	if (!to_free->not_expend)
+	{
+		ft_free_strs(split);
+		return (-1);
+	}
+	return (0);
+}
+
+int	trim_all(char **split, t_free *to_free)
+{
+	int				i;
+	int				tmp;
+
+	if (trim_all_2(split, to_free) == -1)
+		return (-1);
+	i = -1;
+	while (split[++i])
+	{
+		tmp = 0;
+		to_free->newsplit[i] = make_it_clean(split[i], tmp);
+		if (!to_free->newsplit[i])
+		{
+			free_inverse_split(to_free->newsplit, i, false);
+			free(to_free->not_expend);
+			return (-1);
+		}
+		if (ft_strcmp(to_free->newsplit[i], split[i])
+			&& check_if_expend(split[i]))
+			to_free->not_expend[i] = true;
+	}
+	to_free->newsplit[i++] = NULL;
 	free_split(split);
-	return (newsplit);
+	return (0);
 }

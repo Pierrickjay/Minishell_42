@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 11:46:09 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 14:24:20 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_lengh(char *str)
 			size += 2;
 		}
 	}
-	return (size);
+	return (size + i);
 }
 
 char	*finish_it(char *new_str)
@@ -78,7 +78,7 @@ char	*new_string(char *str)
 
 	j = 0;
 	i = 0;
-	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 3));
+	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 1));
 	if (!new_str)
 		return (NULL);
 	while (str[i])

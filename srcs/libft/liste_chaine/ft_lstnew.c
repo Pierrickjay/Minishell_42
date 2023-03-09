@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:59:40 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/22 10:51:57 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 11:43:09 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,23 @@ t_list	*ft_lstnew(char *content, int type)
 {
 	t_list	*contenu;
 
-	contenu = malloc(sizeof(*contenu));
+	contenu = ft_calloc(sizeof(*contenu), 1);
 	if (!contenu)
 		return (NULL);
+	contenu->content = content;
+	contenu->type = type;
+	contenu->next = NULL;
+	return (contenu);
+}
+
+t_list	*ft_lstnew_spe(char *content, int type, bool expend)
+{
+	t_list	*contenu;
+
+	contenu = ft_calloc(sizeof(*contenu), 1);
+	if (!contenu)
+		return (NULL);
+	contenu->not_expend = expend;
 	contenu->content = content;
 	contenu->type = type;
 	contenu->next = NULL;

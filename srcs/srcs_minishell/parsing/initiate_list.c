@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/07 12:06:30 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 14:29:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_list	*ft_fill_2(t_free *to_free, t_list *list)
 
 	i = 1;
 	tmp = NULL;
-	list->content = to_free->split[0];
-	while (to_free->split[i])
+	list->content = to_free->newsplit[0];
+	while (to_free->newsplit[i])
 	{
-		tmp = ft_lstnew(to_free->split[i], -1);
+		tmp = ft_lstnew_spe(to_free->newsplit[i], -1, to_free->not_expend[i]);
 		if (tmp == NULL)
 			return (NULL);
 		ft_lstadd_back(&list, tmp);
@@ -54,7 +54,7 @@ t_list	*ft_fill(char *str, t_free *to_free)
 		return (free_str_quote_error(str));
 	new_str = new_string(str);
 	if (!new_str)
-		return (NULL);
+		return (free(str), NULL);
 	list = NULL;
 	list = ft_calloc(sizeof(*list), 1);
 	if (!list)
@@ -63,9 +63,9 @@ t_list	*ft_fill(char *str, t_free *to_free)
 	str_dup = split_parsing(new_str, ' ');
 	if (!str_dup)
 		return (ft_erase_all(str_dup, list, str));
-	to_free->split = trim_all(str_dup);
-	if (!to_free->split || !(to_free->split[0]))
-		return (ft_erase_all(str_dup, list, new_str));
+	if (trim_all(str_dup, to_free) == -1)
+		return (ft_free_lst(list),
+			ft_free_strs(str_dup), free(str), free(new_str), NULL);
 	list = ft_fill_2(to_free, list);
 	if (!list)
 		return (NULL);

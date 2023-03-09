@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 19:22:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:55:15 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 
 typedef struct s_free
 {
-	char	**split;
+	char	**newsplit;
+	bool	*not_expend;
 }	t_free;
 
 void	ft_main_parsing(void);
@@ -44,10 +45,10 @@ void	free_split(char **split);
 char	*create_space(void);
 int		count_split(char **split);
 void	fill_enum(t_list *lst);
-char	**trim_all(char **split);
+int		trim_all(char **split, t_free *to_free);
 void	ft_set_type(t_list *lst);
 int		count_quote(char **str);
-char	*make_it_clean(char *str);
+char	*make_it_clean(char *str, int tmp);
 char	*ft_strdup_modif(char *s, int to_free);
 char	**split_parsing(char const *s, char c);
 size_t	split_w_double(const char *s);
@@ -58,9 +59,9 @@ char	*remove_single(char *str, int index);
 int		check_order_quote(char *str);
 void	free_all(char **split, char *save);
 int		save_is_null(char *save, t_envi *envp);
-void	ft_exit(t_list *list, t_envi *envp, char **split, char *save);
+void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save);
 int		ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp);
-void	*free_inverse_split(char **split, int i);
+void	*free_inverse_split(char **split, int i, bool print);
 int		count_quote_single(char *str);
 void	*free_str_quote_error(char *str);
 int		go_next_quote(char *str, int index, char c);
@@ -75,4 +76,9 @@ void	ft_print_exeptected_token(char *str);
 int		check_redir_nb(t_list *lst);
 void	increment_fill(char *str, char *new_str, int *i, int j);
 void	handler_quit(int signal);
+int		check_next_arrow(t_list *lst);
+void	block_signal(int signal);
+void	unblock_signal(int signal);
+
+
 #endif

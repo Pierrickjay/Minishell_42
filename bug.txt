@@ -1,0 +1,7 @@
+
+export -> doit etre trier ordre alphabetique
+
+minishell> exit 123 test
+exit
+ne doit pas exit et dois afficher message erreur
+minishell> echo > tes | echo > teeee

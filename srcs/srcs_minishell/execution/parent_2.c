@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 22:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:48:44 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/09 10:09:23 by pjay              #+#    #+#             */
+/*   Updated: 2023/03/09 10:09:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 // execution for no command and with redirection
 int	ft_exec_parent_no_cmd(t_exec *exec)
 {
-	pid_t	pid;
+	pid_t	*pid;
 
-	pid = fork();
-	if (pid == -1)
+	pid = malloc(sizeof(*pid));
+	exec->pid = pid;
+	*pid = fork();
+	if (*pid == -1)
 		return (FAILURE);
-	if (pid == 0)
+	if (*pid == 0)
 	{
 		create_siga(CHILD);
 		ft_exec_child_no_cmd(exec);
 	}
-	waitpid(pid, &exec->status, WUNTRACED);
+	waitpid(*pid, &exec->status, WUNTRACED);
+	printf("%d\n", *pid);
 	deal_w_return_pid(exec->status);
 	return (SUCCESS);
 }

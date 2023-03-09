@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_boucle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:51:32 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/08 19:22:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:45:30 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ static void	ft_exit_bis(t_list *list, t_envi *envp)
 	}
 }
 
-void	ft_exit(t_list *list, t_envi *envp, char **split, char *save)
+void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save)
 {
 	int	exit_value;
 
 	exit_value = 0;
-	free(split);
+	free(to_free->not_expend);
+	free(to_free->newsplit);
 	free(save);
 	if (ft_strcmp(list->content, "exit") == 0)
 	{
@@ -79,7 +80,8 @@ int	ft_check_list(t_list *list, t_free *to_free, char *save, t_envi *envp)
 {
 	if (list == NULL)
 	{
-		free_all(to_free->split, save);
+		free_all(to_free->newsplit, save);
+		free(to_free->not_expend);
 		ft_free_envi(envp);
 		ft_free_lst(list);
 		ft_putendl_fd("exit", STDOUT);

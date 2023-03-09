@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:59:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:52:05 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 	while (envi && lst)
 	{
 		n = ft_nb_var(lst->content);
-		if (n == 1 && lst->type == VAR && lst->content[1] && \
-		!ft_var_special(lst->content[1]) && ft_all_isalnum(&lst->content[1]) \
-		&& ft_only_one_var(envi, lst, previous))
-			return (EXIT_FAILURE);
-		else if (n == 1 && lst->type == VAR && !ft_strcmp("$", lst->content))
-			lst->type = ARG;
-		else if (n >= 1 && lst->content[1] && \
+		if (n >= 1 && lst->content[1] && lst->not_expend == false && \
 				ft_update_str_var(envi, lst, previous, exit_code))
 			return (EXIT_FAILURE);
 		previous = lst->type;

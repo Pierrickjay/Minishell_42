@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:44:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/02/27 09:32:18 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 11:49:39 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ int	ft_type(char *str, int prev)
 		return (REDIR);
 	else if (str[0] == '-')
 		return (OPT);
-	else if (str[0] == '$')
-		return (VAR);
 	else if (str[0] == '|')
 		return (PIPE);
 	else if (prev == REDIR)
 		return (FILES);
-	else if (prev == OPT || prev == VAR || prev == CMD || prev == ARG)
+	else if (prev == OPT || prev == CMD || prev == ARG)
 		return (ARG);
 	else
 		return (CMD);

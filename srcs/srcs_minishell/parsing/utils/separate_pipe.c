@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:10:09 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/06 16:01:59 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 14:30:06 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ char	*separate_pipe(char *str)
 	i = -1;
 	new_str = malloc(sizeof(char) * (count_lengh_pipe(str) + 1));
 	if (!new_str)
+	{
+		free(str);
 		return (NULL);
+	}
 	while (str[++i])
 	{
 		if (str[i] == '\'')
@@ -72,6 +75,5 @@ char	*separate_pipe(char *str)
 			new_str[i + j] = str[i];
 	}
 	new_str[i + j] = '\0';
-	free(str);
-	return (new_str);
+	return (free(str), new_str);
 }

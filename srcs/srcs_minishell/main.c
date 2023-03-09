@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 19:23:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:31:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 			continue ;
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
-		ft_exit(list, envp, to_free->split, save);
+		ft_exit(list, envp, to_free, save);
 		envp = main_exec(list, envp, &count_line);
 		if (envp == FAIL)
 			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);

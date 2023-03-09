@@ -3,32 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/08 15:55:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:20:50 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/parsing.h"
 
-void	block_signal(int signal)
-{
-	sigset_t	sigset;
+sig_atomic_t g_check = 0;
 
-	sigemptyset(&sigset);
-	sigaddset(&sigset, signal);
-	sigprocmask(SIG_BLOCK, &sigset, NULL);
-}
 
-void	unblock_signal(int signal)
-{
-	sigset_t	sigset;
-
-	sigemptyset(&sigset);
-	sigaddset(&sigset, signal);
-	sigprocmask(SIG_UNBLOCK, &sigset, NULL);
-}
 
 void	handler_quit(int signal)
 {
@@ -41,12 +27,16 @@ void	handler_quit(int signal)
 	printf("Quit (core dumped)\n");
 }
 
-void	handler_end_spe(int signal)
+void	handler_end_spe(int signal1)
 {
-	if (signal == SIGINT)
+	if (signal1 == SIGINT)
 	{
+		rl_done = 1;
+		g_check = 1;
+		rl_on_new_line();
 		write(1, "\n", 1);
-		exit(2);
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else
 		return ;
@@ -67,6 +57,25 @@ void	handler_end(int signal)
 		return ;
 }
 
+void	create_siga2(int mode)
+{
+	struct sigaction	act;
+
+	ft_bzero(&act, sizeof(act));
+	if (mode == PARENT)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (mode == HEREDOC)
+	{
+		act.sa_handler = &handler_end_spe;
+		sigaction(SIGINT, &act, NULL);
+		//signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}
+
 int	create_siga(int mode)
 {
 	struct sigaction	act;
@@ -83,16 +92,7 @@ int	create_siga(int mode)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
-	if (mode == PARENT)
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-	}
-	if (mode == HEREDOC)
-	{
-		act.sa_handler = &handler_end_spe;
-		sigaction(SIGINT, &act, NULL);
-		signal(SIGQUIT, SIG_IGN);
-	}
+	else
+		create_siga2(mode);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 14:17:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:42:24 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
+/*   Updated: 2023/03/09 14:30:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 	t_exec		*exec;
 	t_envi		*envp;
 
-	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1)
+	ft_lst_print_type(lst);
+	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1 \
+		|| check_next_arrow(lst) == -1)
 	{
 		exit_code = 2;
 		return (envi);
@@ -37,8 +39,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 		return (ft_free_exec(exec), NULL);
 	ft_exit_code(exec);
 	exit_code = exec->status;
-	ft_free_exec(exec);
-	return (envp);
+	return (ft_free_exec(exec), envp);
 }
 
 // exit code for signal

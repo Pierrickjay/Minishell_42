@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:21:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:43:22 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <stdbool.h>
 # define INT_MIN -2147483648
 
 //type of char
@@ -85,6 +86,7 @@ typedef struct s_list
 {
 	char			*content;
 	int				type;
+	bool			not_expend;
 	struct s_list	*next;
 }	t_list;
 
@@ -100,5 +102,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lst_print_type(t_list *lst);
 void	ft_lstadd(t_list **list, t_list *new_list);
 char	*ft_lstjoin(t_list *to_join);
+t_list	*ft_lstnew_spe(char *content, int type, bool expend);
 
 #endif

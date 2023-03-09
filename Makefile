@@ -30,7 +30,7 @@ SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isd
 				liste_chaine/ft_lstadd_front.c liste_chaine/ft_lstsize.c liste_chaine/ft_lstlast.c \
 				liste_chaine/ft_lstadd_back.c liste_chaine/ft_lstdelone.c liste_chaine/ft_lstclear.c \
 				liste_chaine/ft_lstiter.c liste_chaine/ft_lstmap.c liste_chaine/ft_lstprint_type.c \
-				liste_chaine/ft_lstjoin.c 
+				liste_chaine/ft_lstjoin.c
 
 SRCS_LIBFT		:= ${addprefix ${SRCS_LIBFT_DIR},${SRCS_LIBFT}}
 
@@ -44,7 +44,7 @@ SRCS		+= main.c
 SRCS        += parsing/utils/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/quote/for_the_trim.c \
 				parsing/type.c parsing/quote/quote.c parsing/utils/utils_2.c parsing/utils/split_parsing.c parsing/utils/split_utils.c \
 				parsing/exit_boucle.c parsing/quote/check_quote.c parsing/utils/new_string.c parsing/utils/new_string_utils.c \
-				parsing/utils/separate_pipe.c parsing/check_pars.c
+				parsing/utils/separate_pipe.c parsing/check_pars.c parsing/block_signal.c \
 
 #   obouhlel
 SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_3.c execution/utils/ft_msg.c \
