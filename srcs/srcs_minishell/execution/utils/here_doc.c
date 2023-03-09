@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:58:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 07:21:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	to_print_error(char *end, int *count_line, t_exec *exec, int fd[2])
 	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
 	ft_putstr_fd(end, 2);
 	ft_putendl_fd("')", 2);
+	// global ici pour savoir si ctrl c ou ctrl d 
+	// pour ctrl c
 	ft_free_exec(exec);
 	ft_close(&fd[0]);
 	ft_close(&fd[1]);
