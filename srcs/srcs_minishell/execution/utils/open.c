@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:55:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:30:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int	ft_open(char *name, t_redir type, int *count_line, t_exec *exec)
 // split of ft_open_infiles
 void	ft_open_init_fd_infile(int *fd, int type)
 {
-	if (*fd != -1 && (type == INFILE || type == HEREDOC))
+	if (*fd != -2 && *fd != -1 && (type == INFILE || type == HEREDOC))
 	{
-		close(*fd);
-		*fd = -1;
+		ft_close(fd);
 	}
 }
 
@@ -42,7 +41,7 @@ int	ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec)
 	int		fd;
 	int		fd_here_doc;
 
-	fd = -1;
+	fd = -2;
 	fd_here_doc = ft_open_infiles_here_doc(redir, count_line, exec);
 	while (redir)
 	{
@@ -69,13 +68,13 @@ int	ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec)
 {
 	int		fd;
 
-	fd = -1;
+	fd = -2;
 	while (redir)
 	{
-		if (fd != -1 && redir->type == HEREDOC)
+		if (fd != -2 && fd != -1 && redir->type == HEREDOC)
 		{
 			close(fd);
-			fd = -1;
+			fd = -2;
 		}
 		if (redir->type == HEREDOC)
 		{
@@ -93,14 +92,12 @@ int	ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec)
 {
 	int	fd;
 
-	fd = -1;
+	fd = -2;
 	while (redir)
 	{
-		if (fd != -1 && (redir->type == TRUNC || redir->type == APPEND))
-		{
-			close(fd);
-			fd = -1;
-		}
+		if (fd != -2 && fd != -1 && \
+			(redir->type == TRUNC || redir->type == APPEND))
+			ft_close(&fd);
 		if (redir->type == TRUNC)
 		{
 			fd = ft_open(redir->content, TRUNC, count_line, exec);

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 17:54:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:36:10 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	ft_envi_print(t_exec *exec, t_envi *envi)
 			(
 				ft_putstr_fd("=\"", STDOUT) == FAILURE || \
 				ft_putstr_fd(envi->value, STDOUT) == FAILURE || \
-				ft_putendl_fd("\"", STDOUT) == FAILURE
+				ft_putstr_fd("\"", STDOUT) == FAILURE
 			)
 				return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
 		}
+		if (ft_putchar_fd('\n', STDOUT) == FAILURE)
+			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
 		envi = envi->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:24:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:37:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 int	ft_unset(t_exec *exec)
 {
 	const char	**args = (const char **)exec->args[exec->i];
+	int			i;
 
 	if (args[1] == NULL)
 		return (EXIT_SUCCESS);
 	ft_free_strs(exec->env);
-	exec->envi = ft_unset_bis(args[1], exec->envi);
+	i = 0;
+	while (args[i])
+		exec->envi = ft_unset_bis(args[i++], exec->envi);
 	exec->env = ft_envi_to_env(exec->envi);
 	if (exec->env == FAIL)
 		return (EXIT_FAILURE);

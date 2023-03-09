@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:17:36 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:05:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:42:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	int	status;
 
 	status = 0;
-	if (exec->nb == 0)
+	if (exec->nb == 0 && exec->nb_redir > 0)
 		status = ft_exec_parent_no_cmd(exec);
 	if (exec->nb == 1 && exec->nb_redir == 0)
 		status = ft_exec_parent(exec);

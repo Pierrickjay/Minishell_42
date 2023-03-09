@@ -6,11 +6,27 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:49:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:33:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
+
+static int	ft_echo_check_endl(char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(str);
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i] && str[i] == 'n')
+		i++;
+	if (i == len)
+		return (1);
+	return (0);
+}
 
 // the echo builtin
 int	ft_echo(t_exec	*exec)
@@ -21,7 +37,7 @@ int	ft_echo(t_exec	*exec)
 
 	i = 1;
 	endl = true;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	while (args[i] && ft_echo_check_endl((char *)args[i]))
 	{
 		endl = false;
 		i++;
