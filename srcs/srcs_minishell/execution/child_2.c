@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:52:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:48:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	ft_exec_child_no_cmd(t_exec *exec)
 	fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
 	if (fd_out == FAILURE)
 		return (ft_msg(exec, NULL, errno, &exit));
-	ft_putnbr_fd(fd_out, 2);
-	ft_putchar_fd('\n', 2);
 	ft_close(&fd_out);
 	ft_free_exec(exec);
 	exit(EXIT_SUCCESS);

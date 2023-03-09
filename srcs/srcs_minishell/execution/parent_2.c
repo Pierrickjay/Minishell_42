@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:23 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 10:09:27 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 15:50:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	ft_exec_parent_no_cmd(t_exec *exec)
 {
 	pid_t	*pid;
 
+	ft_nb_redir_type(exec->redir, exec);
 	pid = malloc(sizeof(*pid));
+	if (pid == NULL)
+		return (FAILURE);
 	exec->pid = pid;
 	*pid = fork();
 	if (*pid == -1)
@@ -28,7 +31,6 @@ int	ft_exec_parent_no_cmd(t_exec *exec)
 		ft_exec_child_no_cmd(exec);
 	}
 	waitpid(*pid, &exec->status, WUNTRACED);
-	printf("%d\n", *pid);
 	deal_w_return_pid(exec->status);
 	return (SUCCESS);
 }
