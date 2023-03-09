@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:54:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:02:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ void	ft_envi_print(t_exec *exec, t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
+void	ft_exit(t_list *list, t_envi *envp, char **split, char *save);
 //for echo, env, pwd
 int		ft_is_builtins(t_exec *exec);
 //for export, unset, cd

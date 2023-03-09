@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:31:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:58:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define INT_MIN -2147483648
 
 //type of char
+int		ft_all_isdigit(char *str);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isalpha(int c);

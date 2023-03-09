@@ -18,7 +18,7 @@ NAME			:= minishell
 SRCS_LIBFT_DIR	:= srcs/libft/
 
 SRCS_LIBFT		:= char/ft_isalnum.c char/ft_isalpha.c char/ft_isascii.c char/ft_isdigit.c \
-				char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c \
+				char/ft_isprint.c char/ft_tolower.c char/ft_toupper.c char/ft_all_isdigit.c \
 				conversion/ft_atoi.c conversion/ft_atoi_long.c conversion/ft_itoa.c \
 				malloc/ft_calloc.c malloc/ft_split.c malloc/ft_strdup.c malloc/ft_strjoin.c malloc/ft_strjoin_all.c malloc/ft_strmapi.c \
 				malloc/ft_strtrim.c malloc/ft_substr.c mem/ft_bzero.c mem/ft_memchr.c mem/ft_memcmp.c \
@@ -57,7 +57,8 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c \
 			execution/vars_1.c execution/vars_2.c execution/vars_3.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c
+			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c \
+			execution/builtins/ft_exit.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
