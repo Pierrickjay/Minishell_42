@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:43:22 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/09 15:23:45 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/09 15:23:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define INT_MIN -2147483648
 
 //type of char
+int		ft_all_isdigit(char *str);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isalpha(int c);
@@ -75,7 +76,6 @@ typedef enum e_type
 {
 	CMD,
 	VAR,
-	OPT,
 	ARG,
 	FILES,
 	REDIR,

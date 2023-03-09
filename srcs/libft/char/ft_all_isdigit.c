@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   ft_all_isdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 20:23:43 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:21:33 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/09 09:51:29 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/09 15:21:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/libft.h"
 
-// close a file descriptor and initialize it to -1
-void	ft_close(int *fd)
+// check all the string if its digit return 1 else 0
+int	ft_all_isdigit(char *str)
 {
-	if (*fd < 0)
-		return ;
-	if (*fd != -1)
-		close(*fd);
-	*fd = -1;
-}
-
-// close all the pipes and initialize them to -1
-void	ft_close_pipes(int **pipes, size_t nb)
-{
+	size_t	len;
 	size_t	i;
 
 	i = 0;
-	while (i < nb)
-	{
-		ft_close(&pipes[i][0]);
-		ft_close(&pipes[i][1]);
+	len = 0;
+	while (str[i] && ft_isdigit(str[i]))
 		i++;
-	}
+	if (i == len)
+		return (1);
+	return (0);
 }

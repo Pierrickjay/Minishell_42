@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:58:59 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/07 10:07:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 11:44:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_free_args(char ***args, size_t nb)
 	i = 0;
 	while (i < nb)
 	{
-		ft_free((void **)&args[i]);
+		ft_free_strs(args[i]);
 		args[i] = NULL;
 		i++;
 	}

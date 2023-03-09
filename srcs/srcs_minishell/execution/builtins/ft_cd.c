@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:34:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:47:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_cd_bis(t_exec *exec)
 	if (!pwd)
 		return (ft_msg_builtins("cd", NULL, HOME), 1);
 	if (access(pwd, F_OK) == FAILURE)
-		return (ft_msg_builtins("fads", pwd, PERM), 1);
+		return (ft_msg_builtins("cd", pwd, PERM), 1);
 	if (chdir(pwd) == FAILURE)
 		return (ft_msg(NULL, pwd, errno, NULL), 1);
 	if (exec->envi)

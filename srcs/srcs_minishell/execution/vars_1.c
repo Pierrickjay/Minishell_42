@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:52:05 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/09 15:25:51 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/09 15:25:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,10 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 	{
 		n = ft_nb_var(lst->content);
 		if (n >= 1 && lst->content[1] && lst->not_expend == false && \
-				ft_update_str_var(envi, lst, previous, exit_code))
+		lst->type != FILES && ft_update_str_var(envi, lst, previous, exit_code))
 			return (EXIT_FAILURE);
 		previous = lst->type;
 		lst = lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
-
-// when i have just only one dolars, and a good var
-int	ft_only_one_var(t_envi *envi, t_list *lst, int prev)
-{
-	size_t	len;
-	char	*value;
-
-	value = ft_check_envi(&lst->content[1], envi);
-	if (!value)
-		return (EXIT_FAILURE);
-	if (!ft_strcmp("", value))
-		return (free(value), EXIT_SUCCESS);
-	free(lst->content);
-	lst->content = value;
-	lst->type = ft_get_type_var(&prev);
-	len = ft_strlen(value);
-	if (value[len - 1] == ' ')
-		value[len - 1] = '\0';
-	if (ft_strchr(value, ' '))
-	{
-		if (ft_lst_split_vars(lst))
-			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -71,7 +46,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	lst->content = ft_content_update(lst->content);
 	if (!lst->content)
 		return (EXIT_FAILURE);
-	vars = ft_split(lst->content, ' ');
+	vars = ft_split(lst->content, '|');
 	if (!vars)
 		return (EXIT_FAILURE);
 	i = 0;
@@ -79,11 +54,11 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	{
 		tmp = ft_check_var_1(envi, vars[i], ec, (size_t)size);
 		if (!tmp)
-			return (EXIT_FAILURE);
+			return (ft_free_strs(vars), EXIT_FAILURE);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
 		i++;
 	}
-	if (ft_update_lst(lst, to_join, &prev) || ft_lst_split_vars(lst))
+	if (ft_update_lst(lst, to_join, &prev))
 		return (EXIT_FAILURE);
 	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
 }
@@ -140,4 +115,21 @@ char	*ft_check_var_2(t_envi *envi, size_t size, t_list **to_join, char *var)
 		ft_lstadd_front(to_join, ft_lstnew(add, -1));
 	}
 	return (var);
+}
+
+// for var special example $1, $$ etc..
+int	ft_check_var_3(char *var, t_list **to_join, int exit_code)
+{
+	char	*add;
+
+	add = NULL;
+	if (!ft_strcmp("$?", var))
+	{
+		add = ft_itoa(exit_code);
+		if (!add)
+			return (EXIT_FAILURE);
+		ft_lstadd_front(to_join, ft_lstnew(add, -1));
+	}
+	ft_bzero(var, ft_strlen(var));
+	return (EXIT_SUCCESS);
 }

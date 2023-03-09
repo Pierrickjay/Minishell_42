@@ -6,12 +6,14 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:54:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:31:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
+# include "parsing.h"
 
 //error messages
 # define EXPORT_ERROR "export: write error"

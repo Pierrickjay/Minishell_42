@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/05 13:13:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:45:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // free a pointer and initialize it to NULL
 void	ft_free(void **ptr)
 {
-	if (*ptr)
+	if (ptr)
 	{
 		free(*ptr);
 		*ptr = NULL;
