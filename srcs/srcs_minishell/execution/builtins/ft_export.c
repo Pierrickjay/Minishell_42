@@ -6,11 +6,33 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 19:17:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:49:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
+
+static int	ft_export_ident(char *str)
+{
+	int	i;
+	int	nb_equal;
+	int	nb_plus;
+
+	nb_equal = 0;
+	nb_plus = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			nb_equal++;
+		if (str[i] == '+')
+			nb_plus++;
+		i++;
+	}
+	if (nb_equal > 1 || nb_plus > 1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
 
 // export a variable
 static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
@@ -96,7 +118,7 @@ int	ft_export(t_exec *exec)
 	i = 0;
 	while (args[++i])
 	{
-		if (ft_var_special(args[i][0]))
+		if (ft_var_special(args[i][0]) || ft_export_ident((char *)args[i]))
 		{
 			ft_msg_builtins("export", (char *)args[i], IDENT);
 			exec->status = 1;
