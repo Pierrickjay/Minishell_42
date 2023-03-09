@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:23:45 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:23:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:36:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		ft_putendl_fd(char *s, int fd);
 typedef enum e_type
 {
 	CMD,
-	VAR,
 	ARG,
 	FILES,
 	REDIR,

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 15:25:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:25:53 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/09 15:36:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 	{
 		n = ft_nb_var(lst->content);
 		if (n >= 1 && lst->content[1] && lst->not_expend == false && \
-		lst->type != FILES && ft_update_str_var(envi, lst, previous, exit_code))
+			lst->type != REDIR && ft_update_str_var(envi, lst, previous, exit_code))
 			return (EXIT_FAILURE);
 		previous = lst->type;
 		lst = lst->next;

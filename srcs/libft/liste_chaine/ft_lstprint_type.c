@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:24:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:24:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:37:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static char	*ft_print_type(int type)
 		return ("CMD");
 	else if (type == ARG)
 		return ("ARG");
-	else if (type == VAR)
-		return ("VAR");
 	else if (type == REDIR)
 		return ("REDIR");
 	else if (type == FILES)
