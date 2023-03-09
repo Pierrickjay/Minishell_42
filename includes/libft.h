@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 18:21:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:31:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef enum e_type
 {
 	CMD,
 	VAR,
-	OPT,
 	ARG,
 	FILES,
 	REDIR,

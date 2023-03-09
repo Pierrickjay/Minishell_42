@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   ft_all_isdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 20:23:43 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:21:33 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/03/09 09:51:29 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/09 09:51:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
+#include "../../../includes/libft.h"
 
-// close a file descriptor and initialize it to -1
-void	ft_close(int *fd)
+int	ft_all_isdigit(char *str)
 {
-	if (*fd < 0)
-		return ;
-	if (*fd != -1)
-		close(*fd);
-	*fd = -1;
-}
-
-// close all the pipes and initialize them to -1
-void	ft_close_pipes(int **pipes, size_t nb)
-{
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < nb)
+	while (str[i])
 	{
-		ft_close(&pipes[i][0]);
-		ft_close(&pipes[i][1]);
+		if (ft_isdigit(str[i]) == 0)
+			return (0);
 		i++;
 	}
+	return (1);
 }

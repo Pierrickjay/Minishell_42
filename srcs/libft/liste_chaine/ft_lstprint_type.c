@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstprint_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:17:21 by pjay              #+#    #+#             */
-/*   Updated: 2023/02/22 11:18:10 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/09 11:31:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static char	*ft_print_type(int type)
 {
 	if (type == CMD)
 		return ("CMD");
-	else if (type == OPT)
-		return ("OPT");
 	else if (type == ARG)
 		return ("ARG");
 	else if (type == VAR)

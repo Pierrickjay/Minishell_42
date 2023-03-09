@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 12:21:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 13:59:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:26:47 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 			return (EXIT_FAILURE);
 		else if (n == 1 && lst->type == VAR && !ft_strcmp("$", lst->content))
 			lst->type = ARG;
-		else if (n >= 1 && lst->content[1] && \
+		else if (n >= 1 && lst->content[1] && lst->type != REDIR && \
 				ft_update_str_var(envi, lst, previous, exit_code))
 			return (EXIT_FAILURE);
 		previous = lst->type;
@@ -54,13 +54,6 @@ int	ft_only_one_var(t_envi *envi, t_list *lst, int prev)
 	lst->content = value;
 	lst->type = ft_get_type_var(&prev);
 	len = ft_strlen(value);
-	if (value[len - 1] == ' ')
-		value[len - 1] = '\0';
-	if (ft_strchr(value, ' '))
-	{
-		if (ft_lst_split_vars(lst))
-			return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -77,7 +70,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	lst->content = ft_content_update(lst->content);
 	if (!lst->content)
 		return (EXIT_FAILURE);
-	vars = ft_split(lst->content, ' ');
+	vars = ft_split(lst->content, '_');
 	if (!vars)
 		return (EXIT_FAILURE);
 	i = 0;
@@ -89,7 +82,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
 		i++;
 	}
-	if (ft_update_lst(lst, to_join, &prev) || ft_lst_split_vars(lst))
+	if (ft_update_lst(lst, to_join, &prev))
 		return (EXIT_FAILURE);
 	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
 }

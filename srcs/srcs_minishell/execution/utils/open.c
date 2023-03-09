@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 09:30:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:22:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec)
 	{
 		if (fd != -2 && fd != -1 && redir->type == HEREDOC)
 		{
-			close(fd);
+			ft_close(&fd);
 			fd = -2;
 		}
 		if (redir->type == HEREDOC)
