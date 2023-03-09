@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:10:48 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 11:47:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:36:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	ft_nb_var(char *str)
 int	ft_var_special(char c)
 {
 	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#' \
-		|| c == '&' || c == '\0')
+		|| c == '&' || c == '\0' || c == '=' || c == '+' || c == '-' )
 		return (true);
 	return (false);
 }
