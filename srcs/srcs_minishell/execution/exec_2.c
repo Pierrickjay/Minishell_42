@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 16:58:54 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:16:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
 {
 	if (exec->nb_redir == 0)
 		return (EXIT_SUCCESS);
-	exec->redir = ft_calloc(sizeof(t_list *), exec->nb + 1);
+	if (exec->nb == 0)
+		exec->no_cmd = 1;
+	exec->redir = ft_calloc(sizeof(t_list *), exec->nb + exec->no_cmd + 1);
 	if (!exec->redir)
 		return (EXIT_FAILURE);
-	exec->nb_redir_type = ft_calloc(sizeof(int *), exec->nb + 1);
+	exec->nb_redir_type = ft_calloc(sizeof(int *), exec->nb + exec->no_cmd + 1);
 	if (!exec->nb_redir_type)
 		return (EXIT_FAILURE);
-	exec->infile = ft_calloc(sizeof(int), exec->nb + 1);
+	exec->infile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
 	if (!exec->infile)
 		return (EXIT_FAILURE);
-	exec->outfile = ft_calloc(sizeof(int), exec->nb + 1);
+	exec->outfile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
 	if (!exec->outfile)
 		return (EXIT_FAILURE);
 	if (ft_set_redir(exec, lst, exec->redir))

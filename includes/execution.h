@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 16:56:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:16:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_exec
 	int		*infile;
 	int		*outfile;
 	int		**nb_redir_type;
+	int		no_cmd;
 	t_list	**redir;
 	pid_t	*pid;
 	int		**pipes;
