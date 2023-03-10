@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:46:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 17:54:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:30:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ int	ft_builtins(t_exec *exec)
 		return (exec->status);
 	}
 	return (FAILURE);
+}
+
+// free the redirections list and initialize it to NULL
+void	ft_free_redir(t_list **lst, int nb)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	while (i < nb)
+	{
+		while (lst[i])
+		{
+			tmp = lst[i]->next;
+			ft_free((void **)&lst[i]);
+			lst[i] = tmp;
+		}
+		i++;
+	}
+	free(lst);
 }

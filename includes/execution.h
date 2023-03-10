@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 17:16:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:31:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,8 @@ void	ft_close(int *fd);
 void	ft_free_strs(char **strs);
 void	ft_free_lst(t_list *lst);
 void	ft_free_pipes(int **pipes, size_t nb);
+void	ft_free_nb_redir_type(int **nb_redir_type, int nb);
 void	ft_free_args(char ***args, size_t nb);
-void	ft_free_redir(t_list *lst);
 //free_2.c
 void	ft_free(void **ptr);
 void	ft_free_strs_n(char **strs, int n);
@@ -182,6 +182,7 @@ void	ft_free_exec(t_exec *exec);
 //free_3.c
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
+void	ft_free_redir(t_list **lst, int nb);
 
 //ft_msg.c
 void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
