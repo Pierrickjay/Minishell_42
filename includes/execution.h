@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 15:01:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:56:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_exec
 	int		nb_redir;
 	int		*infile;
 	int		*outfile;
-	int		*nb_redir_type[4];
+	int		**nb_redir_type;
 	t_list	**redir;
 	pid_t	*pid;
 	int		**pipes;
@@ -129,8 +129,8 @@ char	***ft_init_args(t_exec *exec, t_list *lst);
 //exec_2.c
 int		ft_lst_redir_malloc(t_exec *exec, t_list *lst);
 int		ft_set_redir(t_exec *exec, t_list *lst, t_list **redir);
-int		ft_set_file(int *nb_redir_type, int mode);
-void	ft_nb_redir_type(int nb_redir_type[4], t_list *redir);
+int		ft_set_file(t_exec *exec, int i, int mode);
+int		ft_nb_redir_type(t_exec *exec, t_list *redir, int i);
 int		ft_redir_type(char *str);
 //exec_3.c
 size_t	ft_nb_cmds(t_list *lst);

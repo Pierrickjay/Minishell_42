@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:56:47 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:58:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,18 @@
 // get the list of redirections
 int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
 {
-	int	i;
-
-	exec->redir = ft_calloc(sizeof(t_list *), exec->nb + 1 + 1);
+	if (exec->nb_redir == 0)
+		return (EXIT_SUCCESS);
+	exec->redir = ft_calloc(sizeof(t_list *), exec->nb + 1);
 	if (!exec->redir)
 		return (EXIT_FAILURE);
-	i = 0;
-	while (i < 4)
-	{
-		exec->nb_redir_type[i] = ft_calloc(sizeof(int *), exec->nb + 1);
-		if (!exec->nb_redir_type)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	exec->infile = ft_calloc(sizeof(int *), exec->nb + 1);
+	exec->nb_redir_type = ft_calloc(sizeof(int *), exec->nb + 1);
+	if (!exec->nb_redir_type)
+		return (EXIT_FAILURE);
+	exec->infile = ft_calloc(sizeof(int), exec->nb + 1);
 	if (!exec->infile)
 		return (EXIT_FAILURE);
-	exec->outfile = ft_calloc(sizeof(int *), exec->nb + 1);
+	exec->outfile = ft_calloc(sizeof(int), exec->nb + 1);
 	if (!exec->outfile)
 		return (EXIT_FAILURE);
 	if (ft_set_redir(exec, lst, exec->redir))
@@ -56,9 +51,10 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 		}
 		if (lst->type == PIPE || lst->next == NULL)
 		{
-			ft_nb_redir_type(exec->nb_redir_type[i], redir[i]);
-			exec->infile[i] = ft_set_file(exec->nb_redir_type[i], IN);
-			exec->outfile[i] = ft_set_file(exec->nb_redir_type[i], OUT);
+			if (ft_nb_redir_type(exec, redir[i], i))
+				return (EXIT_FAILURE);
+			exec->infile[i] = ft_set_file(exec, i, IN);
+			exec->outfile[i] = ft_set_file(exec, i, OUT);
 			i++;
 		}
 		lst = lst->next;
@@ -68,34 +64,38 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 }
 
 // set the 1 if I have infile or outfile, the mode its for infile or outfile
-int	ft_set_file(int *nb_redir_type, int mode)
+int	ft_set_file(t_exec *exec, int i, int mode)
 {
 	if (mode == IN)
 	{
-		if (nb_redir_type[INFILE] || nb_redir_type[HEREDOC])
+		if (exec->nb_redir_type[i][INFILE] || exec->nb_redir_type[i][HEREDOC])
 			return (1);
 	}
 	else if (mode == OUT)
 	{
-		if (nb_redir_type[TRUNC] || nb_redir_type[APPEND])
+		if (exec->nb_redir_type[i][TRUNC] || exec->nb_redir_type[i][APPEND])
 			return (1);
 	}
 	return (0);
 }
 
 // get the number of each type of redirection
-void	ft_nb_redir_type(int nb_redir_type[4], t_list *redir)
+int	ft_nb_redir_type(t_exec *exec, t_list *redir, int i)
 {
-	nb_redir_type[INFILE] = 0;
-	nb_redir_type[TRUNC] = 0;
-	nb_redir_type[APPEND] = 0;
-	nb_redir_type[HEREDOC] = 0;
+	exec->nb_redir_type[i] = malloc(sizeof(int) * 4);
+	if (!exec->nb_redir_type[i])
+		return (EXIT_FAILURE);
+	exec->nb_redir_type[i][INFILE] = 0;
+	exec->nb_redir_type[i][TRUNC] = 0;
+	exec->nb_redir_type[i][APPEND] = 0;
+	exec->nb_redir_type[i][HEREDOC] = 0;
 	while (redir)
 	{
 		if (redir->type != FAILURE)
-			nb_redir_type[redir->type]++;
+			exec->nb_redir_type[i][redir->type]++;
 		redir = redir->next;
 	}
+	return (EXIT_SUCCESS);
 }
 
 // set the type of the redirection

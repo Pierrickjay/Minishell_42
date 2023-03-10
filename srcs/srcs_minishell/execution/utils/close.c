@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:23:43 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 14:52:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:12:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 // close a file descriptor and initialize it to -1
 void	ft_close(int *fd)
 {
-	if (*fd >= 0)
+	if (*fd < 0)
 		return ;
-	if (*fd != -1)
-		close(*fd);
+	close(*fd);
 	*fd = -1;
 }
 
