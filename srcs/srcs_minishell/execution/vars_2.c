@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 13:42:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:38:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_content_update(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			new_str[j++] = '|';
+			new_str[j++] = -1;
 		new_str[j++] = str[i++];
 	}
 	ft_free((void **)&str);
