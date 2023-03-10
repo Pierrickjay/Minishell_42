@@ -6,17 +6,48 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 11:31:27 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 12:40:22 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_synthaxe_error(char *save)
+{
+	int	i;
+
+	i = -1;
+	while (save[++i])
+	{
+		if (save[i] && save[i] == '\'')
+		{
+			i++;
+			while (save[i] && save[i] != '\'')
+				i++;
+		}
+		if (save[i] && save[i] == '\"')
+		{
+			i++;
+			while (save[i] && save[i] != '\"')
+				i++;
+		}
+		if (save[i] && save[i] == ';')
+		{
+			ft_putendl_fd("syntaxe error", STDERR);
+			free(save);
+			return (-1);
+		}
+	}
+	return (0);
+}
 
 int	is_full_of_space(char *save)
 {
 	int	i;
 
 	i = 0;
+	if (check_synthaxe_error(save) == -1)
+		return (-1);
 	while (save[i])
 	{
 		if (save[i] != ' ')

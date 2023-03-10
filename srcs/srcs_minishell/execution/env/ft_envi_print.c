@@ -3,40 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   ft_envi_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:36:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:47:23 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+void	swap_envi_nodes(t_envi *a, t_envi *b)
+{
+	char	*temp_key;
+	char	*temp_value;
+	int		temp_type;
+
+	temp_value = a->value;
+	temp_key = a->key;
+	temp_type = a->type;
+	a->key = b->key;
+	a->value = b->value;
+	a->type = b->type;
+	b->key = temp_key;
+	b->value = temp_value;
+	b->type = temp_type;
+}
+
+void	sort_envi_list(t_envi **head)
+{
+	int		swapped;
+	t_envi	*ptr1;
+	t_envi	*lptr;
+
+	lptr = NULL;
+	swapped = 1;
+	if (*head == NULL)
+		return ;
+	while (swapped)
+	{
+		swapped = 0;
+		ptr1 = *head;
+		while (ptr1->next != lptr)
+		{
+			if (ft_strcmp(ptr1->key, ptr1->next->key) > 0)
+			{
+				swap_envi_nodes(ptr1, ptr1->next);
+				swapped = 1;
+			}
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
+	}
+}
+
 // print the list
 void	ft_envi_print(t_exec *exec, t_envi *envi)
 {
-	if (!envi)
+	t_envi	*swapped;
+	t_envi	*head;
+
+	swapped = ft_dup_envi(envi);
+	if (swapped == NULL)
 		return ;
-	while (envi)
+	sort_envi_list(&swapped);
+	head = swapped;
+	while (swapped)
 	{
 		if
-		(
-			ft_putstr_fd("declare -x ", STDOUT) == FAILURE || \
-			ft_putstr_fd(envi->key, STDOUT) == FAILURE
-		)
+		(ft_putstr_fd("declare -x ", STDOUT) == FAILURE || \
+			ft_putstr_fd(swapped->key, STDOUT) == FAILURE)
 			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
-		if (envi->type == NORMAL)
+		if (swapped->type == NORMAL)
 		{
 			if
-			(
-				ft_putstr_fd("=\"", STDOUT) == FAILURE || \
-				ft_putstr_fd(envi->value, STDOUT) == FAILURE || \
-				ft_putstr_fd("\"", STDOUT) == FAILURE
-			)
+			(ft_putstr_fd("=\"", STDOUT) == FAILURE ||
+				ft_putstr_fd(swapped->value, STDOUT) == FAILURE || \
+				ft_putstr_fd("\"", STDOUT) == FAILURE)
 				return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
 		}
 		if (ft_putchar_fd('\n', STDOUT) == FAILURE)
 			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
-		envi = envi->next;
+		swapped = swapped->next;
 	}
+	ft_free_envi(head);
 }

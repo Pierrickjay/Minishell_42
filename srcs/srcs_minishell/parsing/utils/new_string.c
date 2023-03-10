@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 14:24:20 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 12:19:19 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	count_lengh(char *str)
 		{
 			if (str[i + 1] == '>')
 				i += 1;
-			size += 2;
+			size += 3;
 		}
 		else if (i > 0 && str[i] == '<' && ((str[i - 1] && str[i - 1] != ' ')
 				|| (str[i + 1] && str[i + 1] != ' ') || str[i + 1] == '<'))
 		{
 			if (str[i + 1] == '<')
 				i += 1;
-			size += 2;
+			size += 3;
 		}
 	}
 	return (size + i);
@@ -55,7 +55,7 @@ static void	new_string_1(int *i, int *j, char *str, char *new_str)
 	else
 		*i += fill_string_single(&new_str[*i + *j], &str[*i], '>');
 	*j += 2;
-	if (str[*i] != '>')
+	if (str[*i] && str[*i] != '>')
 		new_str[*i + *j] = str[*i];
 }
 
@@ -66,7 +66,7 @@ static void	new_string_2(int *i, int *j, char *str, char *new_str)
 	else
 		*i += fill_string_single(&new_str[*i + *j], &str[*i], '<');
 	*j += 2;
-	if (str[*i] != '<')
+	if (str[*i] && str[*i] != '<')
 		new_str[*i + *j] = str[*i];
 }
 
@@ -78,7 +78,7 @@ char	*new_string(char *str)
 
 	j = 0;
 	i = 0;
-	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 1));
+	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 2));
 	if (!new_str)
 		return (NULL);
 	while (str[i])

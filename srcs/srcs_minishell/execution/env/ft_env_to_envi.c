@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_to_envi.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:52:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:23:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:41:43 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-// convert a char **env to a t_envi list
 t_envi	*ft_env_to_envi(char **env)
 {
 	t_envi	*envi;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 10:27:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:47:00 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ t_envi	*ft_dup_envi(t_envi *envi)
 	char	*key;
 	char	*value;
 
+	if (envi == NULL)
+		return (NULL);//modif pour norm
 	dup = NULL;
 	while (envi)
 	{

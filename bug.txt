@@ -1,5 +1,4 @@
 
-export -> doit etre trier ordre alphabetique
 
 minishell> cat <<a
 cat | CMD | not_expend = 0
@@ -9,40 +8,10 @@ a | FILES | not_expend = 0
 > a
 $USER
 
-doit expand dans le minishell
-minishell> echo "''"hel""$USER""lo
-echo | CMD | not_expend = 0
-''hel$USERlo | ARG | not_expend = 0
-''hel
-doit expand dans le minishell
-
 minishell> cat < Makefile > axel | ls > test2
 
 ca met pas le makefile dans axel
 
-minishell> export z="ho"
-export | CMD | not_expend = 0
-z=ho | ARG | not_expend = 0
-minishell> export zz="ec$z salut"
-export | CMD | not_expend = 0
-zz=ec$z salut | ARG | not_expend = 1
-minishell> $zz
-$zz | CMD | not_expend = 0
-ec$z: command not found
-==842875==
-==842875== HEAP SUMMARY:
-==842875==     in use at exit: 209,544 bytes in 285 blocks
-==842875==   total heap usage: 7,205 allocs, 6,920 frees, 492,099 bytes allocated
-==842875==
-==842875== LEAK SUMMARY:
-==842875==    definitely lost: 0 bytes in 0 blocks
-==842875==    indirectly lost: 0 bytes in 0 blocks
-==842875==      possibly lost: 0 bytes in 0 blocks
-==842875==    still reachable: 0 bytes in 0 blocks
-==842875==         suppressed: 209,544 bytes in 285 blocks
-==842875==
-==842875== For lists of detected and suppressed errors, rerun with: -s
-==842875== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 minishell> env
 env | CMD | not_expend = 0
 LANGUAGE=en
@@ -117,7 +86,6 @@ GLIBCXX_FORCE_NEW=1
 LD_PRELOAD=/usr/libexec/valgrind/vgpreload_core-amd64-linux.so:/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
 z=ho
 zz=ec$z salut
-
 
 minishell> export salut=+=fesal
 export | CMD | not_expend = 0

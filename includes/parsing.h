@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 21:16:49 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 12:13:40 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ int		check_pipe(t_list *lst);
 int		free_trim_all(t_free *to_free, int i);
 int		check_if_expend(char *old_str);
 int		check_if_in_quote(char *old_str);
+void	sort_envi_list(t_envi **head);
 #endif

@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:10:09 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 18:45:49 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 12:24:41 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	count_lengh_pipe(char *str)
 	int	i;
 	int	count;
 
-	count = ft_strlen(str);
+	if (str && str[0])
+		count = ft_strlen(str);
+	else
+		return (0);
 	i = 0;
 	while (str[i])
 	{

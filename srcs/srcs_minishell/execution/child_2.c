@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   child_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:48:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:40:43 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // the child process : infile, here doc, and pipe
+void	ft_exec_child_no_cmd(t_exec *exec)
+{
+	int	fd_in;
+	int	fd_out;
+
+	fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC], \
+							exec->count_line, exec);
+	if (fd_in == FAILURE)
+		return (ft_msg(exec, NULL, errno, &exit));
+	ft_close(&fd_in);
+	fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
+	if (fd_out == FAILURE)
+		return (ft_msg(exec, NULL, errno, &exit));
+	ft_close(&fd_out);
+	ft_free_exec(exec);
+	exit(EXIT_SUCCESS);
+}
+
 static void	ft_exec_pipe_infile_child(t_exec *exec)
 {
 	int		fd_in;
@@ -71,22 +89,4 @@ void	ft_exec_pipe_file_child(t_exec *exec)
 	}
 	ft_close_pipes(exec->pipes, (exec->nb - 1));
 	ft_exec_child(exec);
-}
-
-void	ft_exec_child_no_cmd(t_exec *exec)
-{
-	int	fd_in;
-	int	fd_out;
-
-	fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC], \
-							exec->count_line, exec);
-	if (fd_in == FAILURE)
-		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&fd_in);
-	fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
-	if (fd_out == FAILURE)
-		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&fd_out);
-	ft_free_exec(exec);
-	exit(EXIT_SUCCESS);
 }
