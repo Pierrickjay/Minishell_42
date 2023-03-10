@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:52:55 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 21:13:08 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 15:51:59 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,33 @@ int	check_double_quote(char *str, bool *open_single, bool *open_double, int *i)
 	return (0);
 }
 
+int	check_if_open(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+			if (!str[i])
+				return (-1);
+		}
+		if (str[i] == '\"')
+		{
+			i++;
+			while (str[i] && str[i] != '\"')
+				i++;
+			if (!str[i])
+				return (-1);
+		}
+	}
+	return (0);
+}
+
 int	count_quote_single(char *str)
 {
 	int		i;
@@ -88,5 +115,7 @@ int	count_quote_single(char *str)
 			if (check_double_quote(str, &open_single, &open_double, &i) == -1)
 				return (-1);
 	}
+	if (check_if_open(str) == -1)
+		return (-1);
 	return (0);
 }

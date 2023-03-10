@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 12:19:19 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 15:37:49 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,17 @@ static void	new_string_2(int *i, int *j, char *str, char *new_str)
 
 char	*new_string(char *str)
 {
-	char	*new_str;
-	int		i;
-	int		j;
+	char		*new_str;
+	int			i;
+	int			j;
+	const int	size = ft_strlen(str);
 
 	j = 0;
 	i = 0;
 	new_str = ft_calloc(sizeof(char), (count_lengh(str) + 2));
 	if (!new_str)
 		return (NULL);
-	while (str[i])
+	while (i <= size)
 	{
 		if (str[i] == '\'')
 				i = to_go_next_quote_single(str, new_str, i, j) + 1;

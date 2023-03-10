@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_bis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:16:32 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:24:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:28:16 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_cd_4(t_exec *exec, char *pwd, char *old_pwd)
 	size_t	len;
 
 	len = ft_strlen(old_pwd);
-	while (old_pwd[len] != '/')
+	while (len >= 0 && old_pwd[len] != '/')
 		len--;
 	pwd = (char *)malloc(sizeof(char) * (len + 1));
 	if (!pwd)

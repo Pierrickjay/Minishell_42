@@ -6,18 +6,25 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:40:22 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 15:57:51 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	finish_syntaxe(char *save)
+{
+	ft_putendl_fd("syntaxe error", STDERR);
+	free(save);
+	return (-1);
+}
+
 int	check_synthaxe_error(char *save)
 {
 	int	i;
 
-	i = -1;
-	while (save[++i])
+	i = 0;
+	while (save[i])
 	{
 		if (save[i] && save[i] == '\'')
 		{
@@ -25,18 +32,16 @@ int	check_synthaxe_error(char *save)
 			while (save[i] && save[i] != '\'')
 				i++;
 		}
-		if (save[i] && save[i] == '\"')
+		else if (save[i] && save[i] == '\"')
 		{
 			i++;
 			while (save[i] && save[i] != '\"')
 				i++;
 		}
-		if (save[i] && save[i] == ';')
-		{
-			ft_putendl_fd("syntaxe error", STDERR);
-			free(save);
-			return (-1);
-		}
+		else if (save[i] && save[i] == ';')
+			return (finish_syntaxe(save));
+		else
+			i++;
 	}
 	return (0);
 }
