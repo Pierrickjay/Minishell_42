@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 08:24:22 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 09:11:27 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 	t_exec		*exec;
 	t_envi		*envp;
 
+	ft_lst_print_type(lst);
 	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1 \
 		|| check_next_arrow(lst) == -1 || check_pipe(lst) == -1)
 	{
@@ -108,7 +109,7 @@ void	ft_update_shlvl(t_exec *exec)
 }
 
 // update the exit code
-void	ft_exit_code(t_exec *exec)
+void    ft_exit_code(t_exec *exec)
 {
 	if (exec->status == 64512)
 		exec->status = 127;
@@ -118,6 +119,8 @@ void	ft_exit_code(t_exec *exec)
 		exec->status = 128;
 	else if (exec->status == 256)
 		exec->status = 1;
+	else if (exec->status == 512)
+		exec->status = 127;
 	else
 	{
 		if (exec->status > 255)

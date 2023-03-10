@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:07:08 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 13:47:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:07:06 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	ft_cd(t_exec *exec)
 	}
 	else
 	{
-		if (access(args[1], F_OK) == FAILURE)
-			return (ft_msg_builtins("cd", (char *)args[1], PERM), 1);
 		if (chdir(args[1]) == FAILURE)
-			return (ft_msg_builtins("cd", (char *)args[1], PERM), 1);
+			return (ft_msg_builtins("cd", (char *)args[1], NOENT), 1);
 		if (exec->envi)
 		{
 			if (ft_cd_1(exec, (char *)args[1]))
