@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 09:49:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:18:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,14 @@
 
 static int	ft_export_ident(char *str)
 {
-	int	i;
-	int	nb_equal;
-	int	nb_plus;
+	int	len;
 
-	nb_equal = 0;
-	nb_plus = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			nb_equal++;
-		if (str[i] == '+')
-			nb_plus++;
-		i++;
-	}
-	if (nb_equal > 1 || nb_plus > 1)
+	len = 0;
+	while (str[len] && str[len] != '=')
+		len++;
+	if (str[len - 1] == '+')
+		len--;
+	if (ft_all_isalnum_len(str, len) == 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

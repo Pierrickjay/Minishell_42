@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 17:31:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:18:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ int		ft_nb_args_child(char **args);
 int		ft_all_isalnum(char *str);
 int		ft_check_last_char(char *str, char c);
 t_envi	*ft_dup_envi(t_envi *envi);
-void	ft_lst_print_redir(t_list **redir);
+int		ft_all_isalnum_len(char *str, int len);
 /******************************************************************************/
 
 /*************************************ENV**************************************/
