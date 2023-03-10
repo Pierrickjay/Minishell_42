@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:18:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:46:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_export_ident(char *str)
 	len = 0;
 	while (str[len] && str[len] != '=')
 		len++;
-	if (str[len - 1] == '+')
+	if (len >= 1 && str[len - 1] == '+')
 		len--;
 	if (ft_all_isalnum_len(str, len) == 0)
 		return (EXIT_FAILURE);
