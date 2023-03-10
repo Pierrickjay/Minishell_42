@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 14:48:08 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/10 15:32:11 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/10 15:32:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,16 @@ t_envi	*ft_dup_envi(t_envi *envi)
 		envi = envi->next;
 	}
 	return (dup);
+}
+
+void	ft_lst_print_redir(t_list **redir)
+{
+	int	i;
+
+	i = 0;
+	while (redir[i])
+	{
+		ft_lst_print_type(redir[i]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:05:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:44:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int *count_line)
 	exec->count_line = count_line;
 	exec->nb = ft_nb_cmds(lst);
 	exec->nb_redir = ft_nb_redir(lst);
-	exec->redir = ft_lst_redir(lst);
+	if (ft_lst_redir_malloc(exec, lst))
+		return (ft_msg(exec, "exec_1.c (33)", MA, NULL), NULL);
 	if (!exec->redir && exec->nb_redir > 0)
-		return (ft_msg(exec, "exec_1.c (35)", MA, NULL), NULL);
+		return (ft_msg(exec, "exec_1.c (36)", MA, NULL), NULL);
 	if (exec->nb > 0 && ft_init_exec_bis(exec, lst) == FAILURE)
 		return (NULL);
 	return (exec);

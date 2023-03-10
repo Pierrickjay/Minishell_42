@@ -3,89 +3,130 @@
 /*                                                        :::      ::::::::   */
 /*   child_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 20:56:20 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:40:43 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/10 15:31:12 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/10 15:43:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// the child process : infile, here doc, and pipe
-void	ft_exec_child_no_cmd(t_exec *exec)
-{
-	int	fd_in;
-	int	fd_out;
-
-	fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC], \
-							exec->count_line, exec);
-	if (fd_in == FAILURE)
-		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&fd_in);
-	fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
-	if (fd_out == FAILURE)
-		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&fd_out);
-	ft_free_exec(exec);
-	exit(EXIT_SUCCESS);
-}
-
 static void	ft_exec_pipe_infile_child(t_exec *exec)
 {
-	int		fd_in;
+	const int	n = exec->i;
+	int			fd_in;
 
 	fd_in = -1;
-	if (exec->nb_redir_type[INFILE] || exec->nb_redir_type[HEREDOC])
-	{
-		fd_in = ft_open_infiles(exec->redir, exec->nb_redir_type[HEREDOC], \
-								exec->count_line, exec);
-		if (fd_in == FAILURE)
-			return (ft_msg(exec, NULL, errno, &exit));
-		if (dup2(fd_in, STDIN) == FAILURE)
-			return (close(fd_in), ft_msg(exec, NULL, errno, &exit));
-		ft_close(&fd_in);
-	}
-	if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
+	fd_in = ft_open_infiles(exec->redir[n], \
+			exec->nb_redir_type[n][HEREDOC], exec->count_line, exec);
+	if (fd_in == FAILURE)
 		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&exec->pipes[exec->i][1]);
+	if (dup2(fd_in, STDIN) == FAILURE)
+		return (close(fd_in), ft_msg(exec, NULL, errno, &exit));
+	ft_close(&fd_in);
+	if (n < exec->nb - 1)
+	{
+		if (dup2(exec->pipes[n][1], STDOUT) == FAILURE)
+			return (ft_msg(exec, NULL, errno, &exit));
+	}
+	ft_close(&exec->pipes[n][1]);
 }
 
 // the child process : outfile and pipe
 static void	ft_exec_pipe_outfile_child(t_exec *exec)
 {
-	int		fd_out;
+	const int	n = exec->i;
+	int			fd_out;
 
 	fd_out = -1;
-	if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
-		return (ft_msg(exec, NULL, errno, &exit));
-	ft_close(&exec->pipes[exec->i - 1][0]);
-	if (exec->nb_redir_type[TRUNC] || exec->nb_redir_type[APPEND])
+	if (n > 0)
 	{
-		fd_out = ft_open_outfiles(exec->redir, exec->count_line, exec);
-		if (fd_out == FAILURE)
+		if (dup2(exec->pipes[n - 1][0], STDIN) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
-		if (dup2(fd_out, STDOUT) == FAILURE)
-			return (close(fd_out), ft_msg(exec, NULL, errno, &exit));
-		ft_close(&fd_out);
+		ft_close(&exec->pipes[n - 1][0]);
+	}
+	fd_out = ft_open_outfiles(exec->redir[n], exec->count_line, exec);
+	if (fd_out == FAILURE)
+		return (ft_msg(exec, NULL, errno, &exit));
+	if (dup2(fd_out, STDOUT) == FAILURE)
+		return (close(fd_out), ft_msg(exec, NULL, errno, &exit));
+	ft_close(&fd_out);
+}
+
+static void	ft_exec_pipe_infile_outfile_child(t_exec *exec)
+{
+	const int	n = exec->i;
+	int			fd_in;
+	int			fd_out;
+
+	fd_in = ft_open_infiles(exec->redir[n], \
+			exec->nb_redir_type[n][HEREDOC], exec->count_line, exec);
+	if (fd_in == FAILURE)
+		return (ft_free_exec(exec), exit(EXIT_FAILURE));
+	if (dup2(fd_in, STDIN) == FAILURE)
+		return (close(fd_in), ft_free_exec(exec), exit(EXIT_FAILURE));
+	ft_close(&fd_in);
+	fd_out = ft_open_outfiles(exec->redir[n], exec->count_line, exec);
+	if (fd_out == FAILURE)
+		return (ft_free_exec(exec), exit(EXIT_FAILURE));
+	if (dup2(fd_out, STDOUT) == FAILURE)
+		return (close(fd_out), ft_free_exec(exec), exit(EXIT_FAILURE));
+	ft_close(&fd_out);
+}
+
+static void	ft_exec_pipe_dup(t_exec *exec)
+{
+	const int	n = exec->i;
+
+	if (n == 0)
+	{
+		if (dup2(exec->pipes[n][1], STDOUT) == FAILURE)
+			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[n][0]);
+	}
+	else if (n == exec->nb - 1)
+	{
+		if (dup2(exec->pipes[n - 1][0], STDIN) == FAILURE)
+			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[n - 1][1]);
+	}
+	else
+	{
+		if (dup2(exec->pipes[n - 1][0], STDIN) == FAILURE)
+			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[n - 1][1]);
+		if (dup2(exec->pipes[n][1], STDOUT) == FAILURE)
+			return (ft_msg(exec, NULL, errno, &exit));
+		ft_close(&exec->pipes[n][0]);
 	}
 }
 
 // the child process : pipe and redirections
 void	ft_exec_pipe_file_child(t_exec *exec)
 {
-	if (exec->i == 0)
+	const int	n = exec->i;
+
+	printf("infile %d, outfile %d\n", exec->infile[n], exec->outfile[n]);
+	if (exec->infile[n] && exec->outfile[n])
+	{
+		ft_putendl_fd("infile and outfile", 2);
+		ft_exec_pipe_infile_outfile_child(exec);
+	}
+	else if (exec->infile[n] && !exec->outfile[n])
+	{
+		ft_putendl_fd("infile", 2);
 		ft_exec_pipe_infile_child(exec);
-	else if (exec->i == exec->nb - 1)
+	}
+	else if (!exec->infile[n] && exec->outfile[n])
+	{
+		ft_putendl_fd("outfile", 2);
 		ft_exec_pipe_outfile_child(exec);
+	}
 	else
 	{
-		if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
-			return (ft_free_exec(exec), exit(EXIT_FAILURE));
-		ft_close(&exec->pipes[exec->i - 1][0]);
-		if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
-			return (ft_free_exec(exec), exit(EXIT_FAILURE));
-		ft_close(&exec->pipes[exec->i][1]);
+		ft_putendl_fd("dup", 2);
+		ft_exec_pipe_dup(exec);
 	}
 	ft_close_pipes(exec->pipes, (exec->nb - 1));
 	ft_exec_child(exec);

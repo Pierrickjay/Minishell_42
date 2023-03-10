@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 16:02:42 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:01:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef enum e_fd
 	STDOUT,
 	STDERR
 }	t_fd;
+
+typedef enum e_mode
+{
+	IN,
+	OUT,
+}	t_mode;
 
 typedef enum e_redir
 {
@@ -76,8 +82,10 @@ typedef struct s_exec
 	int		i;
 	int		nb;
 	int		nb_redir;
-	int		nb_redir_type[4];
-	t_list	*redir;
+	int		*infile;
+	int		*outfile;
+	int		*nb_redir_type[4];
+	t_list	**redir;
 	pid_t	*pid;
 	int		**pipes;
 	char	***args;
@@ -119,11 +127,14 @@ pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
 char	***ft_init_args(t_exec *exec, t_list *lst);
 //exec_2.c
+int		ft_lst_redir_malloc(t_exec *exec, t_list *lst);
+int		ft_set_redir(t_exec *exec, t_list *lst, t_list **redir);
+int		ft_set_file(int *nb_redir_type, int mode);
+void	ft_nb_redir_type(int nb_redir_type[4], t_list *redir);
+int		ft_redir_type(char *str);
+//exec_3.c
 size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
-t_redir	ft_redir_type(char *str);
-t_list	*ft_lst_redir(t_list *lst);
-void	ft_nb_redir_type(t_list *redir, t_exec *exec);
 
 //args.c
 size_t	ft_args_size(t_list *lst);
@@ -135,13 +146,11 @@ char	*ft_access(char *cmd, char **path);
 
 //vars_1.c
 int		ft_get_vars(t_envi *envi, t_list *lst, int exit_code);
-int		ft_only_one_var(t_envi *envi, t_list *lst, int prev);
 int		ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec);
 char	*ft_check_var_1(t_envi *envi, char *vars, int ec, size_t size);
 char	*ft_check_var_2(t_envi *envi, size_t size, t_list **to_join, char *var);
-//vars_2.c
 int		ft_check_var_3(char *var, t_list **to_join, int exit_code);
-int		ft_lst_split_vars(t_list *tmp);
+//vars_2.c
 char	*ft_content_update(char *str);
 char	*ft_check_envi(char *key, t_envi *envi);
 //vars_3.c
@@ -192,6 +201,7 @@ int		ft_nb_args_child(char **args);
 int		ft_all_isalnum(char *str);
 int		ft_check_last_char(char *str, char c);
 t_envi	*ft_dup_envi(t_envi *envi);
+void	ft_lst_print_redir(t_list **redir);
 /******************************************************************************/
 
 /*************************************ENV**************************************/

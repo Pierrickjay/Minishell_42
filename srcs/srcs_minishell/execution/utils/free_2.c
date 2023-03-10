@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 13:45:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:14:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_envi(exec->envi);
 		exec->envi = NULL;
 	}
-	if (exec->redir)
-	{
-		ft_free_redir(exec->redir);
-		exec->redir = NULL;
-	}
+	// if (exec->redir)
+	// {
+	// 	ft_free_redir(exec->redir);
+	// 	exec->redir = NULL;
+	// }
 	ft_free_exec_bis(exec);
 	ft_free((void **)&exec);
 }
