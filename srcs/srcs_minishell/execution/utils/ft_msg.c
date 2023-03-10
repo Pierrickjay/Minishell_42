@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 16:36:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:16:20 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_msg_exit(char **args, const int n)
 		ft_putendl_fd(": numeric argument required", STDERR);
 	}
 	else
-		ft_putendl_fd("exit: too many arguments", STDERR);
+		ft_putendl_fd("exit\nexit: too many arguments", STDERR);
 }
 
 // print the error message

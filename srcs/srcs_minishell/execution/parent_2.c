@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:23 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 15:50:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:23:02 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_exec_parent(t_exec *exec)
 		}
 	}
 	waitpid(exec->pid[0], &exec->status, WUNTRACED);
+	if (exec->status == 2)
+		exec->status = 130;
 	deal_w_return_pid(exec->status);
 	return (SUCCESS);
 }

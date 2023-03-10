@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 09:11:27 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 09:23:25 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 // exit code for signal
 void	deal_w_return_pid(int status)
 {
-	if (status == 2)
+	if (status == 130)
 		ft_putchar_fd('\n', STDERR);
 	else if (status == 131)
 		ft_putendl_fd("Quit (core dumped)", STDERR);
@@ -109,7 +109,7 @@ void	ft_update_shlvl(t_exec *exec)
 }
 
 // update the exit code
-void    ft_exit_code(t_exec *exec)
+void	ft_exit_code(t_exec *exec)
 {
 	if (exec->status == 64512)
 		exec->status = 127;

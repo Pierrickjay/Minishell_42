@@ -1,13 +1,6 @@
 
 export -> doit etre trier ordre alphabetique
 
-minishell> exit 123 test
-exit
-ne doit pas exit et dois afficher message erreur
-
-echo '$TEST%test"$USER'salut pierrick'$HOME%TEST"$PROUT'
-doit afficher le pwd
-
 minishell> cat <<a
 cat | CMD | not_expend = 0
 << | REDIR | not_expend = 0
@@ -15,9 +8,6 @@ a | FILES | not_expend = 0
 > $USER
 > a
 $USER
-
- echo ""test>test""
- segfault;
 
 doit expand dans le minishell
 minishell> echo "''"hel""$USER""lo
@@ -128,54 +118,6 @@ LD_PRELOAD=/usr/libexec/valgrind/vgpreload_core-amd64-linux.so:/usr/libexec/valg
 z=ho
 zz=ec$z salut
 
-minishell> cat
-cat | CMD | not_expend = 0
-^C
-minishell> echo $?
-echo | CMD | not_expend = 0
-$? | ARG | not_expend = 0
-2
-130 stp
-
-minishell> /bin/fwuefew
-/bin/fwuefew | CMD | not_expend = 0
-/bin/fwuefew: No such file or directory
-==843888==
-==843888== HEAP SUMMARY:
-==843888==     in use at exit: 209,016 bytes in 264 blocks
-==843888==   total heap usage: 5,453 allocs, 5,189 frees, 402,136 bytes allocated
-==843888==
-==843888== LEAK SUMMARY:
-==843888==    definitely lost: 0 bytes in 0 blocks
-==843888==    indirectly lost: 0 bytes in 0 blocks
-==843888==      possibly lost: 0 bytes in 0 blocks
-==843888==    still reachable: 0 bytes in 0 blocks
-==843888==         suppressed: 209,016 bytes in 264 blocks
-==843888==
-==843888== For lists of detected and suppressed errors, rerun with: -s
-==843888== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-minishell> echo $?
-echo | CMD | not_expend = 0
-$? | ARG | not_expend = 0
-0
-
-minishell> export ++
-export | CMD | not_expend = 0
-++ | ARG | not_expend = 0
-export: `++': not a valid identifier
-
-
-
-
-
-
-
-
-
-
-
-
-trop de new line
 
 minishell> export salut=+=fesal
 export | CMD | not_expend = 0
@@ -186,11 +128,5 @@ ca doit marcher
 minishell> export sa-=ewf
 export | CMD | not_expend = 0
 sa-=ewf | ARG | not_expend = 0
-
-minishell> cd ewjfwejkfwe
-cd | CMD | not_expend = 0
-ewjfwejkfwe | ARG | not_expend = 0
-cd: ewjfwejkfwe: Permission denied
-No such file in directory
 
 
