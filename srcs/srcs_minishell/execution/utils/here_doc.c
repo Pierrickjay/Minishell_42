@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 17:49:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 08:43:06 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	to_print_error(char *end, int *count_line, t_exec *exec, int fd[2])
 {
 	if (g_check == 1)
 	{
-		printf("enter here\n");
 		ft_free_exec(exec);
 		ft_close(&fd[0]);
 		ft_close(&fd[1]);

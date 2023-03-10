@@ -6,10 +6,11 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:21:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 08:24:07 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 08:41:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../../../includes/minishell.h"
 
 static void	ft_exit_alpha_args(t_list *list, t_envi *envp)
 {
@@ -42,6 +43,7 @@ void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save)
 	exit_value = 0;
 	free(to_free->not_expend);
 	free(to_free->newsplit);
+	free(to_free->is_in_quote);
 	free(save);
 	ft_exit_alpha_args(list, envp);
 	if (ft_strcmp(list->content, "exit") == 0 && size <= 2)

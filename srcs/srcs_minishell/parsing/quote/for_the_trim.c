@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 21:17:09 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 08:43:31 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,7 @@ int	trim_all(char **split, t_free *to_free)
 			&& check_if_expend(split[i]))
 			to_free->not_expend[i] = true;
 		if (check_if_in_quote(split[i]))
-		{
-			printf("enter here");
 			to_free->is_in_quote[i] = true;
-		}
 	}
 	to_free->newsplit[i++] = NULL;
 	free_split(split);
