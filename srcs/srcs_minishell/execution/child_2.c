@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 15:43:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:25:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,27 +107,14 @@ void	ft_exec_pipe_file_child(t_exec *exec)
 {
 	const int	n = exec->i;
 
-	printf("infile %d, outfile %d\n", exec->infile[n], exec->outfile[n]);
 	if (exec->infile[n] && exec->outfile[n])
-	{
-		ft_putendl_fd("infile and outfile", 2);
 		ft_exec_pipe_infile_outfile_child(exec);
-	}
 	else if (exec->infile[n] && !exec->outfile[n])
-	{
-		ft_putendl_fd("infile", 2);
 		ft_exec_pipe_infile_child(exec);
-	}
 	else if (!exec->infile[n] && exec->outfile[n])
-	{
-		ft_putendl_fd("outfile", 2);
 		ft_exec_pipe_outfile_child(exec);
-	}
 	else
-	{
-		ft_putendl_fd("dup", 2);
 		ft_exec_pipe_dup(exec);
-	}
 	ft_close_pipes(exec->pipes, (exec->nb - 1));
 	ft_exec_child(exec);
 }
