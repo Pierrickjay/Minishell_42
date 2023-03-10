@@ -6,46 +6,49 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:21:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 21:07:07 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 08:24:07 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../includes/minishell.h"
 
-static void	ft_exit_bis(t_list *list, t_envi *envp)
+static void	ft_exit_alpha_args(t_list *list, t_envi *envp)
 {
-	if (list->next && list->next->content && \
-		ft_isalpha(list->next->content[0]))
+	const int	nb_cmds = ft_nb_cmds(list);
+
+	if (ft_strcmp("exit", list->content) == 0)
 	{
-		ft_putstr_fd("exit: ", STDERR);
-		ft_putstr_fd(list->next->content, STDERR);
-		ft_putendl_fd(": numeric argument required", STDERR);
-		if (envp)
-			ft_free_envi(envp);
-		ft_free_lst(list);
-		exit(2);
+		if (list->next && list->next->content)
+		{
+			if (ft_all_isdigit(list->next->content) && nb_cmds == 1)
+			{
+				ft_putendl_fd("exit", STDERR);
+				ft_putstr_fd("exit: ", STDERR);
+				ft_putstr_fd(list->next->content, STDERR);
+				ft_putendl_fd(": numeric argument required", STDERR);
+				if (envp)
+					ft_free_envi(envp);
+				ft_free_lst(list);
+				exit(2);
+			}
+		}
 	}
 }
 
 void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save)
 {
-	int	exit_value;
+	const size_t	size = ft_lstsize(list);
+	int				exit_value;
 
 	exit_value = 0;
 	free(to_free->not_expend);
-	free(to_free->is_in_quote);
 	free(to_free->newsplit);
 	free(save);
-	if (ft_strcmp(list->content, "exit") == 0)
+	ft_exit_alpha_args(list, envp);
+	if (ft_strcmp(list->content, "exit") == 0 && size <= 2)
 	{
-		ft_exit_bis(list, envp);
-		if (list->next && list->next->next && \
-			ft_isdigit(list->next->next->content[0]) == 1)
-			return ;
-		if (list->next && list->next->content && \
-			ft_isdigit(list->next->content[0]))
+		if (list->next && list->next->content)
 			exit_value = ft_atoi(list->next->content);
-		ft_putendl_fd("exit", STDOUT);
+		ft_putendl_fd("exit", STDERR);
 		if (envp)
 			ft_free_envi(envp);
 		ft_free_lst(list);
@@ -54,7 +57,6 @@ void	ft_exit(t_list *list, t_envi *envp, t_free *to_free, char *save)
 		exit(exit_value);
 	}
 }
-
 // static int	ft_check_exit(t_list *lst, int *exit_value)
 // {
 // 	const size_t	size = ft_lstsize(lst);

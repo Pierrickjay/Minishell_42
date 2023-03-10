@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/08 15:26:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:36:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	ft_msg_exit(char **args, const int n)
 {
 	if (n == 1)
 		return ;
-	else if (n >= 2 && ft_isalpha(args[1][0]))
+	else if (n >= 2 && ft_all_isdigit(args[1]))
 	{
 		ft_putstr_fd("exit: ", STDERR);
 		ft_putstr_fd(args[1], STDERR);
 		ft_putendl_fd(": numeric argument required", STDERR);
 	}
-	else if (n >= 3)
+	else
 		ft_putendl_fd("exit: too many arguments", STDERR);
 }
 
