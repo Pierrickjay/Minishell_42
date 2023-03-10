@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 18:38:50 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 19:08:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 	t_exec		*exec;
 	t_envi		*envp;
 
-	ft_lst_print_type(lst);
 	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1 \
 		|| check_next_arrow(lst) == -1 || check_pipe(lst) == -1)
 	{

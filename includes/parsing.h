@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:13:40 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 19:21:50 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_free
 	bool	*is_in_quote;
 }	t_free;
 
+int		boucle_minishell(char **env, t_list *list, t_free *to_free, char *save);
 void	ft_main_parsing(void);
 void	ft_main_parsing_utils(void);
 int		create_siga(int mode);

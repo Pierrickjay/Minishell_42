@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:54:24 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 12:38:55 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 19:07:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ t_list	*ft_fill_2(t_free *to_free, t_list *list)
 	tmp = NULL;
 	list->content = to_free->newsplit[0];
 	list->not_expend = to_free->not_expend[0];
-	if (to_free->is_in_quote[0] == true)
-		list->type = ARG;
-	else
-		list->type = -1;
+	list->type = -1;
 	while (to_free->newsplit[i])
 	{
 		tmp = ft_lstnew_spe(to_free->newsplit[i], \

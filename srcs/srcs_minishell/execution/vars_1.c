@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:39:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:38:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	lst->content = ft_content_update(lst->content);
 	if (!lst->content)
 		return (EXIT_FAILURE);
-	vars = ft_split(lst->content, '|');
+	vars = ft_split(lst->content, -1);
 	if (!vars)
 		return (EXIT_FAILURE);
 	i = 0;

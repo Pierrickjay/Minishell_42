@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 10:09:23 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 09:23:02 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/10 15:31:57 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/10 15:32:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_exec_parent_no_cmd(t_exec *exec)
 {
 	pid_t	*pid;
 
-	ft_nb_redir_type(exec->redir, exec);
 	pid = malloc(sizeof(*pid));
 	if (pid == NULL)
 		return (FAILURE);
@@ -86,7 +85,6 @@ int	ft_exec_pipe_parent(t_exec *exec)
 // child for one command and redirection
 int	ft_exec_redir_parent(t_exec *exec)
 {
-	ft_nb_redir_type(exec->redir, exec);
 	if (ft_builtins(exec) == FAILURE)
 	{
 		exec->pid[0] = fork();
@@ -107,7 +105,6 @@ int	ft_exec_pipe_redir_parent(t_exec *exec)
 {
 	int	i;
 
-	ft_nb_redir_type(exec->redir, exec);
 	while (exec->i < exec->nb)
 	{
 		if (ft_builtins(exec) == FAILURE)

@@ -1,4 +1,5 @@
-
+<< end cat | << END cat
+BUG HEREDOC
 
 minishell> cat <<a
 cat | CMD | not_expend = 0

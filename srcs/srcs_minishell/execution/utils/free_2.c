@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 13:45:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:32:47 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ void	ft_free_envi(t_envi *envi)
 // free the exec struct and initialize it to NULL
 static void	ft_free_exec_bis(t_exec *exec)
 {
+	if (exec->redir)
+	{
+		ft_free_redir(exec->redir, exec->nb + exec->no_cmd + 1);
+		exec->redir = NULL;
+	}
+	if (exec->nb_redir_type)
+	{
+		ft_free_nb_redir_type(exec->nb_redir_type, exec->nb + exec->no_cmd + 1);
+		exec->nb_redir_type = NULL;
+	}
 	if (exec->pid)
 		ft_free((void **)&exec->pid);
 	if (exec->pipes)
@@ -86,11 +96,10 @@ void	ft_free_exec(t_exec *exec)
 		ft_free_envi(exec->envi);
 		exec->envi = NULL;
 	}
-	if (exec->redir)
-	{
-		ft_free_redir(exec->redir);
-		exec->redir = NULL;
-	}
+	if (exec->infile)
+		ft_free((void **)&exec->infile);
+	if (exec->outfile)
+		ft_free((void **)&exec->outfile);
 	ft_free_exec_bis(exec);
 	ft_free((void **)&exec);
 }

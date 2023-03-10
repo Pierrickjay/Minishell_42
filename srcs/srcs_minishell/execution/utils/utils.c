@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 14:48:08 by pjay             ###   ########.fr       */
+/*   Created: 2023/03/10 15:32:11 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/03/10 18:18:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ int	ft_all_isalnum(char *str)
 	i = 0;
 	n = 0;
 	while (str[i])
+	{
+		if (ft_isalnum(str[i]))
+			n++;
+		i++;
+	}
+	if (n == len)
+		return (1);
+	return (0);
+}
+
+int	ft_all_isalnum_len(char *str, int len)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (str[i] && i < len)
 	{
 		if (ft_isalnum(str[i]))
 			n++;

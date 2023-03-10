@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 15:50:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:41:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec)
 	int		fd_here_doc;
 
 	fd = -2;
+	if (!redir)
+		return (fd);
 	fd_here_doc = ft_open_infiles_here_doc(redir, count_line, exec);
 	while (redir)
 	{
@@ -92,6 +94,8 @@ int	ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec)
 	int	fd;
 
 	fd = -2;
+	if (!redir)
+		return (fd);
 	while (redir)
 	{
 		if (fd != -2 && fd != -1 && \

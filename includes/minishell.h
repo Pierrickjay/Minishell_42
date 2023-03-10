@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:49:19 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 17:16:47 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 19:27:59 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@
 # include "parsing.h"
 //obouhlel
 # include "execution.h"
+# include "libft.h"
 
 #endif
