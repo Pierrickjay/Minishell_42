@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:46:39 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:47:00 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 14:48:08 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_all_isalnum(char *str)
 }
 
 // duplicate the enviroment list
+// if envi est une modif pour norm
 t_envi	*ft_dup_envi(t_envi *envi)
 {
 	t_envi	*dup;
@@ -61,7 +62,7 @@ t_envi	*ft_dup_envi(t_envi *envi)
 	char	*value;
 
 	if (envi == NULL)
-		return (NULL);//modif pour norm
+		return (NULL);
 	dup = NULL;
 	while (envi)
 	{

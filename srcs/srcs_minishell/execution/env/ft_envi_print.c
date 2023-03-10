@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 12:47:23 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 14:46:35 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,12 @@ void	ft_envi_print(t_exec *exec, t_envi *envi)
 	head = swapped;
 	while (swapped)
 	{
-		if
-		(ft_putstr_fd("declare -x ", STDOUT) == FAILURE || \
+		if (ft_putstr_fd("declare -x ", STDOUT) == FAILURE || \
 			ft_putstr_fd(swapped->key, STDOUT) == FAILURE)
 			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
 		if (swapped->type == NORMAL)
 		{
-			if
-			(ft_putstr_fd("=\"", STDOUT) == FAILURE ||
+			if (ft_putstr_fd("=\"", STDOUT) == FAILURE || \
 				ft_putstr_fd(swapped->value, STDOUT) == FAILURE || \
 				ft_putstr_fd("\"", STDOUT) == FAILURE)
 				return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
