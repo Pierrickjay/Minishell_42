@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/09 19:00:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 18:28:16 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	handler_end(int signal)
 		if (g_check == 0)
 		{
 			block_signal(SIGINT);
+			g_check = 2;
 			rl_on_new_line();
 			write(1, "\n", 1);
 			rl_replace_line("", 0);

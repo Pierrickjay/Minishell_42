@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:28:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 15:15:26 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 18:38:53 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	save_is_null(char *save, t_envi *envp)
 	}
 	if (save[0] == '\0')
 	{
-		printf("test\n");
 		free(save);
 		return (-1);
 	}

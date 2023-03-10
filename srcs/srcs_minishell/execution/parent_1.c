@@ -6,16 +6,15 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 16:15:07 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 18:38:50 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // main execution, the big boss
-t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
+t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 {
-	static int	exit_code = 0;
 	t_exec		*exec;
 	t_envi		*envp;
 
@@ -23,10 +22,10 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1 \
 		|| check_next_arrow(lst) == -1 || check_pipe(lst) == -1)
 	{
-		exit_code = 2;
+		*exit_code = 2;
 		return (envi);
 	}
-	if (ft_get_vars(envi, lst, exit_code))
+	if (ft_get_vars(envi, lst, *exit_code))
 		return (ft_free_lst(lst), ft_msg_malloc("parent_1.c (30)"), envi);
 	exec = ft_init_exec(lst, envi, count_line);
 	if (!exec)
@@ -38,7 +37,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line)
 	if (envp == FAIL)
 		return (ft_free_exec(exec), NULL);
 	ft_exit_code(exec);
-	exit_code = exec->status;
+	*exit_code = exec->status;
 	return (ft_free_exec(exec), envp);
 }
 
@@ -119,7 +118,7 @@ void	ft_exit_code(t_exec *exec)
 		exec->status = 128;
 	else if (exec->status == 256)
 		exec->status = 1;
-	else if (exec->status == 512)
+	else if (exec->status == 512 || exec->status == 5120)
 		exec->status = 127;
 	else
 	{

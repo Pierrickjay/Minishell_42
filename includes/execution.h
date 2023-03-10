@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 16:02:42 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:06:41 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_exec
 /***********************************EXECUTION**********************************/
 //parent
 //parent_1.c
-t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line);
+t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code);
 void	deal_w_return_pid(int status);
 int		ft_parent_bis(t_exec *exec, t_envi *envp);
 void	ft_update_shlvl(t_exec *exec);

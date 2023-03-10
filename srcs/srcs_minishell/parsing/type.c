@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 10:44:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 16:50:04 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 18:50:25 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_set_type(t_list *lst)
 	previous_type = -1;
 	while (lst)
 	{
-		if (lst->type == -1)
+		if (previous_type == REDIR || lst->type == -1)
 			lst->type = ft_type(lst->content, previous_type);
 		previous_type = lst->type;
 		lst = lst->next;

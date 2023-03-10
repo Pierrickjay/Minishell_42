@@ -8,10 +8,6 @@ a | FILES | not_expend = 0
 > a
 $USER
 
-minishell> cat < Makefile > axel | ls > test2
-
-ca met pas le makefile dans axel
-
 minishell> export salut=+=fesal
 export | CMD | not_expend = 0
 salut=+=fesal | ARG | not_expend = 0

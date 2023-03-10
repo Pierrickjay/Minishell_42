@@ -6,11 +6,13 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 22:35:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 15:57:51 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/10 18:28:07 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern volatile int	g_check;
 
 int	finish_syntaxe(char *save)
 {
@@ -67,15 +69,20 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 {
 	static t_envi	*envp = NULL;
 	static int		count_line = 0;
+	static int		exit_code = 0;
 
+	// set exit code to 130 si ctrlc
 	envp = ft_env_to_envi(env);
 	if (envp == FAIL)
 		return (ft_msg_malloc("main.c (21)"), EXIT_FAILURE);
 	while (1)
 	{
+		g_check = 0;
 		create_siga(MAIN);
 		count_line++;
 		save = readline("minishell> ");
+		if (g_check == 2)
+			exit_code = 130;
 		create_siga(PARENT);
 		if (save_is_null(save, envp) == -1 || is_full_of_space(save) == -1)
 			continue ;
@@ -86,7 +93,7 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		if (ft_check_list(list, to_free, save, envp) == EXIT_SUCCESS)
 			continue ;
 		ft_exit(list, envp, to_free, save);
-		envp = main_exec(list, envp, &count_line);
+		envp = main_exec(list, envp, &count_line, &exit_code);
 		if (envp == FAIL)
 			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);
 	}
