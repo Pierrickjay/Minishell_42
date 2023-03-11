@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 19:08:42 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 09:48:45 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,18 @@ void	ft_exit_code(t_exec *exec)
 {
 	if (exec->status == 64512)
 		exec->status = 127;
-	else if (exec->status == 65280)
+	if (exec->status == 65280)
 		exec->status = 1;
 	else if (exec->status == 64256)
 		exec->status = 128;
-	else if (exec->status == 256)
-		exec->status = 1;
-	else if (exec->status == 512 || exec->status == 5120)
+	else if (exec->status == 5120)
 		exec->status = 127;
 	else
 	{
 		if (exec->status > 255)
 		{
 			while (exec->status > 255)
-				exec->status -= 256;
+				exec->status -= 255;
 		}
 	}
 }

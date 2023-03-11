@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:41:11 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 18:28:16 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 08:43:18 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	handler_end(int signal)
 {
 	if (signal == SIGINT)
 	{
-		if (g_check == 0)
+		if (g_check == 0 || g_check == 2)
 		{
 			block_signal(SIGINT);
 			g_check = 2;

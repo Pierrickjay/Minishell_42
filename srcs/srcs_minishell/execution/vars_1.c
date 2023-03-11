@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:38:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/11 09:17:28 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 // when we have a string with a var
 int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 {
-	const size_t	size = ft_envi_size(envi);
 	char			*tmp;
 	t_list			*to_join;
 	size_t			i;
@@ -52,7 +51,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	i = 0;
 	while (vars[i])
 	{
-		tmp = ft_check_var_1(envi, vars[i], ec, (size_t)size);
+		tmp = ft_check_var_1(envi, vars[i], ec);
 		if (!tmp)
 			return (ft_free_strs(vars), EXIT_FAILURE);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
@@ -63,7 +62,7 @@ int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
 	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
 }
 
-char	*ft_check_var_1(t_envi *envi, char *vars, int ec, size_t size)
+char	*ft_check_var_1(t_envi *envi, char *vars, int ec)
 {
 	char	*str;
 	t_list	*to_join;
@@ -79,7 +78,7 @@ char	*ft_check_var_1(t_envi *envi, char *vars, int ec, size_t size)
 			return (NULL);
 		return (str);
 	}
-	vars = ft_check_var_2(envi, (const size_t) size, &to_join, vars);
+	vars = ft_check_var_2(envi, &to_join, vars);
 	if (ft_check_var_3(vars, &to_join, ec))
 		return (NULL);
 	str = ft_lstjoin(to_join);
@@ -88,7 +87,7 @@ char	*ft_check_var_1(t_envi *envi, char *vars, int ec, size_t size)
 
 // save a char after the var in list to join,
 // and return var with just a alphanum
-char	*ft_check_var_2(t_envi *envi, size_t size, t_list **to_join, char *var)
+char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var)
 {
 	size_t	len;
 	char	*add;
@@ -96,7 +95,7 @@ char	*ft_check_var_2(t_envi *envi, size_t size, t_list **to_join, char *var)
 
 	i = 0;
 	len = ft_strlen(var);
-	while (var[0] == '$' && !ft_all_isalnum(&var[1]) && len-- && i < size)
+	while (var[0] == '$' && !ft_all_isalnum(&var[1]) && len--)
 	{
 		if (len == 1 && ft_var_special(var[1]))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:56:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 09:34:42 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ char	*ft_access(char *cmd, char **path);
 //vars_1.c
 int		ft_get_vars(t_envi *envi, t_list *lst, int exit_code);
 int		ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec);
-char	*ft_check_var_1(t_envi *envi, char *vars, int ec, size_t size);
-char	*ft_check_var_2(t_envi *envi, size_t size, t_list **to_join, char *var);
+char	*ft_check_var_1(t_envi *envi, char *vars, int ec);
+char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var);
 int		ft_check_var_3(char *var, t_list **to_join, int exit_code);
 //vars_2.c
 char	*ft_content_update(char *str);

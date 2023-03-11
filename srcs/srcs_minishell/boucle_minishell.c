@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:14:38 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 19:27:48 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 09:39:19 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ int	check_synthaxe_error(char *save)
 	i = 0;
 	while (save[i])
 	{
-		if (save[i] && save[i] == '\'')
+		if (save[i] && save[i] == '\'' && i++)
 		{
-			i++;
 			while (save[i] && save[i] != '\'')
 				i++;
+			if (!save[i])
+				return (finish_syntaxe(save));
 		}
-		else if (save[i] && save[i] == '\"')
+		else if (save[i] && save[i] == '\"' && i++)
 		{
-			i++;
 			while (save[i] && save[i] != '\"')
 				i++;
+			if (!save[i])
+				return (finish_syntaxe(save));
 		}
 		if (save[i] && (save[i] == ';' || save[i] == 92))
 			return (finish_syntaxe(save));
@@ -70,12 +72,12 @@ char	*ft_readline(char *save, int *count_line, t_envi *envp, int *exit_code)
 	create_siga(MAIN);
 	(*count_line)++;
 	save = readline("minishell> ");
+	add_history(save);
 	if (g_check == 2)
 		*exit_code = 130;
 	create_siga(PARENT);
 	if (save_is_null(save, envp) == -1 || is_full_of_space(save) == -1)
 		return (NULL);
-	add_history(save);
 	return (save);
 }
 
