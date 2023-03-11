@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:16:17 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 08:42:44 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 09:59:57 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	check_if_expend(char *old_str)
 				if (old_str[i] == '$')
 					return (1);
 			}
+			if (!old_str[i])
+				return (0);
 		}
 	}
 	return (0);

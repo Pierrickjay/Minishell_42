@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:58:01 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 10:30:14 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
 	exec->outfile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
 	if (!exec->outfile)
 		return (EXIT_FAILURE);
-	if (ft_set_redir(exec, lst, exec->redir))
+	if (exec->no_cmd && ft_set_redir_no_cmd(exec, lst, exec->redir))
+		return (EXIT_FAILURE);
+	if (!exec->no_cmd && ft_set_redir(exec, lst, exec->redir))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -61,7 +63,6 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 		}
 		lst = lst->next;
 	}
-	redir[i] = NULL;
 	return (EXIT_SUCCESS);
 }
 

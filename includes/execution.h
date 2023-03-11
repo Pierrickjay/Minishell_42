@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 09:34:42 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/11 10:25:33 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		ft_redir_type(char *str);
 //exec_3.c
 size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
+int		ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir);
 
 //args.c
 size_t	ft_args_size(t_list *lst);

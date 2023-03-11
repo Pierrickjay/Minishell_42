@@ -26,10 +26,6 @@ minishell> ..
 .. | CMD | not_expend = 0
 commande not found
 
-cat << $"USER"
-segfault toujours
-
 pjay@e2r13p10:~$ echo $"USER"
 USER
-
 alors que on affiche pjay
