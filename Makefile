@@ -1,5 +1,3 @@
-# !/bin/sh
-
 # COLOR
 
 SRED		:= \033[0;31m
