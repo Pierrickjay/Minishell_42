@@ -100,7 +100,7 @@ BAR				= "="
 define PROGRESS_BAR
 	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJS)))))
 	$(eval SPACE=$(shell echo $$(($(NB_OBJS) - $(COUNTER)))))
-	printf "\r${SYELLOW}Compiling : ${SGREEN}%3d%%${SOFF} ${SOFF} ${SPURPLE}[${BAR}%${SPACE}s]${SOFF}" ${PROGRESS}
+	printf "\r${SYELLOW}Compile : ${SPURPLE}[${BAR}%${SPACE}s]${SOFF} ${SGREEN}%3d%%${SOFF} " "" ${PROGRESS}
 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
 	$(eval BAR=$(shell if [ ${PROGRESS} -lt 100 ]; then echo "${BAR}="; fi))
 endef
@@ -127,13 +127,13 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "\n${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 
 leak 	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "\n${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer avec valgrind\n${SOFF}"
 		@sleep 1
 		@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-fds=yes ./minishell
@@ -142,7 +142,7 @@ debug	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "\n${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer sans l'environnement\n${SOFF}"
 		@sleep 1
 		@env -i ./minishell
