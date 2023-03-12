@@ -57,8 +57,8 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 			execution/args.c execution/path.c execution/child_1.c execution/child_2.c execution/child_3.c \
 			execution/vars_1.c execution/vars_2.c execution/vars_3.c \
 			execution/builtins.c execution/builtins/ft_pwd.c execution/builtins/ft_echo.c execution/builtins/ft_env.c \
-			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c execution/builtins/ft_unset.c \
-			execution/builtins/ft_exit.c
+			execution/builtins/ft_export.c execution/builtins/ft_cd.c execution/builtins/ft_cd_bis.c \
+			execution/builtins/ft_unset.c execution/builtins/ft_exit.c
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
@@ -86,6 +86,8 @@ CC				:= cc
 
 CFLAGS			:= -Wall -Wextra -Werror -MMD -g3
 
+CFLAGS_DEBUG	:= -Wall -Wextra -Werror -MMD -g3 -fsanitize=address
+
 RM				:= rm -rf
 
 MKDIR			:= mkdir -p
@@ -98,6 +100,12 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
+		@echo ${NAME} ${GREEN}"done"${OFF}
+
+debug	: ${OBJS_LIBFT} ${OBJS}
+		@${MKDIR} ${LIB_DIR}
+		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
+		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
 		@echo ${NAME} ${GREEN}"done"${OFF}
 
 clean	:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 10:25:33 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/12 09:43:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # define PERM "Permission denied"
 # define NOENT "No such file or directory"
 # define HOME "HOME not set"
+# define OLDPWD "OLDPWD not set"
 # define IDENT "not a valid identifier"
+# define TOOMANY "too many arguments"
 
 //return values
 # define FAIL (void *)-1
@@ -232,7 +234,11 @@ int		ft_echo(t_exec	*exec);
 int		ft_pwd(t_exec *exec);
 //cd
 int		ft_cd(t_exec *exec);
-int		ft_cd_1(t_exec *exec, char *pwd);
+int		ft_cd_update_oldpwd(t_exec *exec, char *oldpwd);
+int		ft_cd_update_pwd(t_exec *exec, char *pwd);
+int		ft_cd_home(t_exec *exec);
+int		ft_cd_back(t_exec *exec);
+int		ft_cd_go_to(t_exec *exec, const char *arg);
 //env
 int		ft_env(t_exec *exec);
 //export
