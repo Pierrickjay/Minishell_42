@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   boucle_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:14:38 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/11 09:39:19 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/12 10:50:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 	static int		exit_code = 0;
 
 	envp = ft_env_to_envi(env);
+	if (envp == NULL)
+		envp = ft_envi_null(envp);
 	if (envp == FAIL)
-		return (ft_msg_malloc("main.c (21)"), EXIT_FAILURE);
+		return (ft_msg_malloc("boucle_minishell.c (94)"), EXIT_FAILURE);
 	while (1)
 	{
 		save = ft_readline(save, &count_line, envp, &exit_code);
@@ -103,6 +105,6 @@ int	boucle_minishell(char **env, t_list *list, t_free *to_free, char *save)
 		ft_exit(list, envp, to_free, save);
 		envp = main_exec(list, envp, &count_line, &exit_code);
 		if (envp == FAIL)
-			return (ft_msg_malloc("main.c (39)"), EXIT_FAILURE);
+			return (ft_msg_malloc("boucle_minishell.c (108)"), EXIT_FAILURE);
 	}
 }

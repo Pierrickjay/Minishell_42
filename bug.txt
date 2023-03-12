@@ -9,22 +9,8 @@ a | FILES | not_expend = 0
 > a
 $USER
 
-minishell> export salut=+=fesal
-export | CMD | not_expend = 0
-salut=+=fesal | ARG | not_expend = 0
-export: `salut=+=fesal': not a valid identifier
-ca doit marcher
-
-minishell> export sa-=ewf
-export | CMD | not_expend = 0
-sa-=ewf | ARG | not_expend = 0
-
 echo "''">$PATH
 fonctionne alors que je dois cela doit etre bash: /mnt/nfs/homes/pjay/bin:/mnt/nfs/homes/pjay/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin: No such file or directory
-
-minishell> ..
-.. | CMD | not_expend = 0
-commande not found
 
 pjay@e2r13p10:~$ echo $"USER"
 USER

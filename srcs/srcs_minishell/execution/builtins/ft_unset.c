@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 08:37:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/12 11:08:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 	top = envi;
 	while (envi)
 	{
-		if (ft_strcmp(name, envi->key) == 0)
+		if (ft_strcmp(name, "_") == 0)
+			return (top);
+		else if (ft_strcmp(name, envi->key) == 0)
 			return (ft_unset_bis_bis(envi, tmp, top));
 		tmp = envi;
 		envi = envi->next;
