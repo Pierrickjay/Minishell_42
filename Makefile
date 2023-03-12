@@ -1,4 +1,13 @@
+# !/bin/sh
+
 # COLOR
+
+SRED		:= \033[0;31m
+SGREEN		:= \033[0;32m
+SYELLOW		:= \033[0;33m
+SCYAN		:= \033[0;36m
+SPURPLE		:= \033[0;35m
+SOFF		:= \033[0m
 
 RED			:= '\033[0;31m'
 GREEN		:= '\033[0;32m'
@@ -78,6 +87,22 @@ OBJS			:= $(addprefix $(OBJS_DIR),$(OBJS))
 
 DEPS			:= ${OBJS:.o=.d} ${OBJS_LIBFT:.o=.d}
 
+# PROGRESS BAR
+
+NB_OBJS			= ${words ${OBJS}, ${OBJS_LIBFT}}
+COUNTER			= 1
+PROGRESS		= 0
+SPACE		 	= 0
+BAR				= "="
+
+define PROGRESS_BAR
+	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJS)))))
+	$(eval SPACE=$(shell echo $$(($(NB_OBJS) - $(COUNTER)))))
+	printf "\r${SYELLOW}Compiling : ${SGREEN}%3d%%${SOFF} ${SOFF} ${SRED}[${BAR}%${SPACE}s]${SOFF}" ${PROGRESS}
+	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
+	$(eval BAR=$(shell if [ ${PROGRESS} -lt 100 ]; then echo "${BAR}="; fi))
+endef
+
 # COMMANDS
 
 AR				:= ar rcs
@@ -100,13 +125,13 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@echo ${NAME} ${GREEN}"done"${OFF}
+		@printf "\n${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 
 debug	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@echo ${NAME} ${GREEN}"done"${OFF}
+		@printf "\n${SCYAN}${NAME} with fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
 
 clean	:
 		@${RM} ${OBJS_DIR} ${LIB_DIR}
@@ -125,6 +150,6 @@ re		: fclean all
 $(OBJS_DIR)%.o	: %.c
 				@${MKDIR} $(@D)
 				@${CC} ${CFLAGS} -c $< -o $@
-				@echo "$@ "${GREEN}"done"${OFF}
+				@$(call PROGRESS_BAR)
 
 -include $(DEPS)
