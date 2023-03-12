@@ -17,7 +17,7 @@ USER
 alors que on affiche pjay
 
 --------------------------------------------------------------------
-							Bilan
+								Bilan
 --------------------------------------------------------------------
 - Verifications des singles quotes et doubles quotes
 - Verifications des variables d'environnement avec des singles quotes et doubles quotes
