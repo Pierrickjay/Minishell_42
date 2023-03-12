@@ -101,7 +101,7 @@ define PROGRESS_BAR
 	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJS)))))
 	$(eval SPACE=$(shell echo $$(($(NB_OBJS) - $(COUNTER)))))
 	printf "\r${SYELLOW}Compiling : ${SGREEN}%3d%%${SOFF} ${SOFF} ${SPURPLE}[${BAR}%${SPACE}s]${SOFF}" ${PROGRESS}
-	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))WW
+	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
 	$(eval BAR=$(shell if [ ${PROGRESS} -lt 100 ]; then echo "${BAR}="; fi))
 endef
 
@@ -109,7 +109,7 @@ endef
 
 AR				:= ar rcs
 
-CC				:= cc
+CC				:= gcc
 
 CFLAGS			:= -Wall -Wextra -Werror -MMD -g3
 
@@ -129,8 +129,12 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
 		@printf "\n${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 
-leak 	: fclean ${NAME}
-		@printf "${SRED}Le minishell va se lancer avec valgrind\n${SOFF}"
+leak 	: fclean ${OBJS_LIBFT} ${OBJS}
+		@${MKDIR} ${LIB_DIR}
+		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
+		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
+		@printf "\n${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer avec valgrind\n${SOFF}"
 		@sleep 1
 		@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-fds=yes ./minishell
 
@@ -139,17 +143,17 @@ debug	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
 		@printf "\n${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
-		@printf "${SRED}Le minishell va se lancer sans l'environnement\n${SOFF}"
+		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer sans l'environnement\n${SOFF}"
 		@sleep 1
 		@env -i ./minishell
 
 clean	:
 		@${RM} ${OBJS_DIR} ${LIB_DIR}
-		@echo "All objects and library "${RED}"delete"${OFF}
+		@printf "${SCYAN}All objects and library ${SRED}delete ${SOFF}\n"
 
 fclean	: clean
 		@${RM} ${NAME}
-		@echo ${NAME} ${RED}"delete"${OFF}
+		@printf "${SCYAN}${NAME}${SRED} delete${SOFF}\n"
 
 re		: fclean all
 
