@@ -138,6 +138,9 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
 		@printf "\r${CLEAR}${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 
+run		: ${NAME}
+		@./${NAME}
+
 leak 	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}

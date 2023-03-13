@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:44 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 15:31:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:02:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(t_exec *exec)
 	(void)exec;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return (ft_msg(exec, NULL, errno, &exit), EXIT_FAILURE);
+		return (ft_msg(exec, "pwd", errno, &exit), EXIT_FAILURE);
 	ft_putendl_fd(pwd, STDOUT);
 	free(pwd);
 	return (EXIT_SUCCESS);
