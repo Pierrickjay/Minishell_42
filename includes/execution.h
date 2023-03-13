@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/12 10:49:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:45:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef enum e_redir
 	INFILE,
 	TRUNC,
 	APPEND,
-	HEREDOC
+	HEREDOC,
 }	t_redir;
 
 typedef enum e_error

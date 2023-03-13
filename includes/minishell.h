@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:49:19 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 19:27:59 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/13 19:05:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+
+# define RED "\x1b[31m"
+# define ORANGE "\x1b[38;5;208m"
+# define GREEN "\x1b[32m"
+# define YELLOW "\x1b[33m"
+# define BLUE "\x1b[34m"
+# define MAGENTA "\x1b[35m"
+# define CYAN "\x1b[36m"
+# define RESET "\x1b[0m"
+
+# define MINISHELL "  __  __ _____ _   _ _____  _____ _    _ ______ _      _      \n\
+ |  \\/  |_   _| \\ | |_   _|/ ____| |  | |  ____| |    | |     \n\
+ | \\  / | | | |  \\| | | | | (___ | |__| | |__  | |    | |     \n\
+ | |\\/| | | | | . ` | | |  \\___ \\|  __  |  __| | |    | |     \n\
+ | |  | |_| |_| |\\  |_| |_ ____) | |  | | |____| |____| |____ \n\
+ |_|  |_|_____|_| \\_|_____|_____/|_|  |_|______|______|______|\n\
+\n\
+\t\t\t\t\t\tby pjay & obouhlel\n"
 
 # define SYNTAXE_ERROR "syntax error near unexpected token"
 
