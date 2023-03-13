@@ -93,16 +93,23 @@ COUNTER			= 1
 
 PROGRESS		= 0
 
+DONE 			= 100
+
 SPACE		 	= 0
 
-BAR				= "="
+FILL			= 0
+
+EMPTY			= 0
 
 define PROGRESS_BAR
 	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJS)))))
-	$(eval SPACE=$(shell echo $$(($(NB_OBJS) - $(COUNTER)))))
-	printf "\r${SYELLOW}Compile : ${SPURPLE}[${BAR}%${SPACE}s]${SOFF} ${SGREEN}%3d%%${SOFF} " "" ${PROGRESS}
+	$(eval DONE=$(shell echo $$(($(PROGRESS) * 30 / 100))))
+	$(eval SPACE=$(shell echo $$((30 - $(DONE)))))
+	$(eval FILL=$(shell printf "%*s" ${DONE} | sed 's/ /█/g'))
+	$(eval EMPTY=$(shell printf "%*s" ${SPACE} | sed 's/ /█/g'))
+	printf "\r\e[0K${SYELLOW}Compile : ${SGREEN}${FILL}${SRED}${EMPTY} ${SGREEN}%3d%%${SOFF} %s.c" ${PROGRESS} $1
 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
-	$(eval BAR=$(shell if [ ${PROGRESS} -lt 100 ]; then echo "${BAR}="; fi))
+	$(shell sleep 0.1)
 endef
 
 # COMMANDS
@@ -127,13 +134,13 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r\e[0K${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 
 leak 	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r\e[0K${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer avec valgrind\n${SOFF}"
 		@sleep 1
 		@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-fds=yes ./minishell
@@ -142,7 +149,7 @@ debug	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r\e[0K${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer sans l'environnement\n${SOFF}"
 		@sleep 1
 		@env -i ./minishell
@@ -164,6 +171,6 @@ re		: fclean all
 $(OBJS_DIR)%.o	: %.c
 				@${MKDIR} $(@D)
 				@${CC} ${CFLAGS} -c $< -o $@
-				@$(call PROGRESS_BAR)
+				@$(call PROGRESS_BAR, $(basename $(notdir $<)))
 
 -include $(DEPS)
