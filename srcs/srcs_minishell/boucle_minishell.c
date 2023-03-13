@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:14:38 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/12 10:50:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:19:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_readline(char *save, int *count_line, t_envi *envp, int *exit_code)
 	g_check = 0;
 	create_siga(MAIN);
 	(*count_line)++;
-	save = readline("minishell> ");
+	save = readline(PROMPT);
 	add_history(save);
 	if (g_check == 2)
 		*exit_code = 130;

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:49:19 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/13 19:19:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/13 20:19:14 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+
+# define PROMPT "minishell $> "
 
 # define RED "\x1b[31m"
 # define ORANGE "\x1b[38;5;208m"
