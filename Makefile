@@ -1,5 +1,7 @@
 # COLOR
 
+CLEAR		:= \e[0K
+
 SRED		:= \033[0;31m
 SGREEN		:= \033[0;32m
 SYELLOW		:= \033[0;33m
@@ -69,6 +71,22 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
+# OBJS & DEPS & LIB
+
+LIB_DIR			:= ./lib/
+
+OBJS_DIR		:= ./objs/
+
+OBJS_LIBFT		:= ${SRCS_LIBFT:.c=.o}
+
+OBJS_LIBFT		:= $(addprefix $(OBJS_DIR),$(OBJS_LIBFT))
+
+OBJS			:= $(SRCS:.c=.o)
+
+OBJS			:= $(addprefix $(OBJS_DIR),$(OBJS))
+
+DEPS			:= ${OBJS:.o=.d} ${OBJS_LIBFT:.o=.d}
+
 # PROGRESS BAR
 
 NB_OBJS			= ${words ${OBJS}, ${OBJS_LIBFT}}
@@ -117,13 +135,16 @@ ${NAME}	: ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r${CLEAR}${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+
+run		: ${NAME}
+		@./${NAME}
 
 leak 	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r${CLEAR}${SCYAN}${NAME}${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer avec valgrind\n${SOFF}"
 		@sleep 1
 		@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-fds=yes ./minishell
@@ -132,7 +153,7 @@ debug	: fclean ${OBJS_LIBFT} ${OBJS}
 		@${MKDIR} ${LIB_DIR}
 		@${AR} ${LIB_DIR}libft.a ${OBJS_LIBFT}
 		@${CC} ${CFLAGS_DEBUG} ${OBJS} -L ${LIB_DIR} -lft -lreadline -o ${NAME}
-		@printf "${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
+		@printf "\r${CLEAR}${SCYAN}${NAME} avec fsanitize${SOFF} ${SGREEN}✔${SOFF}\n"
 		@printf "${SYELLOW}WARNING\t${SRED}Le minishell va se lancer sans l'environnement\n${SOFF}"
 		@sleep 1
 		@env -i ./minishell
