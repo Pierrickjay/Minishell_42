@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/14 06:40:42 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/14 07:11:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,15 @@ enum e_export
 	NO_VALUE
 };
 
+//struct for the heredoc
+typedef struct s_heredoc
+{
+	char				*limiter;
+	int					fd;
+	int					id;
+	struct s_heredoc	*next;
+}	t_hdoc;
+
 //env
 typedef struct s_envi
 {
@@ -87,8 +96,7 @@ typedef struct s_exec
 	int			*infile;
 	int			*outfile;
 	int			*heredoc;
-	int			nb_heredoc;
-	int			*fd_heredoc;
+	t_hdoc		*heredoc_lst;
 	int			**nb_redir_type;
 	int			no_cmd;
 	t_list		**redir;
@@ -224,6 +232,12 @@ char	*ft_getenvi(char *name, t_envi *envi);
 t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi);
 void	ft_envi_print(t_exec *exec, t_envi *envi);
 t_envi	*ft_envi_null(t_envi *envi);
+/******************************************************************************/
+
+/******************************************************************************/
+
+void	ft_heredoc_add_back(t_hdoc **head, t_hdoc *new);
+t_hdoc	*ft_heredoc_new(char *limiter, int fd, int id);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/

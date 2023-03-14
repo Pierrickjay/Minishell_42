@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 08:43:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/14 07:35:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	to_print_error(char *end, int *count_line, t_exec *exec, int fd[2])
 		g_check = 0;
 		exit(2);
 	}
-	ft_putstr_fd("bash: warning: here-document at line ", 2);
-	ft_putnbr_fd(*count_line, 2);
-	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
-	ft_putstr_fd(end, 2);
-	ft_putendl_fd("')", 2);
+	ft_putstr_fd("bash: warning: here-document at line ", STDERR);
+	ft_putnbr_fd(*count_line, STDERR);
+	ft_putstr_fd(" delimited by end-of-file (wanted `", STDERR);
+	ft_putstr_fd(end, STDERR);
+	ft_putendl_fd("')", STDERR);
 }
 
 // get the heredoc from the user
@@ -47,8 +47,6 @@ int	ft_here_doc(char *end, int *count_line, t_exec *exec)
 	int			fd[2];
 
 	create_siga(HEREDOC);
-	if (pipe(fd) == -1)
-		return (-1);
 	while (!g_check)
 	{
 		line = readline("> ");
@@ -68,4 +66,18 @@ int	ft_here_doc(char *end, int *count_line, t_exec *exec)
 	if (g_check == 1)
 		finish_here_doc(line, fd, exec);
 	return (free(line), ft_close (&fd[1]), fd[0]);
+}
+
+int	ft_exec_heredoc(t_exec *exec)
+{
+	t_hdoc	*heredoc;
+	int		pid;
+	int		fd[2];
+
+	heredoc = exec->heredoc_lst;
+	while (heredoc)
+	{
+		
+		heredoc = heredoc->next;
+	}
 }

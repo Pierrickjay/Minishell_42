@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:12:31 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/14 06:51:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/14 07:11:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,25 @@ int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 	exec->outfile[0] = ft_set_file(exec, 0, OUT);
 	exec->heredoc[0] = ft_set_file(exec, 0, HEREDOC);
 	return (EXIT_SUCCESS);
+}
+
+// set the 1 if I have infile or outfile, the mode its for infile or outfile
+int	ft_set_file(t_exec *exec, int i, int mode)
+{
+	if (mode == IN)
+	{
+		if (exec->nb_redir_type[i][INFILE])
+			return (1);
+	}
+	else if (mode == HEREDOC)
+	{
+		if (exec->nb_redir_type[i][HEREDOC])
+			return (1);
+	}
+	else if (mode == OUT)
+	{
+		if (exec->nb_redir_type[i][TRUNC] || exec->nb_redir_type[i][APPEND])
+			return (1);
+	}
+	return (0);
 }
