@@ -69,22 +69,6 @@ SRCS		+= execution/utils/free_1.c execution/utils/free_2.c execution/utils/free_
 
 SRCS		:= ${addprefix ${SRCS_DIR},${SRCS}}
 
-# OBJS & DEPS & LIB
-
-LIB_DIR			:= ./lib/
-
-OBJS_DIR		:= ./objs/
-
-OBJS_LIBFT		:= ${SRCS_LIBFT:.c=.o}
-
-OBJS_LIBFT		:= $(addprefix $(OBJS_DIR),$(OBJS_LIBFT))
-
-OBJS			:= $(SRCS:.c=.o)
-
-OBJS			:= $(addprefix $(OBJS_DIR),$(OBJS))
-
-DEPS			:= ${OBJS:.o=.d} ${OBJS_LIBFT:.o=.d}
-
 # PROGRESS BAR
 
 NB_OBJS			= ${words ${OBJS}, ${OBJS_LIBFT}}
@@ -93,16 +77,22 @@ COUNTER			= 1
 
 PROGRESS		= 0
 
+DONE 			= 100
+
 SPACE		 	= 0
 
-BAR				= "="
+FILL			= 0
+
+EMPTY			= 0
 
 define PROGRESS_BAR
 	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJS)))))
-	$(eval SPACE=$(shell echo $$(($(NB_OBJS) - $(COUNTER)))))
-	printf "\r${SYELLOW}Compile : ${SPURPLE}[${BAR}%${SPACE}s]${SOFF} ${SGREEN}%3d%%${SOFF} " "" ${PROGRESS}
+	$(eval DONE=$(shell echo $$(($(PROGRESS) * 30 / 100))))
+	$(eval SPACE=$(shell echo $$((30 - $(DONE)))))
+	$(eval FILL=$(shell printf "%*s" ${DONE} | sed 's/ /█/g'))
+	$(eval EMPTY=$(shell printf "%*s" ${SPACE} | sed 's/ /█/g'))
+	printf "\r${CLEAR}${SYELLOW}Compile : ${SGREEN}${FILL}${SRED}${EMPTY} ${SGREEN}%3d%%${SOFF} %s.c" ${PROGRESS} $1
 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
-	$(eval BAR=$(shell if [ ${PROGRESS} -lt 100 ]; then echo "${BAR}="; fi))
 endef
 
 # COMMANDS
@@ -164,6 +154,6 @@ re		: fclean all
 $(OBJS_DIR)%.o	: %.c
 				@${MKDIR} $(@D)
 				@${CC} ${CFLAGS} -c $< -o $@
-				@$(call PROGRESS_BAR)
+				@$(call PROGRESS_BAR, $(basename $(notdir $<)))
 
 -include $(DEPS)
