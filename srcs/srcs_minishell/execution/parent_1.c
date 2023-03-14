@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/11 09:48:45 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/14 06:44:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 	exec = ft_init_exec(lst, envi, count_line);
 	if (!exec)
 		return (NULL);
+	printf("nb heredoc = %d\n", exec->nb_heredoc);
 	ft_update_shlvl(exec);
 	if (ft_parent_bis(exec, envi))
 		return (envi);

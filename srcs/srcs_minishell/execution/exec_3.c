@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:12:31 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 10:27:03 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/14 06:51:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 		return (EXIT_FAILURE);
 	exec->infile[0] = ft_set_file(exec, 0, IN);
 	exec->outfile[0] = ft_set_file(exec, 0, OUT);
+	exec->heredoc[0] = ft_set_file(exec, 0, HEREDOC);
 	return (EXIT_SUCCESS);
 }

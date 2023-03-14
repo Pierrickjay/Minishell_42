@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 10:30:14 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/14 06:41:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
 	exec->outfile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
 	if (!exec->outfile)
 		return (EXIT_FAILURE);
+	exec->heredoc = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
+	if (!exec->heredoc)
+		return (EXIT_FAILURE);
 	if (exec->no_cmd && ft_set_redir_no_cmd(exec, lst, exec->redir))
 		return (EXIT_FAILURE);
 	if (!exec->no_cmd && ft_set_redir(exec, lst, exec->redir))
+		return (EXIT_FAILURE);
+	exec->fd_heredoc = ft_calloc(sizeof(int), exec->nb_heredoc + 1);
+	if (!exec->fd_heredoc)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -59,6 +65,7 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 				return (EXIT_FAILURE);
 			exec->infile[i] = ft_set_file(exec, i, IN);
 			exec->outfile[i] = ft_set_file(exec, i, OUT);
+			exec->heredoc[i] = ft_set_file(exec, i, HEREDOC);
 			i++;
 		}
 		lst = lst->next;
@@ -71,8 +78,16 @@ int	ft_set_file(t_exec *exec, int i, int mode)
 {
 	if (mode == IN)
 	{
-		if (exec->nb_redir_type[i][INFILE] || exec->nb_redir_type[i][HEREDOC])
+		if (exec->nb_redir_type[i][INFILE])
 			return (1);
+	}
+	else if (mode == HEREDOC)
+	{
+		if (exec->nb_redir_type[i][HEREDOC])
+		{
+			exec->nb_heredoc++;
+			return (1);
+		}
 	}
 	else if (mode == OUT)
 	{

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 17:32:47 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/14 06:49:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ void	ft_free_exec(t_exec *exec)
 		ft_free((void **)&exec->infile);
 	if (exec->outfile)
 		ft_free((void **)&exec->outfile);
+	if (exec->heredoc)
+		ft_free((void **)&exec->heredoc);
+	if (exec->fd_heredoc)
+		ft_free((void **)&exec->fd_heredoc);
 	ft_free_exec_bis(exec);
 	ft_free((void **)&exec);
 }

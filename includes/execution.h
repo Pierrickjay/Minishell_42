@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/13 18:45:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/14 06:40:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,25 @@ typedef struct s_envi
 //struct for the shell
 typedef struct s_exec
 {
-	t_list	*lst;
-	char	**env;
-	t_envi	*envi;
-	int		i;
-	int		nb;
-	int		nb_redir;
-	int		*infile;
-	int		*outfile;
-	int		**nb_redir_type;
-	int		no_cmd;
-	t_list	**redir;
-	pid_t	*pid;
-	int		**pipes;
-	char	***args;
-	int		status;
-	int		*count_line;
+	t_list		*lst;
+	char		**env;
+	t_envi		*envi;
+	int			i;
+	int			nb;
+	int			nb_redir;
+	int			*infile;
+	int			*outfile;
+	int			*heredoc;
+	int			nb_heredoc;
+	int			*fd_heredoc;
+	int			**nb_redir_type;
+	int			no_cmd;
+	t_list		**redir;
+	pid_t		*pid;
+	int			**pipes;
+	char		***args;
+	int			status;
+	int			*count_line;
 }	t_exec;
 
 /***********************************EXECUTION**********************************/
@@ -196,10 +199,9 @@ void	ft_msg_malloc(char *files);
 int		ft_here_doc(char *end, int *count_line, t_exec *exec);
 
 //open.c
-int		ft_open(char *name, t_redir type, int *count_line, t_exec *exec);
-int		ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec);
-int		ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec);
-int		ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec);
+int		ft_open(char *name, t_redir type);
+int		ft_open_infiles(t_exec *exec, t_list *redir, int nb);
+int		ft_open_outfiles(t_exec *exec, t_list *redir);
 
 //utils.c
 int		ft_nb_args_child(char **args);

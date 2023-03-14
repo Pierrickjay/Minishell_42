@@ -111,7 +111,6 @@ define PROGRESS_BAR
 	$(eval EMPTY=$(shell printf "%*s" ${SPACE} | sed 's/ /█/g'))
 	printf "\r${CLEAR}${SYELLOW}Compile : ${SGREEN}${FILL}${SRED}${EMPTY} ${SGREEN}%3d%%${SOFF} %s.c" ${PROGRESS} $1
 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
-	$(shell sleep 0.2)
 endef
 
 # COMMANDS
