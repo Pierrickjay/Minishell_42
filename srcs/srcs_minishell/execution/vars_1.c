@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 09:17:28 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/17 20:04:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,51 @@
 // the main get var, to update
 int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 {
-	size_t	n;
-	int		previous;
-
-	previous = -1;
 	while (envi && lst)
 	{
-		n = ft_nb_var(lst->content);
-		if (n >= 1 && lst->content[1] && lst->not_expend == false && \
-		lst->type != FILES && ft_update_str_var(envi, lst, previous, exit_code))
-			return (EXIT_FAILURE);
-		previous = lst->type;
+		if (ft_strchr(lst->content, '$') \
+			&& lst->not_expend == false && lst->type != FILES)
+		{
+			lst->content = ft_update_str_var(envi, lst->content, exit_code);
+			if (!lst->content)
+				return (EXIT_FAILURE);
+		}
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
 // when we have a string with a var
-int	ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec)
+char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
 {
 	char			*tmp;
 	t_list			*to_join;
-	size_t			i;
+	int				i;
 	char			**vars;
 
 	to_join = NULL;
-	lst->content = ft_content_update(lst->content);
-	if (!lst->content)
-		return (EXIT_FAILURE);
-	vars = ft_split(lst->content, -1);
+	tmp = ft_content_update(content);
+	if (!tmp)
+		return (NULL);
+	vars = ft_split(tmp, -1);
 	if (!vars)
-		return (EXIT_FAILURE);
-	i = 0;
-	while (vars[i])
+		return (NULL);
+	free(tmp);
+	i = -1;
+	while (vars[++i])
 	{
-		tmp = ft_check_var_1(envi, vars[i], ec);
+		tmp = ft_check_var_1(envi, vars[i], exit_code);
 		if (!tmp)
-			return (ft_free_strs(vars), EXIT_FAILURE);
+			return (ft_free_strs(vars), ft_free_lst(to_join), NULL);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
-		i++;
 	}
-	if (ft_update_lst(lst, to_join, &prev))
-		return (EXIT_FAILURE);
-	return (ft_free_lst(to_join), ft_free_strs(vars), EXIT_SUCCESS);
+	content = ft_lstjoin(to_join);
+	if (!content)
+		return (ft_free_lst(to_join), ft_free_strs(vars), NULL);
+	return (ft_free_lst(to_join), ft_free_strs(vars), content);
 }
 
-char	*ft_check_var_1(t_envi *envi, char *vars, int ec)
+char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code)
 {
 	char	*str;
 	t_list	*to_join;
@@ -79,7 +78,7 @@ char	*ft_check_var_1(t_envi *envi, char *vars, int ec)
 		return (str);
 	}
 	vars = ft_check_var_2(envi, &to_join, vars);
-	if (ft_check_var_3(vars, &to_join, ec))
+	if (ft_check_var_3(vars, &to_join, exit_code))
 		return (NULL);
 	str = ft_lstjoin(to_join);
 	return (ft_free_lst(to_join), str);

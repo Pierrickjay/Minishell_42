@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/12 10:49:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:03:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_exec
 	char	***args;
 	int		status;
 	int		*count_line;
+	int		*exit_code;
 }	t_exec;
 
 /***********************************EXECUTION**********************************/
@@ -124,7 +125,8 @@ void	ft_exec_child_no_cmd(t_exec *exec);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int *count_line);
+t_exec	*ft_init_exec(t_list *lst, t_envi *envi, \
+					int *count_line, int *exitcode);
 int		ft_init_exec_bis(t_exec *exec, t_list *lst);
 pid_t	*ft_init_pid(t_exec *exec);
 int		**ft_init_pipes(t_exec *exec);
@@ -150,8 +152,8 @@ char	*ft_access(char *cmd, char **path);
 
 //vars_1.c
 int		ft_get_vars(t_envi *envi, t_list *lst, int exit_code);
-int		ft_update_str_var(t_envi *envi, t_list *lst, int prev, int ec);
-char	*ft_check_var_1(t_envi *envi, char *vars, int ec);
+char	*ft_update_str_var(t_envi *envi, char *content, int exit_code);
+char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code);
 char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var);
 int		ft_check_var_3(char *var, t_list **to_join, int exit_code);
 //vars_2.c

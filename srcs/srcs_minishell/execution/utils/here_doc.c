@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:13:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 08:43:06 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/17 19:56:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int	ft_here_doc(char *end, int *count_line, t_exec *exec)
 				to_print_error(end, count_line, exec, fd);
 			break ;
 		}
-		add_history(line);
+		line = ft_update_str_var(exec->envi, line, exec->exit_code[0]);
+		if (!line)
+			return (ft_close(&fd[1]), ft_close(&fd[0]), -1);
 		if (ft_strncmp(line, end, ft_strlen(end)) == 0)
 			return (free(line), ft_close(&fd[1]), fd[0]);
 		ft_putendl_fd(line, fd[1]);
-		free(line);
+		ft_free((void **)&line);
 	}
 	if (g_check == 1)
 		finish_here_doc(line, fd, exec);

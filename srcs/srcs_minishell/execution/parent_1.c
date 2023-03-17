@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/11 09:48:45 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/17 19:48:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 	}
 	if (ft_get_vars(envi, lst, *exit_code))
 		return (ft_free_lst(lst), ft_msg_malloc("parent_1.c (30)"), envi);
-	exec = ft_init_exec(lst, envi, count_line);
+	exec = ft_init_exec(lst, envi, count_line, exit_code);
 	if (!exec)
 		return (NULL);
 	ft_update_shlvl(exec);
