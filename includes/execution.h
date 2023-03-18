@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 12:00:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:17:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	ft_msg_malloc(char *files);
 
 //here_doc.c
 int		ft_here_doc(t_exec *exec, char *end);
-char	*ft_get_line(t_exec *exec, char *end, int fd[2]);
+char	*ft_get_line(t_exec *exec, int fd[2]);
 void	finish_here_doc(t_exec *exec, int fd[2], char *line);
 void	to_print_error(t_exec *exec, char *end, int *count_line, int fd[2]);
 
