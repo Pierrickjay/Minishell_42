@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:09:12 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:20:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,6 @@ size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
 int		ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir);
 
-//args.c
-size_t	ft_args_size(t_list *lst);
-char	**ft_lst_to_args(t_list *lst);
-
-//path.c
-char	**ft_get_path(t_exec *exec);
-char	*ft_access(char *cmd, char **path);
-
 //expend_1.c
 int		ft_get_expend(t_envi *envi, t_list *lst, int exit_code);
 char	*ft_expend(t_envi *envi, char *content, int exit_code);
@@ -179,6 +171,10 @@ char	*ft_check_envi(char *key, t_envi *envi);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
+//args.c
+size_t	ft_args_size(t_list *lst);
+char	**ft_lst_to_args(t_list *lst);
+
 //close.c
 void	ft_close_pipes(int **pipes, size_t nb);
 void	ft_close(int *fd);
@@ -188,8 +184,8 @@ void	ft_close(int *fd);
 void	ft_free_strs(char **strs);
 void	ft_free_lst(t_list *lst);
 void	ft_free_pipes(int **pipes, size_t nb);
-void	ft_free_nb_redir_type(int **nb_redir_type, int nb);
 void	ft_free_args(char ***args, size_t nb);
+void	ft_free_redir(t_list **lst, int nb);
 //free_2.c
 void	ft_free(void **ptr);
 void	ft_free_strs_n(char **strs, int n);
@@ -198,7 +194,6 @@ void	ft_free_exec(t_exec *exec);
 //free_3.c
 void	ft_free_child(t_exec *exec, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
-void	ft_free_redir(t_list **lst, int nb);
 void	ft_free_heredoc(t_heredoc *heredoc);
 
 //ft_msg.c
@@ -210,6 +205,10 @@ void	ft_msg_malloc(char *files);
 int		ft_open(char *name, t_redir type);
 int		ft_open_infiles(t_exec *exec, t_list *redir);
 int		ft_open_outfiles(t_exec *exec, t_list *redir);
+
+//path.c
+char	**ft_get_path(t_exec *exec);
+char	*ft_access(char *cmd, char **path);
 
 //random.c
 char	*ft_random(int nb_char);
