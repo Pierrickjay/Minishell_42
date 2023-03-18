@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/18 18:46:18 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:10:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 		*exit_code = 2;
 		return (envi);
 	}
-	if (ft_run_heredoc(lst, envi, count_line, exit_code))
+	if (run_heredoc(lst, envi, count_line, exit_code))
 		return (envi);
 	if (ft_get_expend(envi, lst, *exit_code))
 		return (ft_free_lst(lst), ft_msg_malloc("parent_1.c (30)"), envi);
