@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:29:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:22:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	ft_shell_pipe_infile_child(t_shell *shell)
 	{
 		if (dup2(shell->pipes[n][1], STDOUT) == FAILURE)
 			return (ft_msg(shell, NULL, errno, &exit));
+		ft_close(&shell->pipes[n][1]);
 	}
-	ft_close(&shell->pipes[n][1]);
 }
 
 // the child process : outfile and pipe

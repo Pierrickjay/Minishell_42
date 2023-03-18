@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:05:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 20:13:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:18:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	run_heredoc(t_list *lst, t_envi *envi, int *countline, int *exitcode)
 			if (lst->next && lst->next->type == FILES)
 			{
 				lst = lst->next;
-				run_heredoc_bis(&heredoc, lst);
+				if (run_heredoc_bis(&heredoc, lst))
+					return (EXIT_FAILURE);
 			}
 		}
 		lst = lst->next;
