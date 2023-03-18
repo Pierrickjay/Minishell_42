@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:49:19 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 19:27:59 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/18 14:25:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,27 @@
 
 # define SYNTAXE_ERROR "syntax error near unexpected token"
 
+# define _COLOR_RED "\033[0;31m"
+# define _COLOR_GREEN "\033[0;32m"
+# define _COLOR_YELLOW "\033[0;33m"
+# define _COLOR_BLUE "\033[0;34m"
+# define _COLOR_MAGENTA "\033[0;35m"
+# define _COLOR_CYAN "\033[0;36m"
+# define _COLOR_WHITE "\033[0;37m"
+# define _COLOR_RESET "\033[0m"
+
+# define MINISHELL "\n\
+███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██      \n\
+████  ████ ██ ████   ██ ██ ██      ██   ██ ██      ██      ██      \n\
+██ ████ ██ ██ ██ ██  ██ ██ ███████ ███████ █████   ██      ██      \n\
+██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██      \n\
+██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████ \n"
+
+# define BY "\t\t\t\t\t\tby pjay & obouhlel\n"
+
 //pjay
 # include "parsing.h"
 //obouhlel
 # include "execution.h"
-# include "libft.h"
 
 #endif
