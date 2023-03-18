@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:23:45 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:39:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:10:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ typedef enum e_type
 	ARG,
 	FILES,
 	REDIR,
-	PIPE,
-	HEREDOC
+	PIPE
 }	t_type;
 
 typedef struct s_list
