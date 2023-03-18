@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 16:12:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:28:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,13 @@ int		ft_exec_redir_parent(t_exec *exec);
 int		ft_exec_pipe_redir_parent(t_exec *exec);
 
 //heredoc.c
-int		ft_run_heredoc(t_list *lst, t_envi *envi, int *count_line, int *exit_code);
+int		ft_run_heredoc(t_list *lst, t_envi *envi, \
+						int *count_line, int *exit_code);
 void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc);
 void	finish_here_doc(int fd, char *limiter, char *line, t_heredoc *heredoc);
 void	to_print_error(t_heredoc *heredoc, char *limiter, int fd);
-void	ft_msg_heredoc(t_heredoc *heredoc, char *str, int value, void (*f)(int));
+void	ft_msg_heredoc(t_heredoc *heredoc, char *str, \
+						int value, void (*f)(int));
 void	ft_unlink(t_list *lst);
 
 //child

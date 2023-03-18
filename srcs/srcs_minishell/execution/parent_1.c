@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/18 16:11:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:29:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 	ft_update_shlvl(exec);
 	if (ft_parent_bis(exec, envi))
 		return (envi);
-	ft_unlink(exec->lst);
 	envp = ft_dup_envi(exec->envi);
 	if (envp == FAIL)
 		return (ft_free_exec(exec), NULL);
@@ -78,6 +77,7 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 		ft_msg(exec, NULL, errno, NULL);
 		return (EXIT_FAILURE);
 	}
+	ft_unlink(exec->lst);
 	return (EXIT_SUCCESS);
 }
 
