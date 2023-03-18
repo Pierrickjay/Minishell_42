@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 11:42:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:44:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ void	ft_exec_child_no_cmd(t_exec *exec)
 	const int	n = exec->i;
 	int			fd_in;
 	int			fd_out;
-	int			nb_heredoc;
 
 	fd_in = -1;
 	fd_out = -1;
-	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
-	fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
+	fd_in = ft_open_infiles(exec, exec->redir[n]);
 	ft_close(&fd_in);
 	fd_out = ft_open_outfiles(exec, exec->redir[n]);
 	ft_close(&fd_out);
@@ -108,12 +106,10 @@ void	ft_exec_redir_child(t_exec *exec)
 	const int	n = exec->i;
 	int			fd_in;
 	int			fd_out;
-	int			nb_heredoc;
 
-	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
 	if (exec->infile[n])
 	{
-		fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
+		fd_in = ft_open_infiles(exec, exec->redir[n]);
 		if (dup2(fd_in, STDIN) == FAILURE)
 			return (close(fd_in), ft_free_exec(exec), exit(EXIT_FAILURE));
 		ft_close(&fd_in);

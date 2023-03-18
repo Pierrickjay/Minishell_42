@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:17:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:58:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ typedef enum e_redir
 {
 	INFILE,
 	TRUNC,
-	APPEND,
-	HEREDOC
+	APPEND
 }	t_redir;
 
 typedef enum e_error
@@ -86,7 +85,6 @@ typedef struct s_exec
 	int		nb_redir;
 	int		*infile;
 	int		*outfile;
-	int		**nb_redir_type;
 	int		no_cmd;
 	t_list	**redir;
 	pid_t	*pid;
@@ -133,9 +131,9 @@ char	***ft_init_args(t_exec *exec, t_list *lst);
 //exec_2.c
 int		ft_lst_redir_malloc(t_exec *exec, t_list *lst);
 int		ft_set_redir(t_exec *exec, t_list *lst, t_list **redir);
-int		ft_set_file(t_exec *exec, int i, int mode);
-int		ft_nb_redir_type(t_exec *exec, t_list *redir, int i);
-int		ft_redir_type(char *str);
+void	ft_check_next(t_exec *exec, t_list *lst, int type[2], int *i);
+int		ft_set_file(int type[2], int mode);
+int		ft_redir_type(char *str, int type[2]);
 //exec_3.c
 size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
@@ -200,9 +198,8 @@ void	finish_here_doc(t_exec *exec, int fd[2], char *line);
 void	to_print_error(t_exec *exec, char *end, int *count_line, int fd[2]);
 
 //open.c
-int		ft_open(t_exec *exec, char *name, t_redir type);
-int		ft_open_infiles(t_exec *exec, t_list *redir, int nb);
-int		ft_open_infiles_here_doc(t_exec *exec, t_list *redir);
+int		ft_open(char *name, t_redir type);
+int		ft_open_infiles(t_exec *exec, t_list *redir);
 int		ft_open_outfiles(t_exec *exec, t_list *redir);
 
 //utils.c

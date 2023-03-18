@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 11:44:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:43:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static void	ft_exec_pipe_infile_child(t_exec *exec)
 {
 	const int	n = exec->i;
 	int			fd_in;
-	int			nb_heredoc;
 
 	fd_in = -1;
-	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
-	fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
+	fd_in = ft_open_infiles(exec, exec->redir[n]);
 	if (dup2(fd_in, STDIN) == FAILURE)
 		return (close(fd_in), ft_msg(exec, NULL, errno, &exit));
 	ft_close(&fd_in);
@@ -56,10 +54,8 @@ static void	ft_exec_pipe_infile_outfile_child(t_exec *exec)
 	const int	n = exec->i;
 	int			fd_in;
 	int			fd_out;
-	int			nb_heredoc;
 
-	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
-	fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
+	fd_in = ft_open_infiles(exec, exec->redir[n]);
 	if (dup2(fd_in, STDIN) == FAILURE)
 		return (close(fd_in), ft_free_exec(exec), exit(EXIT_FAILURE));
 	ft_close(&fd_in);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:12:31 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 10:27:03 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/18 13:59:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,24 @@ size_t	ft_nb_cmds(t_list *lst)
 int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 {
 	t_list	*new;
+	char	*name;
+	int		type[2];
+	int		i;
 
-	while (lst)
+	i = 0;
+	ft_bzero(type, sizeof(int) * 2);
+	while (lst && i <= exec->nb)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
 		{
-			new = ft_lstnew(lst->next->content, ft_redir_type(lst->content));
+			name = lst->next->content;
+			new = ft_lstnew(name, ft_redir_type(lst->content, type));
 			if (!new)
 				return (EXIT_FAILURE);
-			ft_lstadd_back(&redir[0], new);
+			ft_lstadd_back(&redir[i], new);
 		}
+		ft_check_next(exec, lst, type, &i);
 		lst = lst->next;
 	}
-	if (ft_nb_redir_type(exec, redir[0], 0))
-		return (EXIT_FAILURE);
-	exec->infile[0] = ft_set_file(exec, 0, IN);
-	exec->outfile[0] = ft_set_file(exec, 0, OUT);
 	return (EXIT_SUCCESS);
 }
