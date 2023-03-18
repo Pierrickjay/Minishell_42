@@ -6,11 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:05:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 16:07:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:21:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 extern volatile int	g_check;
 
@@ -47,7 +47,10 @@ int	ft_run_heredoc(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 				if (pid == 0)
 					ft_heredoc(limiter, lst->content, &heredoc);
 				else
+				{
+					ft_free((void **)&limiter);
 					waitpid(pid, NULL, 0);
+				}
 			}
 		}
 		lst = lst->next;
@@ -59,6 +62,7 @@ void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 {
 	int		fd;
 	char	*line;
+	char	*tmp;
 
 	fd = open(name_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
@@ -73,17 +77,18 @@ void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 				to_print_error(heredoc, limiter, fd);
 			break ;
 		}
-		line = ft_update_str_var(heredoc->envi, line, heredoc->exit_code[0]);
+		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+			return (free(line), free(limiter), ft_free_heredoc(heredoc), ft_close(&fd), exit(0));
+		tmp = line;
+		line = ft_update_str_var(heredoc->envi, tmp, heredoc->exit_code[0]);
 		if (!line)
 			return (ft_msg_heredoc(heredoc, "malloc", errno, &exit));
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-			return (ft_close(&fd), exit(0));
 		ft_putendl_fd(line, fd);
 		ft_free((void **)&line);
 	}
 	if (g_check == 1)
 		finish_here_doc(fd, limiter, line, heredoc);
-	return (ft_close(&fd), exit(0));
+	return (ft_free_heredoc(heredoc), ft_close(&fd), exit(0));
 }
 
 void	finish_here_doc(int fd, char *limiter, char *line, t_heredoc *heredoc)

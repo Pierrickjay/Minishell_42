@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/17 20:04:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:19:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 // the main get var, to update
 int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 {
+	char	*tmp;
+
 	while (envi && lst)
 	{
 		if (ft_strchr(lst->content, '$') \
 			&& lst->not_expend == false && lst->type != FILES)
 		{
-			lst->content = ft_update_str_var(envi, lst->content, exit_code);
+			tmp = lst->content;
+			lst->content = ft_update_str_var(envi, tmp, exit_code);
 			if (!lst->content)
 				return (EXIT_FAILURE);
 		}
@@ -41,12 +44,12 @@ char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
 
 	to_join = NULL;
 	tmp = ft_content_update(content);
-	if (!tmp)
+	if (!content)
 		return (NULL);
 	vars = ft_split(tmp, -1);
 	if (!vars)
 		return (NULL);
-	free(tmp);
+	ft_free((void **)&tmp);
 	i = -1;
 	while (vars[++i])
 	{
@@ -55,10 +58,10 @@ char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
 			return (ft_free_strs(vars), ft_free_lst(to_join), NULL);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
 	}
-	content = ft_lstjoin(to_join);
-	if (!content)
+	tmp = ft_lstjoin(to_join);
+	if (!tmp)
 		return (ft_free_lst(to_join), ft_free_strs(vars), NULL);
-	return (ft_free_lst(to_join), ft_free_strs(vars), content);
+	return (ft_free_lst(to_join), ft_free_strs(vars), tmp);
 }
 
 char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code)
