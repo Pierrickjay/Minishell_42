@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:58:36 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:14:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,9 @@ void	to_print_error(t_exec *exec, char *end, int *count_line, int fd[2]);
 int		ft_open(char *name, t_redir type);
 int		ft_open_infiles(t_exec *exec, t_list *redir);
 int		ft_open_outfiles(t_exec *exec, t_list *redir);
+
+//random.c
+char	*ft_random(int nb_char);
 
 //utils.c
 int		ft_nb_args_child(char **args);
