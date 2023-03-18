@@ -1,20 +1,11 @@
-<< end cat | << END cat
-BUG HEREDOC
-
-minishell> cat <<a
-cat | CMD | not_expend = 0
-<< | REDIR | not_expend = 0
-a | FILES | not_expend = 0
-> $USER
-> a
-$USER
-
 echo "''">$PATH
 fonctionne alors que je dois cela doit etre bash: /mnt/nfs/homes/pjay/bin:/mnt/nfs/homes/pjay/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin: No such file or directory
 
 pjay@e2r13p10:~$ echo $"USER"
 USER
 alors que on affiche pjay
+
+bug avec awk
 
 --------------------------------------------------------------------
 								Bilan
