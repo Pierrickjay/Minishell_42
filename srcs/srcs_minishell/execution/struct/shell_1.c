@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_1.c                                           :+:      :+:    :+:   */
+/*   shell_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:33:35 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:33:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:16:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 // initialize shell struct
 t_shell	*init_shell(t_list *lst, t_envi *envi, int *countline, int *exitcode)

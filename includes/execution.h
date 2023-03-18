@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:32:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:13:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ void	ft_msg_malloc(char *files);
 
 //heredoc_1.c
 int		run_heredoc(t_list *lst, t_envi *envi, int *countline, int *exitcode);
+int		run_heredoc_bis(t_heredoc *heredoc, t_list *lst);
 void	ft_unlink(t_list *lst);
 //heredoc_2.c
 void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc);
