@@ -6,11 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 13:36:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:14:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 // count the number of arguments in the list CMD OPT ARG OPT
 size_t	ft_args_size(t_list *lst)

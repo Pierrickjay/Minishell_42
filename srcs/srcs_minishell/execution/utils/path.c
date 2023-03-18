@@ -6,11 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:44:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 09:11:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:14:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
 // get the path from envi for the child
 char	**ft_get_path(t_exec *exec)
