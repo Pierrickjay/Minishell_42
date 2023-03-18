@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:05:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:21:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:26:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 	fd = open(name_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		return (ft_msg_heredoc(heredoc, "open heredoc", errno, &exit));
+	create_siga(HEREDOC);
 	while (!g_check)
 	{
-		line = readline("heredoc> ");
+		line = readline("> ");
 		(heredoc->count_line[0])++;
 		if (!line || g_check == 1)
 		{
