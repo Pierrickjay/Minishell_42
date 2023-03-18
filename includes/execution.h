@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/17 20:03:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 12:00:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,13 @@ int		ft_exec_pipe_redir_parent(t_exec *exec);
 
 //child
 //child_1.c
+void	ft_exec_child_no_cmd(t_exec *exec);
 void	ft_exec_child(t_exec *exec);
 void	ft_exec_child_bis(t_exec *exec, const int n);
 void	ft_exec_pipe_child(t_exec *exec);
 void	ft_exec_redir_child(t_exec *exec);
-void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out);
 //child_2.c
 void	ft_exec_pipe_file_child(t_exec *exec);
-void	ft_exec_child_no_cmd(t_exec *exec);
 
 //exec.c
 //exec_1.c
@@ -195,13 +194,16 @@ void	ft_msg_builtins(char *cmd, char *arg, char *str);
 void	ft_msg_malloc(char *files);
 
 //here_doc.c
-int		ft_here_doc(char *end, int *count_line, t_exec *exec);
+int		ft_here_doc(t_exec *exec, char *end);
+char	*ft_get_line(t_exec *exec, char *end, int fd[2]);
+void	finish_here_doc(t_exec *exec, int fd[2], char *line);
+void	to_print_error(t_exec *exec, char *end, int *count_line, int fd[2]);
 
 //open.c
-int		ft_open(char *name, t_redir type, int *count_line, t_exec *exec);
-int		ft_open_infiles(t_list *redir, int nb, int *count_line, t_exec *exec);
-int		ft_open_infiles_here_doc(t_list *redir, int *count_line, t_exec *exec);
-int		ft_open_outfiles(t_list *redir, int *count_line, t_exec *exec);
+int		ft_open(t_exec *exec, char *name, t_redir type);
+int		ft_open_infiles(t_exec *exec, t_list *redir, int nb);
+int		ft_open_infiles_here_doc(t_exec *exec, t_list *redir);
+int		ft_open_outfiles(t_exec *exec, t_list *redir);
 
 //utils.c
 int		ft_nb_args_child(char **args);

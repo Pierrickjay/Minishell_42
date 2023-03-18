@@ -6,11 +6,30 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 17:12:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 11:42:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+// no cmd but redirection
+void	ft_exec_child_no_cmd(t_exec *exec)
+{
+	const int	n = exec->i;
+	int			fd_in;
+	int			fd_out;
+	int			nb_heredoc;
+
+	fd_in = -1;
+	fd_out = -1;
+	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
+	fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
+	ft_close(&fd_in);
+	fd_out = ft_open_outfiles(exec, exec->redir[n]);
+	ft_close(&fd_out);
+	ft_free_exec(exec);
+	exit(EXIT_SUCCESS);
+}
 
 // the main execution child process
 void	ft_exec_child(t_exec *exec)
@@ -86,37 +105,25 @@ void	ft_exec_pipe_child(t_exec *exec)
 // child process for redirections
 void	ft_exec_redir_child(t_exec *exec)
 {
-	int		fd_in;
-	int		fd_out;
-
-	fd_in = -1;
-	fd_out = -1;
-	ft_exec_redir_child_bis(exec, fd_in, fd_out);
-	ft_exec_child(exec);
-}
-
-// child process for redirections bis
-void	ft_exec_redir_child_bis(t_exec *exec, int fd_in, int fd_out)
-{
 	const int	n = exec->i;
+	int			fd_in;
+	int			fd_out;
+	int			nb_heredoc;
 
+	nb_heredoc = exec->nb_redir_type[n][HEREDOC];
 	if (exec->infile[n])
 	{
-		fd_in = ft_open_infiles(exec->redir[n], \
-				exec->nb_redir_type[n][HEREDOC], exec->count_line, exec);
-		if (fd_in == FAILURE)
-			return (ft_free_exec(exec), exit(EXIT_FAILURE));
+		fd_in = ft_open_infiles(exec, exec->redir[n], nb_heredoc);
 		if (dup2(fd_in, STDIN) == FAILURE)
 			return (close(fd_in), ft_free_exec(exec), exit(EXIT_FAILURE));
 		ft_close(&fd_in);
 	}
 	if (exec->outfile[n])
 	{
-		fd_out = ft_open_outfiles(exec->redir[n], exec->count_line, exec);
-		if (fd_out == FAILURE)
-			return (ft_free_exec(exec), exit(EXIT_FAILURE));
+		fd_out = ft_open_outfiles(exec, exec->redir[n]);
 		if (dup2(fd_out, STDOUT) == FAILURE)
 			return (close(fd_out), ft_free_exec(exec), exit(EXIT_FAILURE));
 		ft_close(&fd_out);
 	}
+	ft_exec_child(exec);
 }
