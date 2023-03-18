@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:49:19 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/18 14:25:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:57:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 ██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██      \n\
 ██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████ \n"
 
-# define BY "\t\t\t\t\t\tby pjay & obouhlel\n"
+# define BY "version 2.0\t\t\t\t\tby pjay & obouhlel\n"
 
 //pjay
 # include "parsing.h"
