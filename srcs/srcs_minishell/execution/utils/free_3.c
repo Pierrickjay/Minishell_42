@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:46:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/06 13:39:46 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:37:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,13 @@ void	ft_free_envi_delone(t_envi *envi)
 	ft_free((void **)&envi->key);
 	ft_free((void **)&envi->value);
 	ft_free((void **)&envi);
+}
+
+// free the heredoc structure
+void	ft_free_heredoc(t_heredoc *heredoc)
+{
+	if (heredoc->lst)
+		ft_free_lst(heredoc->lst);
+	if (heredoc->envi)
+		ft_free_envi(heredoc->envi);
 }
