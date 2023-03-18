@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:47:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:09:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,21 +165,17 @@ char	**ft_lst_to_args(t_list *lst);
 char	**ft_get_path(t_exec *exec);
 char	*ft_access(char *cmd, char **path);
 
-//vars_1.c
-int		ft_get_vars(t_envi *envi, t_list *lst, int exit_code);
-char	*ft_update_str_var(t_envi *envi, char *content, int exit_code);
-char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code);
-char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var);
-int		ft_check_var_3(char *var, t_list **to_join, int exit_code);
-//vars_2.c
-char	*ft_content_update(char *str);
-char	*ft_check_envi(char *key, t_envi *envi);
-//vars_3.c
+//expend_1.c
+int		ft_get_expend(t_envi *envi, t_list *lst, int exit_code);
+char	*ft_expend(t_envi *envi, char *content, int exit_code);
+char	*ft_expend_bis(t_envi *envi, char *vars, int exit_code);
+char	*ft_expend_join(t_envi *envi, t_list **to_join, char *var);
+int		ft_expend_exit_code(char *var, t_list **to_join, int exit_code);
+//expend_2.c
 size_t	ft_nb_var(char *str);
 int		ft_var_special(char c);
-int		ft_get_type_var(int *prev);
-int		ft_update_lst(t_list *lst, t_list *to_join, int *prev);
-int		ft_set_exit_code(t_list *lst, int exit_code, int prev, int mode_free);
+char	*ft_content_update(char *str);
+char	*ft_check_envi(char *key, t_envi *envi);
 /******************************************************************************/
 
 /************************************UTILS*************************************/

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:19:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:09:09 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // ec it's for the exit code, because exit_code it's to long
 
 // the main get var, to update
-int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
+int	ft_get_expend(t_envi *envi, t_list *lst, int exit_code)
 {
 	char	*tmp;
 
@@ -25,7 +25,7 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 			&& lst->not_expend == false && lst->type != FILES)
 		{
 			tmp = lst->content;
-			lst->content = ft_update_str_var(envi, tmp, exit_code);
+			lst->content = ft_expend(envi, tmp, exit_code);
 			if (!lst->content)
 				return (EXIT_FAILURE);
 		}
@@ -35,7 +35,7 @@ int	ft_get_vars(t_envi *envi, t_list *lst, int exit_code)
 }
 
 // when we have a string with a var
-char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
+char	*ft_expend(t_envi *envi, char *content, int exit_code)
 {
 	char			*tmp;
 	t_list			*to_join;
@@ -53,7 +53,7 @@ char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
 	i = -1;
 	while (vars[++i])
 	{
-		tmp = ft_check_var_1(envi, vars[i], exit_code);
+		tmp = ft_expend_bis(envi, vars[i], exit_code);
 		if (!tmp)
 			return (ft_free_strs(vars), ft_free_lst(to_join), NULL);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
@@ -64,7 +64,7 @@ char	*ft_update_str_var(t_envi *envi, char *content, int exit_code)
 	return (ft_free_lst(to_join), ft_free_strs(vars), tmp);
 }
 
-char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code)
+char	*ft_expend_bis(t_envi *envi, char *vars, int exit_code)
 {
 	char	*str;
 	t_list	*to_join;
@@ -80,8 +80,8 @@ char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code)
 			return (NULL);
 		return (str);
 	}
-	vars = ft_check_var_2(envi, &to_join, vars);
-	if (ft_check_var_3(vars, &to_join, exit_code))
+	vars = ft_expend_join(envi, &to_join, vars);
+	if (ft_expend_exit_code(vars, &to_join, exit_code))
 		return (NULL);
 	str = ft_lstjoin(to_join);
 	return (ft_free_lst(to_join), str);
@@ -89,7 +89,7 @@ char	*ft_check_var_1(t_envi *envi, char *vars, int exit_code)
 
 // save a char after the var in list to join,
 // and return var with just a alphanum
-char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var)
+char	*ft_expend_join(t_envi *envi, t_list **to_join, char *var)
 {
 	size_t	len;
 	char	*add;
@@ -119,7 +119,7 @@ char	*ft_check_var_2(t_envi *envi, t_list **to_join, char *var)
 }
 
 // for var special example $1, $$ etc..
-int	ft_check_var_3(char *var, t_list **to_join, int exit_code)
+int	ft_expend_exit_code(char *var, t_list **to_join, int exit_code)
 {
 	char	*add;
 

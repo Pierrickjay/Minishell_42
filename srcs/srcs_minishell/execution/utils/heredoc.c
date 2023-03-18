@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:05:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:26:04 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:02:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			return (free(line), free(limiter), ft_free_heredoc(heredoc), ft_close(&fd), exit(0));
 		tmp = line;
-		line = ft_update_str_var(heredoc->envi, tmp, heredoc->exit_code[0]);
+		line = ft_expend(heredoc->envi, tmp, heredoc->exit_code[0]);
 		if (!line)
 			return (ft_msg_heredoc(heredoc, "malloc", errno, &exit));
 		ft_putendl_fd(line, fd);

@@ -6,11 +6,37 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:17:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:08:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+// count the nb or dolars in the string
+size_t	ft_nb_var(char *str)
+{
+	size_t	i;
+	size_t	nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
+//vars no print and not use for your minishell
+int	ft_var_special(char c)
+{
+	if (ft_isdigit(c) || c == '?' || c == '!' || c == '@' || c == '#' \
+		|| c == '&' || c == '\0' || c == '=' || c == '+' || c == '-' )
+		return (true);
+	return (false);
+}
 
 // update the string when we have a lot dorlars and add space before dolars
 char	*ft_content_update(char *str)
@@ -38,6 +64,8 @@ char	*ft_content_update(char *str)
 	return (new_str);
 }
 
+// give the value of the key in the envi if not found return string null
+// and duplicate the value
 char	*ft_check_envi(char *key, t_envi *envi)
 {
 	char	*value;
