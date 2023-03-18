@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:57 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/11 09:48:53 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/18 18:50:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,24 @@ int	ft_exec_pipe_parent(t_exec *exec)
 {
 	int	i;
 
-	while (exec->i < exec->nb)
+	while (exec->id_child < exec->nb_cmd)
 	{
 		if (ft_builtins(exec) == FAILURE)
 		{
-			exec->pid[exec->i] = fork();
-			if (exec->pid[exec->i] == -1)
+			exec->pid[exec->id_child] = fork();
+			if (exec->pid[exec->id_child] == -1)
 				return (FAILURE);
-			if (exec->pid[exec->i] == 0)
+			if (exec->pid[exec->id_child] == 0)
 			{
 				create_siga(CHILD);
 				ft_exec_pipe_child(exec);
 			}
 		}
-		exec->i++;
+		exec->id_child++;
 	}
-	ft_close_pipes(exec->pipes, (exec->nb - 1));
+	ft_close_pipes(exec->pipes, (exec->nb_cmd - 1));
 	i = 0;
-	while (i < exec->nb)
+	while (i < exec->nb_cmd)
 		waitpid(exec->pid[i++], &exec->status, 0);
 	return (SUCCESS);
 }
@@ -105,24 +105,24 @@ int	ft_exec_pipe_redir_parent(t_exec *exec)
 {
 	int	i;
 
-	while (exec->i < exec->nb)
+	while (exec->id_child < exec->nb_cmd)
 	{
 		if (ft_builtins(exec) == FAILURE)
 		{
-			exec->pid[exec->i] = fork();
-			if (exec->pid[exec->i] == -1)
+			exec->pid[exec->id_child] = fork();
+			if (exec->pid[exec->id_child] == -1)
 				return (FAILURE);
-			if (exec->pid[exec->i] == 0)
+			if (exec->pid[exec->id_child] == 0)
 			{
 				create_siga(CHILD);
 				ft_exec_pipe_file_child(exec);
 			}
 		}
-		exec->i++;
+		exec->id_child++;
 	}
-	ft_close_pipes(exec->pipes, (exec->nb - 1));
+	ft_close_pipes(exec->pipes, (exec->nb_cmd - 1));
 	i = 0;
-	while (i < exec->nb)
+	while (i < exec->nb_cmd)
 		waitpid(exec->pid[i++], &exec->status, 0);
 	return (SUCCESS);
 }

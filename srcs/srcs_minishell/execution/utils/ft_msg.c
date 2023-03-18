@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_msg.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:00:19 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 	else if (value > 0)
 		ft_putendl_fd(strerror(errno), STDERR);
 	else if (value < 0)
-		ft_msg_bis(str, value, exec->args[exec->i]);
+		ft_msg_bis(str, value, exec->args[exec->id_child]);
 	if (!f && exec)
 		ft_free_exec(exec);
 	if (f)
@@ -67,7 +67,7 @@ void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
 		if (exec)
 		{
 			if (exec->pipes)
-				ft_close_pipes(exec->pipes, (exec->nb - 1));
+				ft_close_pipes(exec->pipes, (exec->nb_cmd - 1));
 			ft_free_exec(exec);
 		}
 		f(value);

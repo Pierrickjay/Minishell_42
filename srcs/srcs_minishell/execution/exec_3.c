@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:12:31 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:59:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ size_t	ft_nb_cmds(t_list *lst)
 	return (nb);
 }
 
+// set the redir in struct exec if there is no command
 int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 {
 	t_list	*new;
@@ -51,7 +52,7 @@ int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 
 	i = 0;
 	ft_bzero(type, sizeof(int) * 2);
-	while (lst && i <= exec->nb)
+	while (lst && i <= exec->nb_cmd)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
 		{

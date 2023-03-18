@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:43:42 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/17 19:49:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ t_exec	*ft_init_exec(t_list *lst, t_envi *envi, int *count_line, int *exitcode)
 	exec->envi = envi;
 	exec->count_line = count_line;
 	exec->exit_code = exitcode;
-	exec->nb = ft_nb_cmds(lst);
+	exec->nb_cmd = ft_nb_cmds(lst);
 	exec->nb_redir = ft_nb_redir(lst);
 	if (ft_lst_redir_malloc(exec, lst))
 		return (ft_msg(exec, "exec_1.c (33)", MA, NULL), NULL);
 	if (!exec->redir && exec->nb_redir > 0)
 		return (ft_msg(exec, "exec_1.c (36)", MA, NULL), NULL);
-	if (exec->nb > 0 && ft_init_exec_bis(exec, lst) == FAILURE)
+	if (exec->nb_cmd > 0 && ft_init_exec_bis(exec, lst) == FAILURE)
 		return (NULL);
 	return (exec);
 }
@@ -61,11 +61,11 @@ pid_t	*ft_init_pid(t_exec *exec)
 	int		i;
 
 	pid = NULL;
-	pid = (pid_t *)ft_calloc(sizeof(pid_t), exec->nb);
+	pid = (pid_t *)ft_calloc(sizeof(pid_t), exec->nb_cmd);
 	if (!pid)
 		return (ft_msg(exec, "exec_1.c (65)", MA, NULL), NULL);
 	i = 0;
-	while (i < exec->nb)
+	while (i < exec->nb_cmd)
 	{
 		pid[i] = 0;
 		i++;
@@ -80,24 +80,24 @@ int	**ft_init_pipes(t_exec *exec)
 	int		i;
 
 	pipes = NULL;
-	if (exec->nb == 1)
+	if (exec->nb_cmd == 1)
 		return (NULL);
-	pipes = (int **)ft_calloc(sizeof(int *), (exec->nb - 1));
+	pipes = (int **)ft_calloc(sizeof(int *), (exec->nb_cmd - 1));
 	if (!pipes)
 		return (ft_msg(exec, "exec_1.c (86)", MA, NULL), FAIL);
 	i = -1;
-	while (++i < (exec->nb - 1))
+	while (++i < (exec->nb_cmd - 1))
 	{
 		pipes[i] = (int *)ft_calloc(sizeof(int), 2);
 		if (!pipes[i])
 			return (ft_free_pipes(pipes, (int)i), \
-					ft_close_pipes(pipes, (exec->nb - 1)), \
+					ft_close_pipes(pipes, (exec->nb_cmd - 1)), \
 					ft_msg(exec, "exec_1.c (94)", MA, NULL), FAIL);
 	}
 	i = -1;
-	while (++i < (exec->nb - 1))
+	while (++i < (exec->nb_cmd - 1))
 		if (pipe(pipes[i]) == -1)
-			return (ft_close_pipes(pipes, (exec->nb - 1)), \
+			return (ft_close_pipes(pipes, (exec->nb_cmd - 1)), \
 					ft_msg(exec, "pipes: ", errno, NULL), FAIL);
 	return (pipes);
 }
@@ -110,11 +110,11 @@ char	***ft_init_args(t_exec *exec, t_list *lst)
 	int		skip;
 
 	args = NULL;
-	args = (char ***)ft_calloc(sizeof(char **), (exec->nb + 1));
+	args = (char ***)ft_calloc(sizeof(char **), (exec->nb_cmd + 1));
 	if (!args)
 		return (ft_msg(exec, "exec_1.c (114)", MA, NULL), NULL);
 	i = 0;
-	while (i < exec->nb)
+	while (i < exec->nb_cmd)
 	{
 		args[i] = ft_lst_to_args(lst);
 		if (!args[i])

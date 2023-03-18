@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 14:17:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
 {
 	if (exec->nb_redir == 0)
 		return (EXIT_SUCCESS);
-	if (exec->nb == 0)
+	if (exec->nb_cmd == 0)
 		exec->no_cmd = 1;
-	exec->redir = ft_calloc(sizeof(t_list *), exec->nb + exec->no_cmd + 1);
+	exec->redir = ft_calloc(sizeof(t_list *), exec->nb_cmd + exec->no_cmd + 1);
 	if (!exec->redir)
 		return (EXIT_FAILURE);
-	exec->infile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
+	exec->infile = ft_calloc(sizeof(int), exec->nb_cmd + exec->no_cmd + 1);
 	if (!exec->infile)
 		return (EXIT_FAILURE);
-	exec->outfile = ft_calloc(sizeof(int), exec->nb + exec->no_cmd + 1);
+	exec->outfile = ft_calloc(sizeof(int), exec->nb_cmd + exec->no_cmd + 1);
 	if (!exec->outfile)
 		return (EXIT_FAILURE);
 	if (exec->no_cmd && ft_set_redir_no_cmd(exec, lst, exec->redir))
@@ -44,7 +44,7 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 
 	i = 0;
 	ft_bzero(type, sizeof(int) * 2);
-	while (lst && i <= exec->nb)
+	while (lst && i <= exec->nb_cmd)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
 		{
@@ -62,7 +62,7 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 
 void	ft_check_next(t_exec *exec, t_list *lst, int type[2], int *i)
 {
-	if (exec->nb == 0)
+	if (exec->nb_cmd == 0)
 	{
 		exec->infile[0] = ft_set_file(type, IN);
 		exec->outfile[0] = ft_set_file(type, OUT);

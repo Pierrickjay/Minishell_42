@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/12 11:08:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 // unset a variable
 int	ft_unset(t_exec *exec)
 {
-	const char	**args = (const char **)exec->args[exec->i];
+	const char	**args = (const char **)exec->args[exec->id_child];
 	int			i;
 
 	if (args[1] == NULL)

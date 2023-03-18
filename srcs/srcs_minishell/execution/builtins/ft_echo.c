@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/09 09:33:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_echo_check_endl(char *str)
 // the echo builtin
 int	ft_echo(t_exec	*exec)
 {
-	const char	**args = (const char **)exec->args[exec->i];
+	const char	**args = (const char **)exec->args[exec->id_child];
 	size_t		i;
 	bool		endl;
 

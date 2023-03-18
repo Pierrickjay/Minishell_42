@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:43:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ static void	ft_free_exec_bis(t_exec *exec)
 {
 	if (exec->redir)
 	{
-		ft_free_redir(exec->redir, exec->nb + exec->no_cmd + 1);
+		ft_free_redir(exec->redir, exec->nb_cmd + exec->no_cmd + 1);
 		exec->redir = NULL;
 	}
 	if (exec->pid)
 		ft_free((void **)&exec->pid);
 	if (exec->pipes)
 	{
-		ft_free_pipes(exec->pipes, (exec->nb - 1));
+		ft_free_pipes(exec->pipes, (exec->nb_cmd - 1));
 		exec->pipes = NULL;
 	}
 	if (exec->args)
 	{
-		ft_free_args(exec->args, exec->nb);
+		ft_free_args(exec->args, exec->nb_cmd);
 		exec->args = NULL;
 	}
 }

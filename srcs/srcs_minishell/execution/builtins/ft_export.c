@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:46:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	ft_export_create(t_exec *exec, char *arg)
 // export builtin function return the exit code
 int	ft_export(t_exec *exec)
 {
-	const char	**args = (const char **)exec->args[exec->i];
+	const char	**args = (const char **)exec->args[exec->id_child];
 	int			i;
 
 	if (args[1] == NULL)

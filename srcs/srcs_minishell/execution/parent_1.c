@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/18 18:09:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:46:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ int	ft_parent_bis(t_exec *exec, t_envi *envp)
 	int	status;
 
 	status = 0;
-	if (exec->nb == 0 && exec->nb_redir > 0)
+	if (exec->nb_cmd == 0 && exec->nb_redir > 0)
 		status = ft_exec_parent_no_cmd(exec);
-	if (exec->nb == 1 && exec->nb_redir == 0)
+	if (exec->nb_cmd == 1 && exec->nb_redir == 0)
 		status = ft_exec_parent(exec);
-	else if (exec->nb > 1 && exec->nb_redir == 0)
+	else if (exec->nb_cmd > 1 && exec->nb_redir == 0)
 		status = ft_exec_pipe_parent(exec);
-	else if (exec->nb == 1 && exec->nb_redir > 0)
+	else if (exec->nb_cmd == 1 && exec->nb_redir > 0)
 		status = ft_exec_redir_parent(exec);
-	else if (exec->nb > 1 && exec->nb_redir > 0)
+	else if (exec->nb_cmd > 1 && exec->nb_redir > 0)
 		status = ft_exec_pipe_redir_parent(exec);
 	if (status == FAILURE)
 	{

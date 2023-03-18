@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:44:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:50:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // no cmd but redirection
 void	ft_exec_child_no_cmd(t_exec *exec)
 {
-	const int	n = exec->i;
+	const int	n = exec->id_child;
 	int			fd_in;
 	int			fd_out;
 
@@ -32,7 +32,7 @@ void	ft_exec_child_no_cmd(t_exec *exec)
 // the main execution child process
 void	ft_exec_child(t_exec *exec)
 {
-	const int	n = exec->i;
+	const int	n = exec->id_child;
 
 	if (ft_is_builtins(exec) != FAILURE)
 		return (ft_msg(exec, NULL, 0, &exit));
@@ -75,35 +75,35 @@ void	ft_exec_child_bis(t_exec *exec, const int n)
 // child process for pipes
 void	ft_exec_pipe_child(t_exec *exec)
 {
-	if (exec->i == 0)
+	if (exec->id_child == 0)
 	{
-		if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
+		if (dup2(exec->pipes[exec->id_child][1], STDOUT) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
-		ft_close(&exec->pipes[exec->i][0]);
+		ft_close(&exec->pipes[exec->id_child][0]);
 	}
-	else if (exec->i == exec->nb - 1)
+	else if (exec->id_child == exec->nb_cmd - 1)
 	{
-		if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
+		if (dup2(exec->pipes[exec->id_child - 1][0], STDIN) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
-		ft_close(&exec->pipes[exec->i - 1][1]);
+		ft_close(&exec->pipes[exec->id_child - 1][1]);
 	}
 	else
 	{
-		if (dup2(exec->pipes[exec->i - 1][0], STDIN) == FAILURE)
+		if (dup2(exec->pipes[exec->id_child - 1][0], STDIN) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
-		ft_close(&exec->pipes[exec->i - 1][1]);
-		if (dup2(exec->pipes[exec->i][1], STDOUT) == FAILURE)
+		ft_close(&exec->pipes[exec->id_child - 1][1]);
+		if (dup2(exec->pipes[exec->id_child][1], STDOUT) == FAILURE)
 			return (ft_msg(exec, NULL, errno, &exit));
-		ft_close(&exec->pipes[exec->i][0]);
+		ft_close(&exec->pipes[exec->id_child][0]);
 	}
-	ft_close_pipes(exec->pipes, (exec->nb - 1));
+	ft_close_pipes(exec->pipes, (exec->nb_cmd - 1));
 	ft_exec_child(exec);
 }
 
 // child process for redirections
 void	ft_exec_redir_child(t_exec *exec)
 {
-	const int	n = exec->i;
+	const int	n = exec->id_child;
 	int			fd_in;
 	int			fd_out;
 
