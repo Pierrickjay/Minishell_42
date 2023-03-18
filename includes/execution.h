@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:14:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:32:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_heredoc
 }	t_heredoc;
 
 //struct for the shell
-typedef struct s_exec
+typedef struct s_shell
 {
 	t_list	*lst;
 	char	**env;
@@ -101,51 +101,50 @@ typedef struct s_exec
 	int		status;
 	int		*count_line;
 	int		*exit_code;
-}	t_exec;
+}	t_shell;
 
 /***********************************EXECUTION**********************************/
 //parent
 //parent_1.c
 t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code);
 void	deal_w_return_pid(int status);
-int		ft_parent_bis(t_exec *exec, t_envi *envp);
-void	ft_update_shlvl(t_exec *exec);
-void	ft_exit_code(t_exec *exec);
+int		ft_parent_bis(t_shell *shell, t_envi *envp);
+void	ft_update_shlvl(t_shell *shell);
+void	ft_exit_code(t_shell *shell);
 //parent_2.c
-int		ft_exec_parent_no_cmd(t_exec *exec);
-int		ft_exec_parent(t_exec *exec);
-int		ft_exec_pipe_parent(t_exec *exec);
-int		ft_exec_redir_parent(t_exec *exec);
-int		ft_exec_pipe_redir_parent(t_exec *exec);
+int		ft_shell_parent_no_cmd(t_shell *shell);
+int		ft_shell_parent(t_shell *shell);
+int		ft_shell_pipe_parent(t_shell *shell);
+int		ft_shell_redir_parent(t_shell *shell);
+int		ft_shell_pipe_redir_parent(t_shell *shell);
 
 //child
 //child_1.c
-void	ft_exec_child_no_cmd(t_exec *exec);
-void	ft_exec_child(t_exec *exec);
-void	ft_exec_child_bis(t_exec *exec, const int n);
-void	ft_exec_pipe_child(t_exec *exec);
-void	ft_exec_redir_child(t_exec *exec);
+void	ft_shell_child_no_cmd(t_shell *shell);
+void	ft_shell_child(t_shell *shell);
+void	ft_shell_child_bis(t_shell *shell, const int n);
+void	ft_shell_pipe_child(t_shell *shell);
+void	ft_shell_redir_child(t_shell *shell);
 //child_2.c
-void	ft_exec_pipe_file_child(t_exec *exec);
+void	ft_shell_pipe_file_child(t_shell *shell);
 
 //exec.c
 //exec_1.c
-t_exec	*ft_init_exec(t_list *lst, t_envi *envi, \
-					int *count_line, int *exitcode);
-int		ft_init_exec_bis(t_exec *exec, t_list *lst);
-pid_t	*ft_init_pid(t_exec *exec);
-int		**ft_init_pipes(t_exec *exec);
-char	***ft_init_args(t_exec *exec, t_list *lst);
+t_shell	*init_shell(t_list *lst, t_envi *envi, int *countline, int *exitcode);
+int		init_shell_bis(t_shell *shell, t_list *lst);
+pid_t	*ft_init_pid(t_shell *shell);
+int		**ft_init_pipes(t_shell *shell);
+char	***ft_init_args(t_shell *shell, t_list *lst);
 //exec_2.c
-int		ft_lst_redir_malloc(t_exec *exec, t_list *lst);
-int		ft_set_redir(t_exec *exec, t_list *lst, t_list **redir);
-void	ft_check_next(t_exec *exec, t_list *lst, int type[2], int *i);
+int		ft_lst_redir_malloc(t_shell *shell, t_list *lst);
+int		ft_set_redir(t_shell *shell, t_list *lst, t_list **redir);
+void	ft_check_next(t_shell *shell, t_list *lst, int type[2], int *i);
 int		ft_set_file(int type[2], int mode);
 int		ft_redir_type(char *str, int type[2]);
 //exec_3.c
 size_t	ft_nb_cmds(t_list *lst);
 size_t	ft_nb_redir(t_list *lst);
-int		ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir);
+int		ft_set_redir_no_cmd(t_shell *shell, t_list *lst, t_list **redir);
 
 //expend_1.c
 int		ft_get_expend(t_envi *envi, t_list *lst, int exit_code);
@@ -180,14 +179,14 @@ void	ft_free_redir(t_list **lst, int nb);
 void	ft_free(void **ptr);
 void	ft_free_strs_n(char **strs, int n);
 void	ft_free_envi(t_envi *envi);
-void	ft_free_exec(t_exec *exec);
+void	ft_free_shell(t_shell *shell);
 //free_3.c
-void	ft_free_child(t_exec *exec, char **path, char *cmd);
+void	ft_free_child(t_shell *shell, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
 void	ft_free_heredoc(t_heredoc *heredoc, char *limiter, char *line, int fd);
 
 //ft_msg.c
-void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int));
+void	ft_msg(t_shell *shell, char *str, int value, void (*f)(int));
 void	ft_msg_builtins(char *cmd, char *arg, char *str);
 void	ft_msg_malloc(char *files);
 
@@ -203,11 +202,11 @@ void	ft_msg_heredoc(t_heredoc *heredoc, char *str, int n, void (*f)(int));
 
 //open.c
 int		ft_open(char *name, t_redir type);
-int		ft_open_infiles(t_exec *exec, t_list *redir);
-int		ft_open_outfiles(t_exec *exec, t_list *redir);
+int		ft_open_infiles(t_shell *shell, t_list *redir);
+int		ft_open_outfiles(t_shell *shell, t_list *redir);
 
 //path.c
-char	**ft_get_path(t_exec *exec);
+char	**ft_get_path(t_shell *shell);
 char	*ft_access(char *cmd, char **path);
 
 //random.c
@@ -232,33 +231,33 @@ char	*ft_get_key(char *env);
 char	*ft_get_value(char *env);
 char	*ft_getenvi(char *name, t_envi *envi);
 t_envi	*ft_envi_update_value(char *key, char *value, int type, t_envi *envi);
-void	ft_envi_print(t_exec *exec, t_envi *envi);
+void	ft_envi_print(t_shell *shell, t_envi *envi);
 t_envi	*ft_envi_null(t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
 //for echo, env, pwd
-int		ft_is_builtins(t_exec *exec);
+int		ft_is_builtins(t_shell *shell);
 //for export, unset, cd
-int		ft_builtins(t_exec *exec);
+int		ft_builtins(t_shell *shell);
 //echo
-int		ft_echo(t_exec	*exec);
+int		ft_echo(t_shell	*shell);
 //pwd
-int		ft_pwd(t_exec *exec);
+int		ft_pwd(t_shell *shell);
 //cd
-int		ft_cd(t_exec *exec);
-int		ft_cd_update_oldpwd(t_exec *exec, char *oldpwd);
-int		ft_cd_update_pwd(t_exec *exec, char *pwd);
-int		ft_cd_home(t_exec *exec);
-int		ft_cd_back(t_exec *exec);
-int		ft_cd_go_to(t_exec *exec, const char *arg);
+int		ft_cd(t_shell *shell);
+int		ft_cd_update_oldpwd(t_shell *shell, char *oldpwd);
+int		ft_cd_update_pwd(t_shell *shell, char *pwd);
+int		ft_cd_home(t_shell *shell);
+int		ft_cd_back(t_shell *shell);
+int		ft_cd_go_to(t_shell *shell, const char *arg);
 //env
-int		ft_env(t_exec *exec);
+int		ft_env(t_shell *shell);
 //export
-int		ft_export(t_exec *exec);
+int		ft_export(t_shell *shell);
 //unset
 t_envi	*ft_unset_bis(const char *name, t_envi *envi);
-int		ft_unset(t_exec *exec);
+int		ft_unset(t_shell *shell);
 /******************************************************************************/
 
 #endif

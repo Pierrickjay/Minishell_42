@@ -6,36 +6,39 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:34:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // get the list of redirections
-int	ft_lst_redir_malloc(t_exec *exec, t_list *lst)
+int	ft_lst_redir_malloc(t_shell *shell, t_list *lst)
 {
-	if (exec->nb_redir == 0)
+	int	n_bit;
+
+	if (shell->nb_redir == 0)
 		return (EXIT_SUCCESS);
-	if (exec->nb_cmd == 0)
-		exec->no_cmd = 1;
-	exec->redir = ft_calloc(sizeof(t_list *), exec->nb_cmd + exec->no_cmd + 1);
-	if (!exec->redir)
+	if (shell->nb_cmd == 0)
+		shell->no_cmd = 1;
+	n_bit = shell->nb_cmd + shell->no_cmd + 1;
+	shell->redir = ft_calloc(sizeof(t_list *), n_bit);
+	if (!shell->redir)
 		return (EXIT_FAILURE);
-	exec->infile = ft_calloc(sizeof(int), exec->nb_cmd + exec->no_cmd + 1);
-	if (!exec->infile)
+	shell->infile = ft_calloc(sizeof(int), n_bit);
+	if (!shell->infile)
 		return (EXIT_FAILURE);
-	exec->outfile = ft_calloc(sizeof(int), exec->nb_cmd + exec->no_cmd + 1);
-	if (!exec->outfile)
+	shell->outfile = ft_calloc(sizeof(int), n_bit);
+	if (!shell->outfile)
 		return (EXIT_FAILURE);
-	if (exec->no_cmd && ft_set_redir_no_cmd(exec, lst, exec->redir))
+	if (shell->no_cmd && ft_set_redir_no_cmd(shell, lst, shell->redir))
 		return (EXIT_FAILURE);
-	if (!exec->no_cmd && ft_set_redir(exec, lst, exec->redir))
+	if (!shell->no_cmd && ft_set_redir(shell, lst, shell->redir))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
+int	ft_set_redir(t_shell *shell, t_list *lst, t_list **redir)
 {
 	t_list	*new;
 	char	*name;
@@ -44,7 +47,7 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 
 	i = 0;
 	ft_bzero(type, sizeof(int) * 2);
-	while (lst && i <= exec->nb_cmd)
+	while (lst && i <= shell->nb_cmd)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
 		{
@@ -54,23 +57,23 @@ int	ft_set_redir(t_exec *exec, t_list *lst, t_list **redir)
 				return (EXIT_FAILURE);
 			ft_lstadd_back(&redir[i], new);
 		}
-		ft_check_next(exec, lst, type, &i);
+		ft_check_next(shell, lst, type, &i);
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
-void	ft_check_next(t_exec *exec, t_list *lst, int type[2], int *i)
+void	ft_check_next(t_shell *shell, t_list *lst, int type[2], int *i)
 {
-	if (exec->nb_cmd == 0)
+	if (shell->nb_cmd == 0)
 	{
-		exec->infile[0] = ft_set_file(type, IN);
-		exec->outfile[0] = ft_set_file(type, OUT);
+		shell->infile[0] = ft_set_file(type, IN);
+		shell->outfile[0] = ft_set_file(type, OUT);
 	}
 	else if (lst->type == PIPE || lst->next == NULL)
 	{
-		exec->infile[*i] = ft_set_file(type, IN);
-		exec->outfile[*i] = ft_set_file(type, OUT);
+		shell->infile[*i] = ft_set_file(type, IN);
+		shell->outfile[*i] = ft_set_file(type, OUT);
 		ft_bzero(type, sizeof(int) * 2);
 		(*i)++;
 	}

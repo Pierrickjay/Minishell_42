@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 09:26:53 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 13:48:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_open(char *name, t_redir type)
 }
 
 // open all the infile and return the fd of the last infile
-int	ft_open_infiles(t_exec *exec, t_list *redir)
+int	ft_open_infiles(t_shell *shell, t_list *redir)
 {
 	int		fd;
 
@@ -38,7 +38,7 @@ int	ft_open_infiles(t_exec *exec, t_list *redir)
 		{
 			fd = ft_open(redir->content, INFILE);
 			if (fd == -1)
-				return (ft_msg(exec, redir->content, errno, &exit), FAILURE);
+				return (ft_msg(shell, redir->content, errno, &exit), FAILURE);
 		}
 		redir = redir->next;
 	}
@@ -46,7 +46,7 @@ int	ft_open_infiles(t_exec *exec, t_list *redir)
 }
 
 // open all the outfile and return the fd of the last outfile
-int	ft_open_outfiles(t_exec *exec, t_list *redir)
+int	ft_open_outfiles(t_shell *shell, t_list *redir)
 {
 	int	fd;
 
@@ -59,13 +59,13 @@ int	ft_open_outfiles(t_exec *exec, t_list *redir)
 		{
 			fd = ft_open(redir->content, TRUNC);
 			if (fd == -1)
-				return (ft_msg(exec, redir->content, errno, &exit), FAILURE);
+				return (ft_msg(shell, redir->content, errno, &exit), FAILURE);
 		}
 		else if (redir->type == APPEND)
 		{
 			fd = ft_open(redir->content, APPEND);
 			if (fd == -1)
-				return (ft_msg(exec, redir->content, errno, &exit), FAILURE);
+				return (ft_msg(shell, redir->content, errno, &exit), FAILURE);
 		}
 		redir = redir->next;
 	}

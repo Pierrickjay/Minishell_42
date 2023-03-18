@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:30:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	ft_echo_check_endl(char *str)
 }
 
 // the echo builtin
-int	ft_echo(t_exec	*exec)
+int	ft_echo(t_shell	*shell)
 {
-	const char	**args = (const char **)exec->args[exec->id_child];
+	const char	**args = (const char **)shell->args[shell->id_child];
 	size_t		i;
 	bool		endl;
 
@@ -45,15 +45,15 @@ int	ft_echo(t_exec	*exec)
 	while (args[i])
 	{
 		if (ft_putstr_fd((char *)args[i], STDOUT))
-			return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
+			return (ft_msg(shell, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
 		if (args[i + 1] && args[i][0] != '\0' && ft_putchar_fd(' ', STDOUT))
-			return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
+			return (ft_msg(shell, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
 		i++;
 	}
 	if (endl)
 	{
 		if (ft_putchar_fd('\n', STDOUT))
-			return (ft_msg(exec, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
+			return (ft_msg(shell, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

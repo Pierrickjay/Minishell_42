@@ -6,48 +6,48 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:46:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:29:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
 // builtins in child process
-int	ft_is_builtins(t_exec *exec)
+int	ft_is_builtins(t_shell *shell)
 {
-	if (!ft_strcmp(exec->args[exec->id_child][0], "echo"))
-		return (ft_echo(exec));
-	else if (!ft_strcmp(exec->args[exec->id_child][0], "env"))
-		return (ft_env(exec));
-	else if (!ft_strcmp(exec->args[exec->id_child][0], "pwd"))
-		return (ft_pwd(exec));
-	else if (!ft_strcmp(exec->args[exec->id_child][0], "export"))
-		return (ft_envi_print(exec, exec->envi), EXIT_SUCCESS);
+	if (!ft_strcmp(shell->args[shell->id_child][0], "echo"))
+		return (ft_echo(shell));
+	else if (!ft_strcmp(shell->args[shell->id_child][0], "env"))
+		return (ft_env(shell));
+	else if (!ft_strcmp(shell->args[shell->id_child][0], "pwd"))
+		return (ft_pwd(shell));
+	else if (!ft_strcmp(shell->args[shell->id_child][0], "export"))
+		return (ft_envi_print(shell, shell->envi), EXIT_SUCCESS);
 	return (FAILURE);
 }
 
 // builtins in parent process
-int	ft_builtins(t_exec *exec)
+int	ft_builtins(t_shell *shell)
 {
-	if (!ft_strcmp(exec->args[exec->id_child][0], "cd"))
+	if (!ft_strcmp(shell->args[shell->id_child][0], "cd"))
 	{
-		exec->status = ft_cd(exec);
-		return (exec->status);
+		shell->status = ft_cd(shell);
+		return (shell->status);
 	}
-	else if (!ft_strcmp(exec->args[exec->id_child][0], "export"))
+	else if (!ft_strcmp(shell->args[shell->id_child][0], "export"))
 	{
-		exec->status = ft_export(exec);
-		if (exec->status == FAILURE)
+		shell->status = ft_export(shell);
+		if (shell->status == FAILURE)
 		{
-			exec->status = 0;
+			shell->status = 0;
 			return (FAILURE);
 		}
-		return (exec->status);
+		return (shell->status);
 	}
-	else if (!ft_strcmp(exec->args[exec->id_child][0], "unset"))
+	else if (!ft_strcmp(shell->args[shell->id_child][0], "unset"))
 	{
-		exec->status = ft_unset(exec);
-		return (exec->status);
+		shell->status = ft_unset(shell);
+		return (shell->status);
 	}
 	return (FAILURE);
 }

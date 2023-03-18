@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:09:06 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/18 19:10:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:32:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // main execution, the big boss
 t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 {
-	t_exec		*exec;
+	t_shell		*shell;
 	t_envi		*envp;
 
 	if (check_redir_nb(lst) == -1 || check_arrow_pipe(lst) == -1 \
@@ -28,18 +28,18 @@ t_envi	*main_exec(t_list *lst, t_envi *envi, int *count_line, int *exit_code)
 		return (envi);
 	if (ft_get_expend(envi, lst, *exit_code))
 		return (ft_free_lst(lst), ft_msg_malloc("parent_1.c (30)"), envi);
-	exec = ft_init_exec(lst, envi, count_line, exit_code);
-	if (!exec)
+	shell = init_shell(lst, envi, count_line, exit_code);
+	if (!shell)
 		return (NULL);
-	ft_update_shlvl(exec);
-	if (ft_parent_bis(exec, envi))
+	ft_update_shlvl(shell);
+	if (ft_parent_bis(shell, envi))
 		return (envi);
-	envp = ft_dup_envi(exec->envi);
+	envp = ft_dup_envi(shell->envi);
 	if (envp == FAIL)
-		return (ft_free_exec(exec), NULL);
-	ft_exit_code(exec);
-	*exit_code = exec->status;
-	return (ft_free_exec(exec), envp);
+		return (ft_free_shell(shell), NULL);
+	ft_exit_code(shell);
+	*exit_code = shell->status;
+	return (ft_free_shell(shell), envp);
 }
 
 // exit code for signal
@@ -54,35 +54,35 @@ void	deal_w_return_pid(int status)
 }
 
 // parent call the child
-int	ft_parent_bis(t_exec *exec, t_envi *envp)
+int	ft_parent_bis(t_shell *shell, t_envi *envp)
 {
 	int	status;
 
 	status = 0;
-	if (exec->nb_cmd == 0 && exec->nb_redir > 0)
-		status = ft_exec_parent_no_cmd(exec);
-	if (exec->nb_cmd == 1 && exec->nb_redir == 0)
-		status = ft_exec_parent(exec);
-	else if (exec->nb_cmd > 1 && exec->nb_redir == 0)
-		status = ft_exec_pipe_parent(exec);
-	else if (exec->nb_cmd == 1 && exec->nb_redir > 0)
-		status = ft_exec_redir_parent(exec);
-	else if (exec->nb_cmd > 1 && exec->nb_redir > 0)
-		status = ft_exec_pipe_redir_parent(exec);
+	if (shell->nb_cmd == 0 && shell->nb_redir > 0)
+		status = ft_shell_parent_no_cmd(shell);
+	if (shell->nb_cmd == 1 && shell->nb_redir == 0)
+		status = ft_shell_parent(shell);
+	else if (shell->nb_cmd > 1 && shell->nb_redir == 0)
+		status = ft_shell_pipe_parent(shell);
+	else if (shell->nb_cmd == 1 && shell->nb_redir > 0)
+		status = ft_shell_redir_parent(shell);
+	else if (shell->nb_cmd > 1 && shell->nb_redir > 0)
+		status = ft_shell_pipe_redir_parent(shell);
 	if (status == FAILURE)
 	{
-		envp = ft_dup_envi(exec->envi);
+		envp = ft_dup_envi(shell->envi);
 		if (!envp)
-			return (ft_msg(exec, "parent_1.c (60)", MA, NULL), EXIT_FAILURE);
-		ft_msg(exec, NULL, errno, NULL);
+			return (ft_msg(shell, "parent_1.c (60)", MA, NULL), EXIT_FAILURE);
+		ft_msg(shell, NULL, errno, NULL);
 		return (EXIT_FAILURE);
 	}
-	ft_unlink(exec->lst);
+	ft_unlink(shell->lst);
 	return (EXIT_SUCCESS);
 }
 
 // update the SHLVL variable
-void	ft_update_shlvl(t_exec *exec)
+void	ft_update_shlvl(t_shell *shell)
 {
 	static int	update = false;
 	char		*shlvl;
@@ -90,18 +90,18 @@ void	ft_update_shlvl(t_exec *exec)
 
 	if (update == false)
 	{
-		shlvl = ft_getenvi("SHLVL", exec->envi);
+		shlvl = ft_getenvi("SHLVL", shell->envi);
 		if (shlvl)
 		{
-			ft_free_strs(exec->env);
+			ft_free_strs(shell->env);
 			nb = ft_atoi(shlvl);
 			nb++;
 			shlvl = ft_itoa(nb);
 			if (!shlvl)
 				return (ft_msg_malloc("parent_1.c (84)"));
-			exec->envi = ft_envi_update_value("SHLVL", shlvl, 0, exec->envi);
-			exec->env = ft_envi_to_env(exec->envi);
-			if (exec->env == FAIL)
+			shell->envi = ft_envi_update_value("SHLVL", shlvl, 0, shell->envi);
+			shell->env = ft_envi_to_env(shell->envi);
+			if (shell->env == FAIL)
 				return (ft_msg_malloc("parent_1.c (88)"));
 			free(shlvl);
 		}
@@ -110,22 +110,22 @@ void	ft_update_shlvl(t_exec *exec)
 }
 
 // update the exit code
-void	ft_exit_code(t_exec *exec)
+void	ft_exit_code(t_shell *shell)
 {
-	if (exec->status == 64512)
-		exec->status = 127;
-	if (exec->status == 65280)
-		exec->status = 1;
-	else if (exec->status == 64256)
-		exec->status = 128;
-	else if (exec->status == 5120)
-		exec->status = 127;
+	if (shell->status == 64512)
+		shell->status = 127;
+	if (shell->status == 65280)
+		shell->status = 1;
+	else if (shell->status == 64256)
+		shell->status = 128;
+	else if (shell->status == 5120)
+		shell->status = 127;
 	else
 	{
-		if (exec->status > 255)
+		if (shell->status > 255)
 		{
-			while (exec->status > 255)
-				exec->status -= 255;
+			while (shell->status > 255)
+				shell->status -= 255;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static int	ft_export_ident(char *str)
 }
 
 // export a variable
-static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
+static int	ft_export_set(t_shell *shell, char *key, char *value, int type)
 {
 	t_envi		*new;
 
-	if (ft_getenvi(key, exec->envi) != NULL)
+	if (ft_getenvi(key, shell->envi) != NULL)
 	{
-		exec->envi = ft_envi_update_value(key, value, type, exec->envi);
-		if (exec->envi == FAIL)
+		shell->envi = ft_envi_update_value(key, value, type, shell->envi);
+		if (shell->envi == FAIL)
 			return (EXIT_FAILURE);
 		free(key);
 		free(value);
@@ -44,13 +44,13 @@ static int	ft_export_set(t_exec *exec, char *key, char *value, int type)
 		new = ft_envi_new(key, value, type);
 		if (!new)
 			return (EXIT_FAILURE);
-		ft_envi_add_back(&(exec->envi), new);
+		ft_envi_add_back(&(shell->envi), new);
 	}
 	return (EXIT_SUCCESS);
 }
 
 //cat the export value
-static int	ft_export_cat(t_exec *exec, char *key, char *value, int type)
+static int	ft_export_cat(t_shell *shell, char *key, char *value, int type)
 {
 	char	*tmp;
 	char	*new_value;
@@ -59,23 +59,23 @@ static int	ft_export_cat(t_exec *exec, char *key, char *value, int type)
 	len = ft_strlen(key);
 	if (key[len - 1] == '+')
 		key[len - 1] = '\0';
-	if (ft_getenvi(key, exec->envi) != NULL)
+	if (ft_getenvi(key, shell->envi) != NULL)
 	{
-		tmp = ft_getenvi(key, exec->envi);
+		tmp = ft_getenvi(key, shell->envi);
 		new_value = ft_strjoin(tmp, value);
 		if (!value)
 			return (EXIT_FAILURE);
 		free(value);
-		if (ft_export_set(exec, key, new_value, type) == EXIT_FAILURE)
+		if (ft_export_set(shell, key, new_value, type) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	else if (ft_export_set(exec, key, value, type) == EXIT_FAILURE)
+	else if (ft_export_set(shell, key, value, type) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 // create a new enviroment variable
-static int	ft_export_create(t_exec *exec, char *arg)
+static int	ft_export_create(t_shell *shell, char *arg)
 {
 	int		cat;
 	char	*key;
@@ -92,17 +92,17 @@ static int	ft_export_create(t_exec *exec, char *arg)
 		return (ft_msg_malloc("export.c (109)"), EXIT_FAILURE);
 	if (ft_check_last_char(key, '+'))
 		cat = true;
-	if (cat && ft_export_cat(exec, key, value, type))
+	if (cat && ft_export_cat(shell, key, value, type))
 		return (free(value), free(key), ft_msg_malloc("export.c (111)"), 1);
-	else if (!cat && ft_export_set(exec, key, value, type))
+	else if (!cat && ft_export_set(shell, key, value, type))
 		return (free(value), free(key), ft_msg_malloc("export.c (115)"), 1);
 	return (EXIT_SUCCESS);
 }
 
 // export builtin function return the exit code
-int	ft_export(t_exec *exec)
+int	ft_export(t_shell *shell)
 {
-	const char	**args = (const char **)exec->args[exec->id_child];
+	const char	**args = (const char **)shell->args[shell->id_child];
 	int			i;
 
 	if (args[1] == NULL)
@@ -113,18 +113,18 @@ int	ft_export(t_exec *exec)
 		if (ft_var_special(args[i][0]) || ft_export_ident((char *)args[i]))
 		{
 			ft_msg_builtins("export", (char *)args[i], IDENT);
-			exec->status = 1;
+			shell->status = 1;
 			continue ;
 		}
-		if (ft_export_create(exec, (char *)args[i]))
+		if (ft_export_create(shell, (char *)args[i]))
 			return (EXIT_FAILURE);
-		if (exec->env)
-			ft_free_strs(exec->env);
-		exec->env = ft_envi_to_env(exec->envi);
-		if (exec->env == FAIL)
+		if (shell->env)
+			ft_free_strs(shell->env);
+		shell->env = ft_envi_to_env(shell->envi);
+		if (shell->env == FAIL)
 			return (EXIT_FAILURE);
 	}
-	if (exec->status == 1)
+	if (shell->status == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

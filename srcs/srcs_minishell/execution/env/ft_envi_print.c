@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_envi_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 14:46:35 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sort_envi_list(t_envi **head)
 }
 
 // print the list
-void	ft_envi_print(t_exec *exec, t_envi *envi)
+void	ft_envi_print(t_shell *shell, t_envi *envi)
 {
 	t_envi	*swapped;
 	t_envi	*head;
@@ -71,16 +71,16 @@ void	ft_envi_print(t_exec *exec, t_envi *envi)
 	{
 		if (ft_putstr_fd("declare -x ", STDOUT) == FAILURE || \
 			ft_putstr_fd(swapped->key, STDOUT) == FAILURE)
-			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
+			return (ft_msg(shell, EXPORT_ERROR, errno, &exit));
 		if (swapped->type == NORMAL)
 		{
 			if (ft_putstr_fd("=\"", STDOUT) == FAILURE || \
 				ft_putstr_fd(swapped->value, STDOUT) == FAILURE || \
 				ft_putstr_fd("\"", STDOUT) == FAILURE)
-				return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
+				return (ft_msg(shell, EXPORT_ERROR, errno, &exit));
 		}
 		if (ft_putchar_fd('\n', STDOUT) == FAILURE)
-			return (ft_msg(exec, EXPORT_ERROR, errno, &exit));
+			return (ft_msg(shell, EXPORT_ERROR, errno, &exit));
 		swapped = swapped->next;
 	}
 	ft_free_envi(head);

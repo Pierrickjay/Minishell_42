@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:12:31 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t	ft_nb_cmds(t_list *lst)
 }
 
 // set the redir in struct exec if there is no command
-int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
+int	ft_set_redir_no_cmd(t_shell *shell, t_list *lst, t_list **redir)
 {
 	t_list	*new;
 	char	*name;
@@ -52,7 +52,7 @@ int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 
 	i = 0;
 	ft_bzero(type, sizeof(int) * 2);
-	while (lst && i <= exec->nb_cmd)
+	while (lst && i <= shell->nb_cmd)
 	{
 		if (lst->type == REDIR && lst->next && lst->next->type == FILES)
 		{
@@ -62,7 +62,7 @@ int	ft_set_redir_no_cmd(t_exec *exec, t_list *lst, t_list **redir)
 				return (EXIT_FAILURE);
 			ft_lstadd_back(&redir[i], new);
 		}
-		ft_check_next(exec, lst, type, &i);
+		ft_check_next(shell, lst, type, &i);
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);

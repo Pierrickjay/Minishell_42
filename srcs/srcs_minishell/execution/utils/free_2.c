@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 11:35:05 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:30:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,49 +52,49 @@ void	ft_free_envi(t_envi *envi)
 }
 
 // free the exec struct and initialize it to NULL
-static void	ft_free_exec_bis(t_exec *exec)
+static void	ft_free_shell_bis(t_shell *shell)
 {
-	if (exec->redir)
+	if (shell->redir)
 	{
-		ft_free_redir(exec->redir, exec->nb_cmd + exec->no_cmd + 1);
-		exec->redir = NULL;
+		ft_free_redir(shell->redir, shell->nb_cmd + shell->no_cmd + 1);
+		shell->redir = NULL;
 	}
-	if (exec->pid)
-		ft_free((void **)&exec->pid);
-	if (exec->pipes)
+	if (shell->pid)
+		ft_free((void **)&shell->pid);
+	if (shell->pipes)
 	{
-		ft_free_pipes(exec->pipes, (exec->nb_cmd - 1));
-		exec->pipes = NULL;
+		ft_free_pipes(shell->pipes, (shell->nb_cmd - 1));
+		shell->pipes = NULL;
 	}
-	if (exec->args)
+	if (shell->args)
 	{
-		ft_free_args(exec->args, exec->nb_cmd);
-		exec->args = NULL;
+		ft_free_args(shell->args, shell->nb_cmd);
+		shell->args = NULL;
 	}
 }
 
 // free the exec struct and initialize it to NULL
-void	ft_free_exec(t_exec *exec)
+void	ft_free_shell(t_shell *shell)
 {
-	if (exec->lst)
+	if (shell->lst)
 	{
-		ft_free_lst(exec->lst);
-		exec->lst = NULL;
+		ft_free_lst(shell->lst);
+		shell->lst = NULL;
 	}
-	if (exec->env)
+	if (shell->env)
 	{
-		ft_free_strs(exec->env);
-		exec->env = NULL;
+		ft_free_strs(shell->env);
+		shell->env = NULL;
 	}
-	if (exec->envi)
+	if (shell->envi)
 	{
-		ft_free_envi(exec->envi);
-		exec->envi = NULL;
+		ft_free_envi(shell->envi);
+		shell->envi = NULL;
 	}
-	if (exec->infile)
-		ft_free((void **)&exec->infile);
-	if (exec->outfile)
-		ft_free((void **)&exec->outfile);
-	ft_free_exec_bis(exec);
-	ft_free((void **)&exec);
+	if (shell->infile)
+		ft_free((void **)&shell->infile);
+	if (shell->outfile)
+		ft_free((void **)&shell->outfile);
+	ft_free_shell_bis(shell);
+	ft_free((void **)&shell);
 }

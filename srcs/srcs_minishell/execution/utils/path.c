@@ -6,24 +6,24 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:44:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:14:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
 // get the path from envi for the child
-char	**ft_get_path(t_exec *exec)
+char	**ft_get_path(t_shell *shell)
 {
 	char	**path;
 	char	*tmp;
 
-	tmp = ft_getenvi("PATH", exec->envi);
+	tmp = ft_getenvi("PATH", shell->envi);
 	if (!tmp)
-		return (ft_msg(exec, NULL, PA, &exit), NULL);
+		return (ft_msg(shell, NULL, PA, &exit), NULL);
 	path = ft_split(tmp, ':');
 	if (!path)
-		return (ft_msg(exec, NULL, MA, &exit), NULL);
+		return (ft_msg(shell, NULL, MA, &exit), NULL);
 	return (path);
 }
 

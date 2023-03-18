@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 10:26:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:30:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,23 @@ static void	ft_msg_bis(char *str, int value, char **args)
 }
 
 // print the error message and/or free and/or exit
-void	ft_msg(t_exec *exec, char *str, int value, void (*f)(int))
+void	ft_msg(t_shell *shell, char *str, int value, void (*f)(int))
 {
 	if (value > 0 && str)
 		perror(str);
 	else if (value > 0)
 		ft_putendl_fd(strerror(errno), STDERR);
 	else if (value < 0)
-		ft_msg_bis(str, value, exec->args[exec->id_child]);
-	if (!f && exec)
-		ft_free_exec(exec);
+		ft_msg_bis(str, value, shell->args[shell->id_child]);
+	if (!f && shell)
+		ft_free_shell(shell);
 	if (f)
 	{
-		if (exec)
+		if (shell)
 		{
-			if (exec->pipes)
-				ft_close_pipes(exec->pipes, (exec->nb_cmd - 1));
-			ft_free_exec(exec);
+			if (shell->pipes)
+				ft_close_pipes(shell->pipes, (shell->nb_cmd - 1));
+			ft_free_shell(shell);
 		}
 		f(value);
 	}

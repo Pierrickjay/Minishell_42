@@ -6,20 +6,20 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 09:40:03 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/12 09:50:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-int	ft_cd_update_oldpwd(t_exec *exec, char *oldpwd)
+int	ft_cd_update_oldpwd(t_shell *shell, char *oldpwd)
 {
 	char	*str;
 	t_envi	*new;
 
-	if (ft_getenvi("OLDPWD", exec->envi))
+	if (ft_getenvi("OLDPWD", shell->envi))
 	{
-		ft_envi_update_value("OLDPWD", oldpwd, NORMAL, exec->envi);
+		ft_envi_update_value("OLDPWD", oldpwd, NORMAL, shell->envi);
 		free(oldpwd);
 	}
 	else
@@ -30,19 +30,19 @@ int	ft_cd_update_oldpwd(t_exec *exec, char *oldpwd)
 		new = ft_envi_new(str, oldpwd, NORMAL);
 		if (!new)
 			return (free(oldpwd), ft_msg(NULL, "cd", errno, NULL), 1);
-		ft_envi_add_back(&exec->envi, new);
+		ft_envi_add_back(&shell->envi, new);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd_update_pwd(t_exec *exec, char *pwd)
+int	ft_cd_update_pwd(t_shell *shell, char *pwd)
 {
 	char	*str;
 	t_envi	*new;
 
-	if (ft_getenvi("PWD", exec->envi))
+	if (ft_getenvi("PWD", shell->envi))
 	{
-		ft_envi_update_value("PWD", pwd, NORMAL, exec->envi);
+		ft_envi_update_value("PWD", pwd, NORMAL, shell->envi);
 		free(pwd);
 	}
 	else
@@ -53,12 +53,12 @@ int	ft_cd_update_pwd(t_exec *exec, char *pwd)
 		new = ft_envi_new(str, pwd, NORMAL);
 		if (!new)
 			return (free(pwd), ft_msg(NULL, "cd", errno, NULL), 1);
-		ft_envi_add_back(&exec->envi, new);
+		ft_envi_add_back(&shell->envi, new);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd_home(t_exec *exec)
+int	ft_cd_home(t_shell *shell)
 {
 	char	*oldpwd;
 	char	*pwd;
@@ -66,44 +66,44 @@ int	ft_cd_home(t_exec *exec)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (ft_msg(NULL, "ft_cd (28)", errno, NULL), 1);
-	if (!ft_getenvi("HOME", exec->envi))
+	if (!ft_getenvi("HOME", shell->envi))
 		return (free(oldpwd), ft_msg_builtins("cd", NULL, HOME), 1);
-	if (chdir(ft_getenvi("HOME", exec->envi)))
+	if (chdir(ft_getenvi("HOME", shell->envi)))
 		return (free(oldpwd), ft_msg(NULL, "cd", errno, NULL), 1);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (free(oldpwd), ft_msg(NULL, "cd", errno, NULL), 1);
-	if (ft_cd_update_oldpwd(exec, oldpwd))
+	if (ft_cd_update_oldpwd(shell, oldpwd))
 		return (free(pwd), EXIT_FAILURE);
-	if (ft_cd_update_pwd(exec, pwd))
+	if (ft_cd_update_pwd(shell, pwd))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd_back(t_exec *exec)
+int	ft_cd_back(t_shell *shell)
 {
 	char	*pwd;
 	char	*oldpwd;
 
-	if (ft_getenvi("OLDPWD", exec->envi) == NULL)
+	if (ft_getenvi("OLDPWD", shell->envi) == NULL)
 		return (ft_msg_builtins("cd", NULL, OLDPWD), 1);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (ft_msg(NULL, "cd", errno, NULL), 1);
-	if (chdir(ft_getenvi("OLDPWD", exec->envi)))
+	if (chdir(ft_getenvi("OLDPWD", shell->envi)))
 		return (ft_msg(NULL, "cd", errno, NULL), 1);
 	ft_putendl_fd(oldpwd, STDOUT);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (free(oldpwd), ft_msg(NULL, "cd", errno, NULL), 1);
-	if (ft_cd_update_oldpwd(exec, oldpwd))
+	if (ft_cd_update_oldpwd(shell, oldpwd))
 		return (EXIT_FAILURE);
-	if (ft_cd_update_pwd(exec, pwd))
+	if (ft_cd_update_pwd(shell, pwd))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_cd_go_to(t_exec *exec, const char *arg)
+int	ft_cd_go_to(t_shell *shell, const char *arg)
 {
 	char	*pwd;
 	char	*oldpwd;
@@ -117,9 +117,9 @@ int	ft_cd_go_to(t_exec *exec, const char *arg)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (free(oldpwd), ft_msg(NULL, "cd", errno, NULL), 1);
-	if (ft_cd_update_oldpwd(exec, oldpwd))
+	if (ft_cd_update_oldpwd(shell, oldpwd))
 		return (free(pwd), EXIT_FAILURE);
-	if (ft_cd_update_pwd(exec, pwd))
+	if (ft_cd_update_pwd(shell, pwd))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
