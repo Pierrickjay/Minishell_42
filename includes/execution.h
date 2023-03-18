@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 17:28:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:47:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ typedef struct s_exec
 	t_envi	*envi;
 	int		i;
 	int		nb;
+	int		no_cmd;
 	int		nb_redir;
 	int		*infile;
 	int		*outfile;
-	int		no_cmd;
 	t_list	**redir;
 	pid_t	*pid;
 	int		**pipes;

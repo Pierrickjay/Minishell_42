@@ -19,6 +19,6 @@ alors que on affiche pjay
 --------------------------------------------------------------------
 								Bilan
 --------------------------------------------------------------------
+- Refaire les arguments si la partie command a un espaces, et non les autres
 - Verifications des singles quotes et doubles quotes
 - Verifications des variables d'environnement avec des singles quotes et doubles quotes
-- Heredoc avec des pipes et des commands bugs
