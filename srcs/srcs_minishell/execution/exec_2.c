@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:59:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 14:00:51 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:17:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_redir_type(char *str, int type[2])
 		type[OUT]++;
 		return (APPEND);
 	}
-	else if (ft_strcmp(str, "<\0") == 0)
+	else if (ft_strcmp(str, "<\0") == 0 || ft_strcmp(str, "<<\0") == 0)
 	{
 		type[IN]++;
 		return (INFILE);
