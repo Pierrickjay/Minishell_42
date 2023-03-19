@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 20:13:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 09:53:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define FAIL (void *)-1
 # define SUCCESS 0
 # define FAILURE -1
+# define TRUE 1
+# define FALSE 0
 
 typedef enum e_fd
 {
@@ -162,6 +164,9 @@ char	*ft_check_envi(char *key, t_envi *envi);
 /************************************UTILS*************************************/
 //args.c
 size_t	ft_args_size(t_list *lst);
+int		ft_space_in_cmd(t_list *lst);
+int		ft_strlen_space(char *str);
+int		ft_split_at_space_cmd(t_list *lst, char **args, size_t *i);
 char	**ft_lst_to_args(t_list *lst);
 
 //close.c
