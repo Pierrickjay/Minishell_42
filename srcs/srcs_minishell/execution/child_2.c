@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:12 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 20:22:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:41:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// the child process : infile and pipe
 static void	ft_shell_pipe_infile_child(t_shell *shell)
 {
 	const int	n = shell->id_child;
@@ -49,6 +50,7 @@ static void	ft_shell_pipe_outfile_child(t_shell *shell)
 	ft_close(&fd_out);
 }
 
+// the child process : infile and outfile in pipes
 static void	ft_shell_pipe_infile_outfile_child(t_shell *shell)
 {
 	const int	n = shell->id_child;
@@ -65,6 +67,7 @@ static void	ft_shell_pipe_infile_outfile_child(t_shell *shell)
 	ft_close(&fd_out);
 }
 
+// the child process : pipes
 static void	ft_shell_pipe_dup(t_shell *shell)
 {
 	const int	n = shell->id_child;

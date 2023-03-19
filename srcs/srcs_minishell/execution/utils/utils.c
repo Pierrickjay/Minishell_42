@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:32:11 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 18:18:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:39:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// count the length of the char ** array
 int	ft_nb_args_child(char **args)
 {
 	int	i;
@@ -22,6 +23,7 @@ int	ft_nb_args_child(char **args)
 	return (i);
 }
 
+// check if the last char of the string is c
 int	ft_check_last_char(char *str, char c)
 {
 	size_t	len;
@@ -32,6 +34,7 @@ int	ft_check_last_char(char *str, char c)
 	return (0);
 }
 
+// check if the string is composed of only alphanumerical characters
 int	ft_all_isalnum(char *str)
 {
 	size_t	i;
@@ -52,6 +55,8 @@ int	ft_all_isalnum(char *str)
 	return (0);
 }
 
+// check if the string is composed of only alphanumerical characters
+// with the length
 int	ft_all_isalnum_len(char *str, int len)
 {
 	int	i;
@@ -87,7 +92,7 @@ t_envi	*ft_dup_envi(t_envi *envi)
 		key = ft_strdup(envi->key);
 		value = ft_strdup(envi->value);
 		if (!key || !value)
-			return (ft_free_envi(dup), ft_msg_malloc("parent_1.c (29)"), NULL);
+			return (ft_free_envi(dup), ft_msg_malloc("ft_dup_envi (95)"), NULL);
 		tmp = ft_envi_new(key, value, envi->type);
 		if (!tmp)
 			return (NULL);

@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:28:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// check the key of the variable is valid
 static int	ft_export_ident(char *str)
 {
 	int	len;

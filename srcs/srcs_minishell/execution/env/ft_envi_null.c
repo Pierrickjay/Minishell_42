@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 10:41:49 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/12 10:59:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:29:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// add PWD to envi
 static int	ft_add_pwd(t_envi **envi)
 {
 	t_envi	*new;
@@ -31,6 +32,7 @@ static int	ft_add_pwd(t_envi **envi)
 	return (EXIT_SUCCESS);
 }
 
+// add SHLVL to envi
 static int	ft_add_shlvl(t_envi **envi)
 {
 	t_envi	*new;
@@ -50,6 +52,7 @@ static int	ft_add_shlvl(t_envi **envi)
 	return (EXIT_SUCCESS);
 }
 
+// add _ to envi
 static int	ft_add_underscore(t_envi **envi)
 {
 	t_envi	*new;
@@ -69,6 +72,7 @@ static int	ft_add_underscore(t_envi **envi)
 	return (EXIT_SUCCESS);
 }
 
+// if env is null, we add PWD, SHLVL and _ to envi
 t_envi	*ft_envi_null(t_envi *envi)
 {
 	if (ft_add_pwd(&envi) == EXIT_FAILURE)

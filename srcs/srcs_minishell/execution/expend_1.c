@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars_1.c                                           :+:      :+:    :+:   */
+/*   expend_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:09:09 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:22:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// ec it's for the exit code, because exit_code it's to long
-
-// the main get var, to update
-int	ft_get_expend(t_envi *envi, t_list *lst, int exit_code)
+// the expend for list
+int	ft_lst_expend(t_envi *envi, t_list *lst, int exit_code)
 {
 	char	*tmp;
 
@@ -34,7 +32,7 @@ int	ft_get_expend(t_envi *envi, t_list *lst, int exit_code)
 	return (EXIT_SUCCESS);
 }
 
-// when we have a string with a var
+// the main of expend
 char	*ft_expend(t_envi *envi, char *content, int exit_code)
 {
 	char			*tmp;
@@ -64,6 +62,7 @@ char	*ft_expend(t_envi *envi, char *content, int exit_code)
 	return (ft_free_lst(to_join), ft_free_strs(vars), tmp);
 }
 
+// the expend for a variable
 char	*ft_expend_bis(t_envi *envi, char *vars, int exit_code)
 {
 	char	*str;

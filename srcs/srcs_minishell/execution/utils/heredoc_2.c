@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:59:48 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:19:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:35:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 extern volatile int	g_check;
 
+// open the file and run the heredoc
 void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 {
 	int		fd;
@@ -40,6 +41,7 @@ void	ft_heredoc(char *limiter, char *name_file, t_heredoc *heredoc)
 	return (ft_free_heredoc(heredoc, limiter, NULL, fd), exit(0));
 }
 
+// get the line and check if it's the limiter
 char	*ft_get_line(t_heredoc *heredoc, char *limiter, int fd)
 {
 	char	*line;
@@ -59,12 +61,14 @@ char	*ft_get_line(t_heredoc *heredoc, char *limiter, int fd)
 	return (line);
 }
 
+// when Ctrl + C is pressed
 void	finish_here_doc(int fd, char *limiter, char *line, t_heredoc *heredoc)
 {
 	ft_free_heredoc(heredoc, limiter, line, fd);
 	exit(130);
 }
 
+// when Ctrl + D is pressed
 void	to_print_error(t_heredoc *heredoc, char *limiter, int fd)
 {
 	if (g_check == 1)
@@ -80,6 +84,7 @@ void	to_print_error(t_heredoc *heredoc, char *limiter, int fd)
 	ft_putendl_fd("')", 2);
 }
 
+// print the error message
 void	ft_msg_heredoc(t_heredoc *heredoc, char *str, int n, void (*f)(int))
 {
 	if (n > 0 && str)

@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:30:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:26:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// check if the argument is -nnnnnnn or -n
 static int	ft_echo_check_endl(char *str)
 {
 	size_t	i;

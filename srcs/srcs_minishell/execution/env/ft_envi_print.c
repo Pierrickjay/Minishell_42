@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 10:41:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:28:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:29:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// sort the list
 void	swap_envi_nodes(t_envi *a, t_envi *b)
 {
 	char	*temp_key;
@@ -29,6 +30,7 @@ void	swap_envi_nodes(t_envi *a, t_envi *b)
 	b->type = temp_type;
 }
 
+// sort the list
 void	sort_envi_list(t_envi **head)
 {
 	int		swapped;

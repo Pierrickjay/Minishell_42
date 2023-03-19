@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 09:40:03 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:24:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// update the oldpwd in the enviroment
 int	ft_cd_update_oldpwd(t_shell *shell, char *oldpwd)
 {
 	char	*str;
@@ -35,6 +36,7 @@ int	ft_cd_update_oldpwd(t_shell *shell, char *oldpwd)
 	return (EXIT_SUCCESS);
 }
 
+// update the pwd in the enviroment
 int	ft_cd_update_pwd(t_shell *shell, char *pwd)
 {
 	char	*str;
@@ -58,6 +60,7 @@ int	ft_cd_update_pwd(t_shell *shell, char *pwd)
 	return (EXIT_SUCCESS);
 }
 
+// cd with no arguments go to home
 int	ft_cd_home(t_shell *shell)
 {
 	char	*oldpwd;
@@ -80,6 +83,7 @@ int	ft_cd_home(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
+// go to the oldpwd
 int	ft_cd_back(t_shell *shell)
 {
 	char	*pwd;
@@ -103,6 +107,7 @@ int	ft_cd_back(t_shell *shell)
 	return (EXIT_SUCCESS);
 }
 
+// the classic cd go to one or more directory
 int	ft_cd_go_to(t_shell *shell, const char *arg)
 {
 	char	*pwd;

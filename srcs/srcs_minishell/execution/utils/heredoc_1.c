@@ -6,12 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:05:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 20:18:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:33:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
+// set the heredoc struct and call the function to run the heredoc
 int	run_heredoc(t_list *lst, t_envi *envi, int *countline, int *exitcode)
 {
 	t_heredoc	heredoc;
@@ -36,6 +37,8 @@ int	run_heredoc(t_list *lst, t_envi *envi, int *countline, int *exitcode)
 	return (EXIT_SUCCESS);
 }
 
+// take the limiter and give the file name of the list node 
+// and fork the heredoc and wait for it
 int	run_heredoc_bis(t_heredoc *heredoc, t_list *lst)
 {
 	char	*tmp;
@@ -63,6 +66,7 @@ int	run_heredoc_bis(t_heredoc *heredoc, t_list *lst)
 	return (ft_free((void **)&limiter), EXIT_SUCCESS);
 }
 
+// delete all file of the heredoc
 void	ft_unlink(t_list *lst)
 {
 	while (lst)

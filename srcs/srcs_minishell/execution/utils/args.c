@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:59:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 09:54:20 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:23:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ size_t	ft_args_size(t_list *lst)
 	return (size + space);
 }
 
+// if have space in the cmd return true
 int	ft_space_in_cmd(t_list *lst)
 {
 	int	i;
@@ -58,6 +59,7 @@ int	ft_space_in_cmd(t_list *lst)
 	return (FALSE);
 }
 
+// give the length of the string before the space
 int	ft_strlen_space(char *str)
 {
 	int	len;
@@ -68,6 +70,7 @@ int	ft_strlen_space(char *str)
 	return (len);
 }
 
+// split the cmd if it has a space
 int	ft_split_at_space_cmd(t_list *lst, char **args, size_t *i)
 {
 	if (lst->type == CMD && ft_strchr(lst->content, ' '))

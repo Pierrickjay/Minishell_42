@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 10:17:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:20:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	ft_shell_redir_child(t_shell *shell);
 void	ft_shell_pipe_file_child(t_shell *shell);
 
 //expend_1.c
-int		ft_get_expend(t_envi *envi, t_list *lst, int exit_code);
+int		ft_lst_expend(t_envi *envi, t_list *lst, int exit_code);
 char	*ft_expend(t_envi *envi, char *content, int exit_code);
 char	*ft_expend_bis(t_envi *envi, char *vars, int exit_code);
 char	*ft_expend_join(t_envi *envi, t_list **to_join, char *var);
