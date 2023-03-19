@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 10:22:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:11:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_expend(t_envi *envi, char *content, int exit_code)
 
 	to_join = NULL;
 	tmp = ft_content_update(content);
-	if (!content)
+	if (!tmp)
 		return (NULL);
 	vars = ft_split(tmp, -1);
 	if (!vars)
@@ -56,10 +56,10 @@ char	*ft_expend(t_envi *envi, char *content, int exit_code)
 			return (ft_free_strs(vars), ft_free_lst(to_join), NULL);
 		ft_lstadd_back(&to_join, ft_lstnew(tmp, -1));
 	}
-	tmp = ft_lstjoin(to_join);
-	if (!tmp)
+	content = ft_lstjoin(to_join);
+	if (!content)
 		return (ft_free_lst(to_join), ft_free_strs(vars), NULL);
-	return (ft_free_lst(to_join), ft_free_strs(vars), tmp);
+	return (ft_free_lst(to_join), ft_free_strs(vars), content);
 }
 
 // the expend for a variable
