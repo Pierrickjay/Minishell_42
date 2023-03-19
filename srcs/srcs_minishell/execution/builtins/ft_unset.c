@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:09:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:28:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:17:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_envi	*ft_unset_bis_bis(t_envi *envi, t_envi *tmp, t_envi *top)
 }
 
 // unset a variable
-t_envi	*ft_unset_bis(const char *name, t_envi *envi)
+static t_envi	*ft_unset_bis(const char *name, t_envi *envi)
 {
 	t_envi	*tmp;
 	t_envi	*top;

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 10:15:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:29:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:16:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_shell_child(t_shell *shell)
 {
 	const int	n = shell->id_child;
 
-	if (ft_is_builtins(shell) != FAILURE)
+	if (builtins_in_child(shell) != FAILURE)
 		return (ft_msg(shell, NULL, 0, &exit));
 	if ((ft_strncmp("./", shell->args[n][0], 2) == 0 && \
 		access(shell->args[n][0], X_OK) != FAILURE) || \

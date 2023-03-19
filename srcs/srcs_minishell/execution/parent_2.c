@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 15:31:57 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 19:29:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:16:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_shell_parent_no_cmd(t_shell *shell)
 // child for one command and no redirection
 int	ft_shell_parent(t_shell *shell)
 {
-	if (ft_builtins(shell) == FAILURE)
+	if (builtins_in_parent(shell) == FAILURE)
 	{
 		shell->pid[0] = fork();
 		if (shell->pid[0] == -1)
@@ -62,7 +62,7 @@ int	ft_shell_pipe_parent(t_shell *shell)
 
 	while (shell->id_child < shell->nb_cmd)
 	{
-		if (ft_builtins(shell) == FAILURE)
+		if (builtins_in_parent(shell) == FAILURE)
 		{
 			shell->pid[shell->id_child] = fork();
 			if (shell->pid[shell->id_child] == -1)
@@ -85,7 +85,7 @@ int	ft_shell_pipe_parent(t_shell *shell)
 // child for one command and redirection
 int	ft_shell_redir_parent(t_shell *shell)
 {
-	if (ft_builtins(shell) == FAILURE)
+	if (builtins_in_parent(shell) == FAILURE)
 	{
 		shell->pid[0] = fork();
 		if (shell->pid[0] == -1)
@@ -107,7 +107,7 @@ int	ft_shell_pipe_redir_parent(t_shell *shell)
 
 	while (shell->id_child < shell->nb_cmd)
 	{
-		if (ft_builtins(shell) == FAILURE)
+		if (builtins_in_parent(shell) == FAILURE)
 		{
 			shell->pid[shell->id_child] = fork();
 			if (shell->pid[shell->id_child] == -1)

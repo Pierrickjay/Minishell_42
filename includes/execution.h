@@ -6,14 +6,23 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 09:53:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:17:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
+// other includes
 # include "minishell.h"
 # include "parsing.h"
+
+//return values
+# define FAIL (void *)-1
+# define SUCCESS 0
+# define FAILURE -1
+# define TRUE 1
+# define FALSE 0
 
 //error messages
 # define EXPORT_ERROR "export: write error"
@@ -25,13 +34,7 @@
 # define IDENT "not a valid identifier"
 # define TOOMANY "too many arguments"
 
-//return values
-# define FAIL (void *)-1
-# define SUCCESS 0
-# define FAILURE -1
-# define TRUE 1
-# define FALSE 0
-
+// fd standard
 typedef enum e_fd
 {
 	STDIN,
@@ -39,12 +42,14 @@ typedef enum e_fd
 	STDERR
 }	t_fd;
 
+// infile or outfile
 typedef enum e_mode
 {
 	IN,
 	OUT,
 }	t_mode;
 
+// type of redirection
 typedef enum e_redir
 {
 	INFILE,
@@ -52,6 +57,7 @@ typedef enum e_redir
 	APPEND
 }	t_redir;
 
+// error codes
 typedef enum e_error
 {
 	MA = -1,
@@ -61,13 +67,14 @@ typedef enum e_error
 	EX = -5
 }	t_error;
 
+// type of export in env or not
 enum e_export
 {
 	NORMAL,
 	NO_VALUE
 };
 
-//env
+// envi it's a list of environnement variables
 typedef struct s_envi
 {
 	char			*key;
@@ -76,6 +83,8 @@ typedef struct s_envi
 	struct s_envi	*next;
 }	t_envi;
 
+// struct for the heredoc for the free more easily
+// and give the arguments to the function more easily
 typedef struct s_heredoc
 {
 	t_list	*lst;
@@ -84,7 +93,7 @@ typedef struct s_heredoc
 	int		*exit_code;
 }	t_heredoc;
 
-//struct for the shell
+// struct for the shell
 typedef struct s_shell
 {
 	t_list	*lst;
@@ -104,6 +113,26 @@ typedef struct s_shell
 	int		*count_line;
 	int		*exit_code;
 }	t_shell;
+
+/************************************STRUCT************************************/
+//struct.c
+//shell_1.c
+t_shell	*init_shell(t_list *lst, t_envi *envi, int *countline, int *exitcode);
+int		init_shell_bis(t_shell *shell, t_list *lst);
+pid_t	*ft_init_pid(t_shell *shell);
+int		**ft_init_pipes(t_shell *shell);
+char	***ft_init_args(t_shell *shell, t_list *lst);
+//shell_2.c
+int		ft_lst_redir_malloc(t_shell *shell, t_list *lst);
+int		ft_set_redir(t_shell *shell, t_list *lst, t_list **redir);
+void	ft_check_next(t_shell *shell, t_list *lst, int type[2], int *i);
+int		ft_set_file(int type[2], int mode);
+int		ft_redir_type(char *str, int type[2]);
+//shell_3.c
+size_t	ft_nb_cmds(t_list *lst);
+size_t	ft_nb_redir(t_list *lst);
+int		ft_set_redir_no_cmd(t_shell *shell, t_list *lst, t_list **redir);
+/******************************************************************************/
 
 /***********************************EXECUTION**********************************/
 //parent
@@ -129,24 +158,6 @@ void	ft_shell_pipe_child(t_shell *shell);
 void	ft_shell_redir_child(t_shell *shell);
 //child_2.c
 void	ft_shell_pipe_file_child(t_shell *shell);
-
-//exec.c
-//exec_1.c
-t_shell	*init_shell(t_list *lst, t_envi *envi, int *countline, int *exitcode);
-int		init_shell_bis(t_shell *shell, t_list *lst);
-pid_t	*ft_init_pid(t_shell *shell);
-int		**ft_init_pipes(t_shell *shell);
-char	***ft_init_args(t_shell *shell, t_list *lst);
-//exec_2.c
-int		ft_lst_redir_malloc(t_shell *shell, t_list *lst);
-int		ft_set_redir(t_shell *shell, t_list *lst, t_list **redir);
-void	ft_check_next(t_shell *shell, t_list *lst, int type[2], int *i);
-int		ft_set_file(int type[2], int mode);
-int		ft_redir_type(char *str, int type[2]);
-//exec_3.c
-size_t	ft_nb_cmds(t_list *lst);
-size_t	ft_nb_redir(t_list *lst);
-int		ft_set_redir_no_cmd(t_shell *shell, t_list *lst, t_list **redir);
 
 //expend_1.c
 int		ft_get_expend(t_envi *envi, t_list *lst, int exit_code);
@@ -242,16 +253,17 @@ t_envi	*ft_envi_null(t_envi *envi);
 /******************************************************************************/
 
 /***********************************BUILTINS***********************************/
-//for echo, env, pwd
-int		ft_is_builtins(t_shell *shell);
+//for echo, env, pwd, and export with no arg
+int		builtins_in_child(t_shell *shell);
 //for export, unset, cd
-int		ft_builtins(t_shell *shell);
+int		builtins_in_parent(t_shell *shell);
 //echo
 int		ft_echo(t_shell	*shell);
 //pwd
 int		ft_pwd(t_shell *shell);
 //cd
 int		ft_cd(t_shell *shell);
+//cd_bis.c
 int		ft_cd_update_oldpwd(t_shell *shell, char *oldpwd);
 int		ft_cd_update_pwd(t_shell *shell, char *pwd);
 int		ft_cd_home(t_shell *shell);
@@ -262,7 +274,6 @@ int		ft_env(t_shell *shell);
 //export
 int		ft_export(t_shell *shell);
 //unset
-t_envi	*ft_unset_bis(const char *name, t_envi *envi);
 int		ft_unset(t_shell *shell);
 /******************************************************************************/
 
