@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:59:48 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 10:35:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/19 10:46:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_get_line(t_heredoc *heredoc, char *limiter, int fd)
 	char	*line;
 	char	*tmp;
 
-	line = readline("> ");
+	line = readline("heredoc> ");
 	(heredoc->count_line[0])++;
 	if (line)
 	{
