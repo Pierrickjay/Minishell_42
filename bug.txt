@@ -5,11 +5,8 @@ pjay@e2r13p10:~$ echo $"USER"
 USER
 alors que on affiche pjay
 
-bug avec awk
-
 --------------------------------------------------------------------
 								Bilan
 --------------------------------------------------------------------
-- Refaire les arguments si la partie command a un espaces, et non les autres
 - Verifications des singles quotes et doubles quotes
 - Verifications des variables d'environnement avec des singles quotes et doubles quotes
