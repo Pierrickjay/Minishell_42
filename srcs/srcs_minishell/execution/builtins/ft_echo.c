@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:08:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 10:26:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:14:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_echo(t_shell	*shell)
 	{
 		if (ft_putstr_fd((char *)args[i], STDOUT))
 			return (ft_msg(shell, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
-		if (args[i + 1] && args[i][0] != '\0' && ft_putchar_fd(' ', STDOUT))
+		if (args[i + 1] && ft_putchar_fd(' ', STDOUT))
 			return (ft_msg(shell, ECHO_ERROR, errno, &exit), EXIT_FAILURE);
 		i++;
 	}
