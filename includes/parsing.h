@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:29:52 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/10 19:21:50 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/21 09:51:51 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,6 @@ int		free_trim_all(t_free *to_free, int i);
 int		check_if_expend(char *old_str);
 int		check_if_in_quote(char *old_str);
 void	sort_envi_list(t_envi **head);
+void	print_string(char **str);
+char	*new_string_quote(char *str);
 #endif

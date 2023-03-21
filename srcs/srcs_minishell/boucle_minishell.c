@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   boucle_minishell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:14:38 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/12 10:50:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:14:46 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	check_synthaxe_error(char *save)
 			if (!save[i])
 				return (finish_syntaxe(save));
 		}
-		if (save[i] && (save[i] == ';' || save[i] == 92))
+		if (save[i] && (save[i] == ';' || save[i] == 92
+				|| save[i] == '{' || save[i] == '}'))
 			return (finish_syntaxe(save));
 		i++;
 	}

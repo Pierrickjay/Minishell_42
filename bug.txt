@@ -10,3 +10,68 @@ alors que on affiche pjay
 --------------------------------------------------------------------
 - Verifications des singles quotes et doubles quotes
 - Verifications des variables d'environnement avec des singles quotes et doubles quotes
+
+
+minishell> echo "$'PATH'" '$PWD'
+print split echo
+print split "$'PATH'"
+print split '$PWD'
+echo | CMD | not_expend = 0
+$'PATH' | ARG | not_expend = 0
+$PWD | ARG | not_expend = 1
+'PATH' $PWD
+
+le dollard a sauter alord quil devrait pqs
+
+bug.txt  includes  lib  Makefile  minishell  objs  srcs
+minishell> << "test" | echo test | << cat make | ls
+heredoc> test
+heredoc> cat
+bug.txt  includes  lib  Makefile  minishell  objs  srcs
+
+pjay@e1r1p4:~$ << "test" | echo test | << cat make | ls
+> cat
+> test
+> cat
+'compilation minilib'					        Music
+ Cursus42						        openclassroom
+ Desktop						        perso
+ Discord						        Pictures
+ Documents						        Public
+ door_open.xcf						        saverush01
+ Downloads						        sgoinfre
+'encrypted password'					        Templates
+ goinfre						        tools
+'heures 42.ods'						        Videos
+ intra-uuid-a29a132a-7a79-4a59-8460-683db3066fd2-4466679-pjay   workfromhome
+make: *** No targets specified and no makefile found.  Stop.
+
+diff sur le make qui a pas de target mais pas sur de l'importane
+
+minishell> export l="-l"
+minishell> /bin/ls $l
+total 680
+-rw-r--r-- 1 pjay 2022_paris   1657 Mar 21 11:35 bug.txt
+drwxr-xr-x 2 pjay 2022_paris   4096 Mar 21 08:37 includes
+drwxr-xr-x 2 pjay 2022_paris   4096 Mar 21 11:37 lib
+-rw-r--r-- 1 pjay 2022_paris   6118 Mar 21 09:52 Makefile
+-rwxr-xr-x 1 pjay 2022_paris 664720 Mar 21 11:37 minishell
+drwxr-xr-x 3 pjay 2022_paris   4096 Mar 21 11:23 objs
+drwxr-xr-x 4 pjay 2022_paris   4096 Mar 21 08:37 srcs
+minishell> /bin/ls $la
+/bin/ls: cannot access '': No such file or directory
+
+pjay@e1r1p4:~/Cursus42/cercle3/minishell$ export l="-l"
+pjay@e1r1p4:~/Cursus42/cercle3/minishell$ /bin/ls $l
+total 680
+-rw-r--r-- 1 pjay 2022_paris   1657 Mar 21 11:35 bug.txt
+drwxr-xr-x 2 pjay 2022_paris   4096 Mar 21 08:37 includes
+drwxr-xr-x 2 pjay 2022_paris   4096 Mar 21 11:37 lib
+-rw-r--r-- 1 pjay 2022_paris   6118 Mar 21 09:52 Makefile
+-rwxr-xr-x 1 pjay 2022_paris 664720 Mar 21 11:37 minishell
+drwxr-xr-x 3 pjay 2022_paris   4096 Mar 21 11:23 objs
+drwxr-xr-x 4 pjay 2022_paris   4096 Mar 21 08:37 srcs
+pjay@e1r1p4:~/Cursus42/cercle3/minishell$ /bin/ls $la
+bug.txt  includes  lib	Makefile  minishell  objs  srcs
+
+Peut etre jai fais de la merde
