@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 15:37:49 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/21 09:49:32 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	count_lengh(char *str)
 char	*finish_it(char *new_str)
 {
 	new_str = separate_pipe(new_str);
+	if (!new_str)
+		return (NULL);
+	new_str = new_string_quote(new_str);
 	if (!new_str)
 		return (NULL);
 	else

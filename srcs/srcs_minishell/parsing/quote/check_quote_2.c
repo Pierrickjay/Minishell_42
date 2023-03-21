@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:16:17 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/11 09:59:57 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/21 09:20:15 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@ int	check_if_expend(char *old_str)
 		{
 			while (old_str[++i] && old_str[i] != '\'')
 			{
-				if (old_str[i] == '\"')
-					break ;
 				if (old_str[i] == '$')
 					return (1);
 			}
+			if (!old_str[i])
+				return (0);
+		}
+		if (old_str[i] == '\"')
+		{
+			while (old_str[++i] && old_str[i] != '\"')
+				i++;
 			if (!old_str[i])
 				return (0);
 		}

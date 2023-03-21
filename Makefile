@@ -53,7 +53,8 @@ SRCS		+= main.c boucle_minishell.c
 SRCS        += parsing/utils/utils_1.c parsing/set_signal.c parsing/free.c parsing/initiate_list.c parsing/quote/for_the_trim.c \
 				parsing/type.c parsing/quote/quote.c parsing/utils/utils_2.c parsing/utils/split_parsing.c parsing/utils/split_utils.c \
 				parsing/exit_boucle.c parsing/quote/check_quote.c parsing/utils/new_string.c parsing/utils/new_string_utils.c \
-				parsing/utils/separate_pipe.c parsing/check_pars.c parsing/block_signal.c parsing/quote/check_quote_2.c\
+				parsing/utils/separate_pipe.c parsing/check_pars.c parsing/block_signal.c parsing/quote/check_quote_2.c \
+				parsing/utils/new_string_quote.c
 
 #   obouhlel
 SRCS		+= execution/env/ft_envi_add_back.c execution/env/ft_envi_last.c execution/env/ft_envi_new.c \

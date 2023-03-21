@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:35:25 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 15:20:34 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/21 11:39:33 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ char	*make_it_clean(char *str, int tmp)
 			i = go_next_quote(new_one, i, '\"') - 2;
 			new_one = ft_strdup_modif(remove_double(new_one, tmp), 1);
 		}
-		if (!new_one)
-			return (NULL);
 	}
 	return (new_one);
 }
