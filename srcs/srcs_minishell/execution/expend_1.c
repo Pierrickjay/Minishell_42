@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expend_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:34:47 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 19:11:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:11:39 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 // the expend for list
 int	ft_lst_expend(t_envi *envi, t_list *lst, int exit_code)
 {
-	char	*tmp;
+	t_list	*previous;
 
+	previous = NULL;
 	while (envi && lst)
 	{
-		if (ft_strchr(lst->content, '$') \
-			&& lst->not_expend == false && lst->type != FILES)
+		if (ft_strchr(lst->content, '$') && lst->not_expend == false \
+			&& !find_dollad_pos(lst->content))
 		{
-			tmp = lst->content;
-			lst->content = ft_expend(envi, tmp, exit_code);
+			lst->content = ft_expend(envi, lst->content, exit_code);
 			if (!lst->content)
 				return (EXIT_FAILURE);
+			if (!ft_strcmp(lst->content, ""))
+				ft_free_lst_delone(&lst, previous);
 		}
+		previous = lst;
 		lst = lst->next;
 	}
 	return (EXIT_SUCCESS);
@@ -123,7 +126,14 @@ int	ft_expend_exit_code(char *var, t_list **to_join, int exit_code)
 	char	*add;
 
 	add = NULL;
-	if (!ft_strcmp("$?", var))
+	if (!ft_strcmp("$", var))
+	{
+		add = ft_strdup("$");
+		if (!add)
+			return (EXIT_FAILURE);
+		ft_lstadd_front(to_join, ft_lstnew(add, -1));
+	}
+	else if (!ft_strcmp("$?", var))
 	{
 		add = ft_itoa(exit_code);
 		if (!add)

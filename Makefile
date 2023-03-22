@@ -119,7 +119,7 @@ endef
 
 AR				:= ar rcs
 
-CC				:= gcc
+CC				:= cc
 
 CFLAGS			:= -Wall -Wextra -Werror -MMD -g3
 

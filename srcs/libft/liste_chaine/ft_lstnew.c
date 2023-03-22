@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 16:59:40 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/10 19:07:32 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/22 08:47:35 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_list	*ft_lstnew_spe(char *content, int type, bool expend, bool inquote)
 	contenu->not_expend = expend;
 	contenu->content = content;
 	contenu->type = type;
+	if (inquote == true)
+		contenu->type = ARG;
 	contenu->next = NULL;
 	return (contenu);
 }

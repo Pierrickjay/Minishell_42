@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 10:30:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/19 10:20:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/22 09:55:04 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ size_t	ft_nb_var(char *str);
 int		ft_var_special(char c);
 char	*ft_content_update(char *str);
 char	*ft_check_envi(char *key, t_envi *envi);
+int		find_dollad_pos(char *str);
 /******************************************************************************/
 
 /************************************UTILS*************************************/
@@ -199,6 +200,7 @@ void	ft_free_shell(t_shell *shell);
 //free_3.c
 void	ft_free_child(t_shell *shell, char **path, char *cmd);
 void	ft_free_envi_delone(t_envi *envi);
+void	ft_free_lst_delone(t_list **lst, t_list *previous);
 void	ft_free_heredoc(t_heredoc *heredoc, char *limiter, char *line, int fd);
 
 //ft_msg.c

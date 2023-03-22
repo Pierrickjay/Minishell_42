@@ -6,7 +6,7 @@
 /*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:22:31 by pjay              #+#    #+#             */
-/*   Updated: 2023/03/21 09:49:32 by pjay             ###   ########.fr       */
+/*   Updated: 2023/03/21 15:48:55 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*new_string(char *str)
 	while (i <= size)
 	{
 		if (str[i] == '\'')
-				i = to_go_next_quote_single(str, new_str, i, j) + 1;
+			i = to_go_next_quote_single(str, new_str, i, j) + 1;
 		else if (str[i] == '\"')
 			i = to_go_next_quote_double(str, new_str, i, j) + 1;
 		else if (str[i] && str[i] == '>')

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars_2.c                                           :+:      :+:    :+:   */
+/*   expend_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pjay <pjay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:09:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/03/18 18:08:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/03/22 09:48:31 by pjay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ char	*ft_check_envi(char *key, t_envi *envi)
 	else
 		value = ft_strdup("\0");
 	return (value);
+}
+
+int	find_dollad_pos(char *str)
+{
+	int	sen;
+
+	sen = (int)ft_strlen(str);
+	if (str[sen - 1] == '$')
+		return (TRUE);
+	return (FALSE);
 }
